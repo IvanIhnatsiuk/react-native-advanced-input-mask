@@ -1,18 +1,45 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-masked-text-input';
+import { StyleSheet, Text, View } from 'react-native';
+import MaskedTextInput from 'react-native-masked-text-input';
+
+const alphaNumericChars =
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+const charAlphaNumerics = [
+  {
+    character: '$',
+    characterSet: alphaNumericChars,
+    isOptional: false,
+  },
+];
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
+  const [textState, setTextState] = React.useState({
+    extracted: '',
+    formatted: '',
+  });
 
-  React.useEffect(() => {
-    multiply(3, 7).then(setResult);
+  const onChangeText = React.useCallback((extracted, formatted) => {
+    console.log('extracted:', extracted, 'formatted:', formatted);
+    setTextState({ extracted, formatted });
   }, []);
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <Text>extracted value {textState.extracted}</Text>
+      <Text>formatted value {textState.formatted}</Text>
+      <MaskedTextInput
+        defaultValue="123123123"
+        style={styles.maskedTextInput}
+        onChangeText={onChangeText}
+        allowSuggestions={false}
+        maskFormat="[$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$]"
+        autocomplete={false}
+        autocompleteOnFocus={false}
+        autoSkip={true}
+        customNotations={charAlphaNumerics}
+      />
     </View>
   );
 }
@@ -20,12 +47,18 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    backgroundColor: '#fff',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   box: {
     width: 60,
     height: 60,
     marginVertical: 20,
+  },
+  maskedTextInput: {
+    width: '100%',
+    height: 50,
+    backgroundColor: 'orange',
   },
 });

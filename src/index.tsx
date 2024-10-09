@@ -1,22 +1,67 @@
-import { NativeModules, Platform } from 'react-native';
+import type { TextInputProps } from 'react-native';
+import { TextInput } from 'react-native';
+import React, { forwardRef, memo, useCallback, useMemo } from 'react';
+import MaskedTextInputDecoratorView from './MaskedTextInputNative';
+import type { MaskedTextInputDecoratorViewProps } from './types';
 
-const LINKING_ERROR =
-  `The package 'react-native-masked-text-input' doesn't seem to be linked. Make sure: \n\n` +
-  Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
-  '- You rebuilt the app after installing the package\n' +
-  '- You are not using Expo Go\n';
+type MaskedTextInputProps = Omit<
+  TextInputProps,
+  'onChangeText' | 'autocomplete'
+> &
+  MaskedTextInputDecoratorViewProps;
 
-const MaskedTextInput = NativeModules.MaskedTextInput
-  ? NativeModules.MaskedTextInput
-  : new Proxy(
-      {},
+const MaskedTextInput = memo<MaskedTextInputProps>(
+  forwardRef<TextInput, MaskedTextInputProps>(
+    (
       {
-        get() {
-          throw new Error(LINKING_ERROR);
-        },
-      }
-    );
+        affinityCalculationStrategy,
+        affinityFormat,
+        autocompleteOnFocus,
+        autoSkip,
+        autocomplete,
+        maskFormat,
+        customNotations,
+        customTransformation,
+        allowSuggestions,
+        isRTL,
+        onChangeText,
+        ...rest
+      },
+      ref
+    ) => {
+      const onChangeTextCallback = useCallback(
+        ({ nativeEvent: { extracted, formatted } }) =>
+          onChangeText(extracted, formatted),
+        [onChangeText]
+      );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return MaskedTextInput.multiply(a, b);
-}
+      const mask = useMemo(
+        () => ({
+          maskFormat,
+          customNotations,
+        }),
+        [maskFormat, customNotations]
+      );
+
+      return (
+        <>
+          <TextInput {...rest} ref={ref} />
+          <MaskedTextInputDecoratorView
+            affinityCalculationStrategy={affinityCalculationStrategy}
+            autocompleteOnFocus={autocompleteOnFocus}
+            affinityFormat={affinityFormat}
+            allowSuggestions={allowSuggestions}
+            autocomplete={autocomplete}
+            autoSkip={autoSkip}
+            isRTL={isRTL}
+            mask={mask}
+            customTransformation={customTransformation}
+            onChangeText={onChangeTextCallback}
+          />
+        </>
+      );
+    }
+  )
+);
+
+export default MaskedTextInput;
