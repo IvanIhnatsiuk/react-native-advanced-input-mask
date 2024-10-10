@@ -15,6 +15,6 @@ class MaskedTextInputDecoratorViewManager: RCTViewManager {
     
     
   public override static func requiresMainQueueSetup() -> Bool {
-      return true
+      return false
   }
 }

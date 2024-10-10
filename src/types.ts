@@ -1,3 +1,4 @@
+import type { ViewProps } from 'react-native';
 import type { AFFINITY_CALCULATION_STRATEGY } from './enums';
 
 export type Notation = {
@@ -15,11 +16,9 @@ export type Notation = {
   isOptional: boolean;
 };
 
-export type MaskedTextInputDecoratorViewNativeProps = {
-  mask: {
-    maskFormat: string;
-    customNotations?: Notation[];
-  };
+export type MaskedTextInputDecoratorViewNativeProps = ViewProps & {
+  primaryMaskFormat: string;
+  customNotations?: Notation[];
   onChangeText: (extractedValue: string, formattedValue: string) => void;
   affinityFormat?: string[];
   autocomplete?: boolean;
@@ -31,6 +30,8 @@ export type MaskedTextInputDecoratorViewNativeProps = {
     transformationChar: string;
     transformationString: string;
   };
+  defaultValue?: string;
+  value?: string;
   // IOS only props
   allowSuggestions?: boolean;
   autocompleteOnFocus?: boolean;
@@ -39,7 +40,4 @@ export type MaskedTextInputDecoratorViewNativeProps = {
 export type MaskedTextInputDecoratorViewProps = Omit<
   MaskedTextInputDecoratorViewNativeProps,
   'mask'
-> & {
-  maskFormat: string;
-  customNotations?: Notation[];
-};
+>;

@@ -21,18 +21,39 @@ class MaskedTextInputDecoratorViewManager(
 
   override fun createViewInstance(context: ThemedReactContext) = MaskedTextInputDecoratorView(context)
 
-  @ReactProp(name = "mask")
+  @ReactProp(name = "primaryMaskFormat")
   fun setMask(
     view: MaskedTextInputDecoratorView,
-    mask: ReadableMap,
+    mask: String,
   ) {
-    val maskFormat = mask.getString("maskFormat")
-    val notationsList = mask.getArray("customNotations")?.let { NotationMapper().fromReadableArray(it) }
-    if (notationsList != null && maskFormat != null) {
-      view.setMaskFormatAndNotations(maskFormat, notationsList)
-    } else if (maskFormat != null) {
-      view.setMask(maskFormat)
+    view.setMask(mask)
+  }
+
+  @ReactProp(name = "customNotations")
+  fun setCustomNotations(
+    view: MaskedTextInputDecoratorView,
+    customNotation: ReadableArray?,
+  ) {
+    val notationsList = customNotation?.let { NotationMapper().fromReadableArray(it) }
+    if (notationsList != null) {
+      view.setCustomNotations(notationsList)
     }
+  }
+
+  @ReactProp(name = "defaultValue")
+  fun setDefaultValue(
+    view: MaskedTextInputDecoratorView,
+    defaultValue: String?,
+  ) {
+    view.setDefaultValue(defaultValue)
+  }
+
+  @ReactProp(name = "value")
+  fun setValue(
+    view: MaskedTextInputDecoratorView,
+    value: String?,
+  ) {
+    view.setValue(value)
   }
 
   @ReactProp(name = "affinityCalculationStrategy")

@@ -99,15 +99,9 @@ class MaskedTextInputDecoratorView(
     maskedTextChangeListener?.affinityCalculationStrategy = strategy
   }
 
-  fun setMaskFormatAndNotations(
-    format: String,
-    notations: List<Notation>,
-  ) {
-    maskFormat = format
+  fun setCustomNotations(notations: List<Notation>) {
     customNotations = notations
-    maskedTextChangeListener?.primaryFormat = format
     maskedTextChangeListener?.customNotations = notations
-    maybeUpdateText()
   }
 
   fun setAutoSkip(value: Boolean) {
@@ -126,6 +120,13 @@ class MaskedTextInputDecoratorView(
   }
 
   fun setDefaultValue(defaultValue: String?) {
+    defaultValue?.let { maskedTextChangeListener?.setText(it, true) }
+  }
+
+  fun setValue(value: String?) {
+    maskedTextChangeListener?.autocomplete = false
+    value?.let { maskedTextChangeListener?.setText(it) }
+    maskedTextChangeListener?.autocomplete = autocomplete
   }
 
   fun setCustomTransformationMethod(transformationMethod: ReadableMap?) {

@@ -10,6 +10,7 @@ class MaskedTextInputDecoratorView: UIView {
     var textView: RCTBaseTextInputView?
     var maskInputListener: MaskedTextInputListener?
     var lastDispatchedEvent: [String: String] = [:]
+    var listener: MaskedRCTBackedTextFieldDelegateAdapter?
     
     @objc weak var delegate: MaskedTextInputDecoratorViewDelegate?
     
@@ -31,9 +32,17 @@ class MaskedTextInputDecoratorView: UIView {
             }
         }
     }
-    var customNotation: [Notation] = []
+
     
-    var maskFormat: NSString = ""
+    @objc var primaryMaskFormat: NSString = "" {
+        didSet {
+            print(primaryMaskFormat)
+            maskInputListener?.primaryMaskFormat = primaryMaskFormat as String
+            guard let backedTextInputView = self.textView?.backedTextInputView else { return }
+            
+            maybeUpdateText(text: backedTextInputView.allText)
+        }
+    }
 
     @objc var onChangeText: RCTBubblingEventBlock?
     
@@ -64,7 +73,9 @@ class MaskedTextInputDecoratorView: UIView {
     @objc var isRTL: Bool = false {
         didSet {
             maskInputListener?.rightToLeft = isRTL
-            maybeUpdateText()
+            
+            guard let backedTextInputView = self.textView?.backedTextInputView else { return }
+            maybeUpdateText(text: backedTextInputView.allText)
         }
     }
     
@@ -80,36 +91,55 @@ class MaskedTextInputDecoratorView: UIView {
         }
     }
     
-    private func maybeUpdateText() {
-        guard let textView = self.textView?.backedTextInputView else { return }
-        let currentText = textView.allText
+    @objc var defaultValue: NSString = "" {
+        didSet {
+            updateTextWithoutNotification(text: defaultValue as String)
+        }
+    }
+    
+    private func updateTextWithoutNotification(text: String) {
+        guard let backedTextInputView = self.textView?.backedTextInputView else { return }
         
-        if(currentText == ""){
+        if(text == "") {
+            return
+        }
+        
+        guard let primaryMask = maskInputListener?.primaryMask else { return }
+        let caretString = CaretString(
+            string: text, caretPosition: text.endIndex, caretGravity: CaretString.CaretGravity.forward(autocomplete: autocomplete)
+        );
+        let result = primaryMask.apply(toText: caretString)
+        
+        backedTextInputView.allText = result.formattedText.string
+    }
+    
+    private func maybeUpdateText(text: String) {
+        guard let backedTextInputView = self.textView?.backedTextInputView else { return }
+        
+        if(text == "") {
             return
         }
         
         guard let primaryMask = maskInputListener?.primaryMask else { return }
         let carretString = CaretString(
-            string: currentText, caretPosition: currentText.endIndex, caretGravity: CaretString.CaretGravity.forward(autocomplete: autocomplete)
+            string: text, caretPosition: text.endIndex, caretGravity: CaretString.CaretGravity.forward(autocomplete: autocomplete)
         );
         let result = primaryMask.apply(toText: carretString)
         
-        if(currentText == result.formattedText.string){
+        if(text == result.formattedText.string){
             return
         }
         
-        textView.allText = result.formattedText.string
-        maskInputListener?.notifyOnMaskedTextChangedListeners(forTextInput: textView as! UITextField, result: result)
+        backedTextInputView.allText = result.formattedText.string
+        maskInputListener?.notifyOnMaskedTextChangedListeners(forTextInput: backedTextInputView as! UITextField, result: result)
     }
-
     
-    @objc func setMask(_ maskFormat: NSDictionary) {
-        self.maskFormat = maskFormat["maskFormat"] as! NSString
-        customNotation = (maskFormat["customNotations"] as? [[String:Any]])?.map { $0.toNotation() } ?? []
-        maskInputListener?.primaryMaskFormat = self.maskFormat as String
-        maskInputListener?.customNotations = customNotation
-
-        maybeUpdateText()
+    @objc var customNotations: NSArray? {
+        didSet {
+            let customNotations = (self.customNotations as? [[String:Any]])?.map { $0.toNotation() } ?? []
+            
+            maskInputListener?.customNotations = customNotations
+        }
     }
 
     override func didMoveToWindow() {
@@ -129,20 +159,24 @@ class MaskedTextInputDecoratorView: UIView {
             textView = previousSibling
             guard let textView = textView?.backedTextInputView as? RCTUITextField else { return }
             maskInputListener = MaskedTextInputListener(
-                        primaryFormat: maskFormat as String,
+                        primaryFormat: primaryMaskFormat as String,
                         autocomplete: autocomplete,
                         autocompleteOnFocus: autocompleteOnFocus,
                         autoskip: autoSkip,
                         rightToLeft: isRTL,
                         affineFormats: affinityFormat,
-                        affinityCalculationStrategy: AffinityCalculationStrategy.forNumber(number: affinityCalculationStrategy), customNotations: customNotation,
+                        affinityCalculationStrategy: AffinityCalculationStrategy.forNumber(number: affinityCalculationStrategy), customNotations: (self.customNotations as? [[String:Any]])?.map { $0.toNotation() } ?? [],
                         onMaskedTextChangedCallback: { input, value, complete, tailPlaceholder in
-                            self.onChangeTextCallback(input.allText, value)
+                            self.onChangeTextCallback(value, input.allText)
                         },
                         allowSuggestions: allowSuggestions
-                    )
+            )
+            listener = MaskedRCTBackedTextFieldDelegateAdapter(textField: textView)
+            maskInputListener?.textFieldDelegate = listener
             textView.delegate = maskInputListener
-            
+            updateTextWithoutNotification(text: defaultValue as String)
         }
     }
 }
+
+class MaskedRCTBackedTextFieldDelegateAdapter : RCTBackedTextFieldDelegateAdapter, UITextFieldDelegate {}

@@ -1,6 +1,5 @@
 package com.maskedtextinput.listeners
 
-import android.util.Log
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 
 class MaskedTextValueListener(
@@ -15,7 +14,6 @@ class MaskedTextValueListener(
     formattedValue: String,
     tailPlaceholder: String,
   ) {
-    Log.i("onTextChanged", "formatted: $formattedValue, extractedValue: $extractedValue")
     if (previousFormattedText != formattedValue || previousExtractedText !== extractedValue) {
       previousFormattedText = formattedValue
       previousExtractedText = extractedValue

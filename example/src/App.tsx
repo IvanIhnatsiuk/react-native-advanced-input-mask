@@ -30,14 +30,15 @@ export default function App() {
       <Text>extracted value {textState.extracted}</Text>
       <Text>formatted value {textState.formatted}</Text>
       <MaskedTextInput
-        defaultValue="123123123"
+        defaultValue=""
         style={styles.maskedTextInput}
         onChangeText={onChangeText}
+        value={textState.formatted}
+        primaryMaskFormat="[00]-[00]-[00]"
+        autocomplete={true}
         allowSuggestions={false}
-        maskFormat="[$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$]"
-        autocomplete={false}
         autocompleteOnFocus={false}
-        autoSkip={true}
+        autoSkip={false}
         customNotations={charAlphaNumerics}
       />
     </View>
@@ -55,6 +56,11 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     marginVertical: 20,
+  },
+  textInputMaskInput: {
+    width: '100%',
+    height: 50,
+    backgroundColor: 'lightblue',
   },
   maskedTextInput: {
     width: '100%',
