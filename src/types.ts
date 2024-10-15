@@ -36,8 +36,3 @@ export type MaskedTextInputDecoratorViewNativeProps = ViewProps & {
   allowSuggestions?: boolean;
   autocompleteOnFocus?: boolean;
 };
-
-export type MaskedTextInputDecoratorViewProps = Omit<
-  MaskedTextInputDecoratorViewNativeProps,
-  'mask'
->;
