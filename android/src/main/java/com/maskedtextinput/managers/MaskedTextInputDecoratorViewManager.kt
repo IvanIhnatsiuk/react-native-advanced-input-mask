@@ -119,7 +119,7 @@ class MaskedTextInputDecoratorViewManager(
   override fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any> {
     val export = super.getExportedCustomDirectEventTypeConstants() ?: newHashMap()
 
-    export[EventNames.CHANGE_TEXT_EVENT] = MapBuilder.of("registrationName", "onChangeText")
+    export[EventNames.CHANGE_TEXT_EVENT] = MapBuilder.of("registrationName", "onAdvancedMaskTextChange")
 
     return export
   }
