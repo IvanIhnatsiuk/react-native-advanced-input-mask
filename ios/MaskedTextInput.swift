@@ -107,9 +107,7 @@ class MaskedTextInputDecoratorView: UIView {
 
   @objc var value: NSString = "" {
     didSet {
-      maskInputListener?.autocomplete = false
       updateTextWithoutNotification(text: value as String)
-      maskInputListener?.autocomplete = autocomplete
     }
   }
 
@@ -122,7 +120,7 @@ class MaskedTextInputDecoratorView: UIView {
 
     guard let primaryMask = maskInputListener?.primaryMask else { return }
     let caretString = CaretString(
-      string: text, caretPosition: text.endIndex, caretGravity: CaretString.CaretGravity.forward(autocomplete: autocomplete)
+      string: text, caretPosition: text.endIndex, caretGravity: CaretString.CaretGravity.forward(autocomplete: false)
     )
     let result = primaryMask.apply(toText: caretString)
 
