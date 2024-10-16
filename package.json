@@ -37,7 +37,14 @@
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "android",
+    "text-input",
+    "masking",
+    "input",
+    "react-native-component",
+    "form",
+    "validation",
+    "formatting"
   ],
   "repository": {
     "type": "git",
