@@ -12,8 +12,8 @@ class MaskedTextInputDecoratorView: UIView {
   var lastDispatchedEvent: [String: String] = [:]
 
   @objc weak var delegate: MaskedTextInputDecoratorViewDelegate?
-    
-  @objc var onAdvancedMaskTextChange: RCTBubblingEventBlock?;
+
+  @objc var onAdvancedMaskTextChange: RCTBubblingEventBlock?
 
   @objc var onAdvancedMaskTextChangedCallback: (_ extracted: String, _ formatted: String) -> Void {
     { [weak self] extracted, formatted in
