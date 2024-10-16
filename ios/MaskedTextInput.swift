@@ -3,7 +3,7 @@ import Foundation
 import UIKit
 
 @objc protocol MaskedTextInputDecoratorViewDelegate {
-  func onChangeText(extracted: String, formatted: String)
+  func onAdvancedMaskTextChanged(extracted: String, formatted: String)
 }
 
 class MaskedTextInputDecoratorView: UIView {
@@ -13,7 +13,9 @@ class MaskedTextInputDecoratorView: UIView {
 
   @objc weak var delegate: MaskedTextInputDecoratorViewDelegate?
 
-  @objc var onChangeTextCallback: (_ extracted: String, _ formatted: String) -> Void {
+  @objc var onAdvancedMaskTextChange: RCTBubblingEventBlock?
+
+  @objc var onAdvancedMaskTextChangedCallback: (_ extracted: String, _ formatted: String) -> Void {
     { [weak self] extracted, formatted in
       guard let self = self else { return }
 
@@ -26,8 +28,8 @@ class MaskedTextInputDecoratorView: UIView {
         return
       }
       lastDispatchedEvent = eventData
-      if self.onChangeText != nil {
-        self.onChangeText!(eventData)
+      if self.onAdvancedMaskTextChange != nil {
+        self.onAdvancedMaskTextChange!(eventData)
       }
     }
   }
@@ -169,7 +171,7 @@ class MaskedTextInputDecoratorView: UIView {
         affineFormats: affinityFormat,
         affinityCalculationStrategy: AffinityCalculationStrategy.forNumber(number: affinityCalculationStrategy), customNotations: (customNotations as? [[String: Any]])?.map { $0.toNotation() } ?? [],
         onMaskedTextChangedCallback: { input, value, _, _ in
-          self.onChangeTextCallback(value, input.allText)
+          self.onAdvancedMaskTextChangedCallback(value, input.allText)
         },
         allowSuggestions: allowSuggestions
       )

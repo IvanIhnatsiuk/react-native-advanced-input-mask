@@ -19,7 +19,10 @@ export type Notation = {
 export type MaskedTextInputDecoratorViewNativeProps = ViewProps & {
   primaryMaskFormat: string;
   customNotations?: Notation[];
-  onChangeText: (extractedValue: string, formattedValue: string) => void;
+  onAdvancedMaskTextChange: (
+    extractedValue: string,
+    formattedValue: string
+  ) => void;
   affinityFormat?: string[];
   autocomplete?: boolean;
   autoSkip?: boolean;

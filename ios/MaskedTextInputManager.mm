@@ -13,5 +13,5 @@
   RCT_EXPORT_VIEW_PROPERTY(defaultValue, NSString)
   RCT_EXPORT_VIEW_PROPERTY(value, NSString)
 
-  RCT_EXPORT_VIEW_PROPERTY(onChangeText, RCTBubblingEventBlock);
+  RCT_EXPORT_VIEW_PROPERTY(onAdvancedMaskTextChange, RCTBubblingEventBlock);
 @end

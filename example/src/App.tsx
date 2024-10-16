@@ -32,8 +32,7 @@ export default function App() {
       <MaskedTextInput
         defaultValue=""
         style={styles.maskedTextInput}
-        onChangeText={onChangeText}
-        value={textState.formatted}
+        onAdvancedMaskTextChange={onChangeText}
         primaryMaskFormat="[00]-[00]-[00]"
         autocomplete={true}
         allowSuggestions={false}
