@@ -945,7 +945,7 @@ PODS:
   - React-Mapbuffer (0.73.10):
     - glog
     - React-debug
-  - react-native-masked-text-input (0.1.0):
+  - react-native-advanced-input-mask (0.1.0):
     - ForkInputMask (~> 7.3.2)
     - glog
     - RCT-Folly (= 2022.05.16.00)
@@ -1173,7 +1173,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector-modern`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
-  - react-native-masked-text-input (from `../..`)
+  - react-native-advanced-input-mask (from `../..`)
   - React-nativeconfig (from `../node_modules/react-native/ReactCommon`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -1269,7 +1269,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   React-Mapbuffer:
     :path: "../node_modules/react-native/ReactCommon"
-  react-native-masked-text-input:
+  react-native-advanced-input-mask:
     :path: "../.."
   React-nativeconfig:
     :path: "../node_modules/react-native/ReactCommon"
@@ -1355,7 +1355,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 71e5fb28b810fa199987e600ec8a6e17abee373e
   React-logger: 82babb1e3fad0e04750981f24e6c38f644a0bf7c
   React-Mapbuffer: 758750eb32350b01dd9c350010aecc46842047bd
-  react-native-masked-text-input: b74bc179897845c04559ea76556fa172a654d23e
+  react-native-advanced-input-mask: b74bc179897845c04559ea76556fa172a654d23e
   React-nativeconfig: a596be0c98c050b80bc7e262d46a53d4df4ff712
   React-NativeModulesApple: 4829cef81c8a322029300b6ff1c5f28768fca85b
   React-perflogger: 27b852c78b7be9e0b326e3102c6551529f371f95

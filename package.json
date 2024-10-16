@@ -1,5 +1,5 @@
 {
-  "name": "react-native-masked-text-input",
+  "name": "react-native-advanced-input-mask",
   "version": "0.1.0",
   "description": "Text input mask for React Native on iOS and Android.",
   "main": "lib/commonjs/index",
@@ -26,7 +26,7 @@
     "!**/.*"
   ],
   "scripts": {
-    "example": "yarn workspace react-native-masked-text-input-example",
+    "example": "yarn workspace react-native-advanced-input-mask-example",
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
@@ -41,14 +41,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IvanIhnatsiuk/react-native-masked-text-input.git"
+    "url": "git+https://github.com/IvanIhnatsiuk/react-native-advanced-input-mask.git"
   },
   "author": "IvanIhnatsiuk <shmikki407@gmail.com> (https://github.com/IvanIhnatsiuk)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/IvanIhnatsiuk/react-native-masked-text-input/issues"
+    "url": "https://github.com/IvanIhnatsiuk/react-native-advanced-input-mask/issues"
   },
-  "homepage": "https://github.com/IvanIhnatsiuk/react-native-masked-text-input#readme",
+  "homepage": "https://github.com/IvanIhnatsiuk/react-native-advanced-input-mask#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

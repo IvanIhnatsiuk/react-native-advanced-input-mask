@@ -2,7 +2,7 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "react-native-masked-text-input": ["./src/index"]
+      "react-native-advanced-input-mask": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,

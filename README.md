@@ -1,17 +1,17 @@
-# react-native-masked-text-input
+# react-native-advanced-input-mask
 
 Text input mask for React Native on iOS and Android.
 
 ## Installation
 
 ```sh
-npm install react-native-masked-text-input
+npm install react-native-advanced-input-mask
 ```
 
 ## Usage
 
 ```js
-import { multiply } from 'react-native-masked-text-input';
+import { multiply } from 'react-native-advanced-input-mask';
 
 // ...
 

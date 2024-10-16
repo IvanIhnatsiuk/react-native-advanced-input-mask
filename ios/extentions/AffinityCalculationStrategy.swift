@@ -1,6 +1,6 @@
 //
 //  AffinityCalculationStrategy.swift
-//  react-native-masked-text-input
+//  react-native-advanced-input-mask
 //
 //  Created by Ivan Ignathuk on 08/10/2024.
 //

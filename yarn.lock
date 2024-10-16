@@ -11281,9 +11281,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-masked-text-input-example@workspace:example":
+"react-native-advanced-input-mask-example@workspace:example":
   version: 0.0.0-use.local
-  resolution: "react-native-masked-text-input-example@workspace:example"
+  resolution: "react-native-advanced-input-mask-example@workspace:example"
   dependencies:
     "@babel/core": ^7.20.0
     "@babel/preset-env": ^7.20.0
@@ -11298,9 +11298,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"react-native-masked-text-input@workspace:.":
+"react-native-advanced-input-mask@workspace:.":
   version: 0.0.0-use.local
-  resolution: "react-native-masked-text-input@workspace:."
+  resolution: "react-native-advanced-input-mask@workspace:."
   dependencies:
     "@commitlint/config-conventional": ^17.0.2
     "@evilmartians/lefthook": ^1.5.0
