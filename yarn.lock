@@ -11248,39 +11248,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-builder-bob@npm:^0.20.0":
-  version: 0.20.4
-  resolution: "react-native-builder-bob@npm:0.20.4"
-  dependencies:
-    "@babel/core": ^7.18.5
-    "@babel/plugin-proposal-class-properties": ^7.17.12
-    "@babel/preset-env": ^7.18.2
-    "@babel/preset-flow": ^7.17.12
-    "@babel/preset-react": ^7.17.12
-    "@babel/preset-typescript": ^7.17.12
-    browserslist: ^4.20.4
-    cosmiconfig: ^7.0.1
-    cross-spawn: ^7.0.3
-    dedent: ^0.7.0
-    del: ^6.1.1
-    fs-extra: ^10.1.0
-    glob: ^8.0.3
-    is-git-dirty: ^2.0.1
-    jetifier: ^2.0.0
-    json5: ^2.2.1
-    kleur: ^4.1.4
-    prompts: ^2.4.2
-    which: ^2.0.2
-    yargs: ^17.5.1
-  dependenciesMeta:
-    jetifier:
-      optional: true
-  bin:
-    bob: bin/bob
-  checksum: 258da6ecd03be52cc05a3e3a7c481890c7c0b7b62ae9f263c5f3d6fafeae95bd9445ad2f6c2513f7f4e4569eee935a18ae94c7491f58d6916af515c88de9e0a1
-  languageName: node
-  linkType: hard
-
 "react-native-advanced-input-mask-example@workspace:example":
   version: 0.0.0-use.local
   resolution: "react-native-advanced-input-mask-example@workspace:example"
@@ -11328,6 +11295,39 @@ __metadata:
     react-native: "*"
   languageName: unknown
   linkType: soft
+
+"react-native-builder-bob@npm:^0.20.0":
+  version: 0.20.4
+  resolution: "react-native-builder-bob@npm:0.20.4"
+  dependencies:
+    "@babel/core": ^7.18.5
+    "@babel/plugin-proposal-class-properties": ^7.17.12
+    "@babel/preset-env": ^7.18.2
+    "@babel/preset-flow": ^7.17.12
+    "@babel/preset-react": ^7.17.12
+    "@babel/preset-typescript": ^7.17.12
+    browserslist: ^4.20.4
+    cosmiconfig: ^7.0.1
+    cross-spawn: ^7.0.3
+    dedent: ^0.7.0
+    del: ^6.1.1
+    fs-extra: ^10.1.0
+    glob: ^8.0.3
+    is-git-dirty: ^2.0.1
+    jetifier: ^2.0.0
+    json5: ^2.2.1
+    kleur: ^4.1.4
+    prompts: ^2.4.2
+    which: ^2.0.2
+    yargs: ^17.5.1
+  dependenciesMeta:
+    jetifier:
+      optional: true
+  bin:
+    bob: bin/bob
+  checksum: 258da6ecd03be52cc05a3e3a7c481890c7c0b7b62ae9f263c5f3d6fafeae95bd9445ad2f6c2513f7f4e4569eee935a18ae94c7491f58d6916af515c88de9e0a1
+  languageName: node
+  linkType: hard
 
 "react-native@npm:0.73.10":
   version: 0.73.10
