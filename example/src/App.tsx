@@ -34,6 +34,7 @@ export default function App() {
         style={styles.maskedTextInput}
         onAdvancedMaskTextChange={onChangeText}
         primaryMaskFormat="[00]-[00]-[00]"
+        value={textState.formatted}
         autocomplete={true}
         allowSuggestions={false}
         autocompleteOnFocus={false}
