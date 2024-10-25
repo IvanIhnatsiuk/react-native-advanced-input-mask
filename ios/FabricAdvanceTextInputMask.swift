@@ -130,6 +130,7 @@ class FabricAdvanceTextInputMaskDecoratorView: UIView {
 
   @objc private func maybeUpdateText(text: String) {
     guard let primaryMask = maskInputListener?.primaryMask else { return }
+
     let carretString = CaretString(
       string: text, caretPosition: text.endIndex, caretGravity: CaretString.CaretGravity.forward(autocomplete: autocomplete)
     )
@@ -149,10 +150,6 @@ class FabricAdvanceTextInputMaskDecoratorView: UIView {
       // If the subview is a UITextField, return it
       if let textField = subview as? UITextField {
         return textField
-      }
-      // Otherwise, recursively search in the subview
-      if let found = findFirstTextField(in: subview) {
-        return found
       }
     }
     // If no UITextField is found, return nil
