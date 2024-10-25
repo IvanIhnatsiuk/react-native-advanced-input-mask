@@ -27,7 +27,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
       }
     }
   }
-    
+
   @objc var primaryMaskFormat: NSString = "" {
     didSet {
       maskInputListener?.primaryMaskFormat = primaryMaskFormat as String
@@ -118,7 +118,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     backedTextInputView.allText = result.formattedText.string
   }
 
-    @objc private func maybeUpdateText(text: String) {
+  @objc private func maybeUpdateText(text: String) {
     guard let backedTextInputView = textView?.backedTextInputView else { return }
 
     guard let primaryMask = maskInputListener?.primaryMask else { return }
@@ -138,8 +138,8 @@ class AdvancedTextInputMaskDecoratorView: UIView {
   @objc override func didMoveToWindow() {
     super.didMoveToWindow()
     var previousSibling: UIView?
-      if let parent = superview {
-        for i in 1 ..< parent.subviews.count {
+    if let parent = superview {
+      for i in 1 ..< parent.subviews.count {
         if parent.subviews[i] == self {
           previousSibling = parent.subviews[i - 1]
           break

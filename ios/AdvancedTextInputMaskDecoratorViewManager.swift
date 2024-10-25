@@ -1,5 +1,5 @@
 //
-//  MaskedTextInputDecoratorViewManager.swift
+//  AdvancedTextInputMaskDecoratorViewManager.swift
 //  react-native-advanced-input-mask
 //
 //  Created by Ivan Ignathuk on 05/10/2024.

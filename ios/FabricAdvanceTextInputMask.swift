@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 @objc protocol AdvancedTextInputMaskDecoratorViewDelegate {
-    func onAdvancedMaskTextChange(eventData: NSDictionary)
+  func onAdvancedMaskTextChange(eventData: NSDictionary)
 }
 
 @objc(AdvancedTextInputViewDecoratorView)
@@ -40,11 +40,11 @@ class FabricAdvanceTextInputMaskDecoratorView: UIView {
       self.delegate?.onAdvancedMaskTextChange(eventData: eventData as NSDictionary)
     }
   }
-    
+
   @objc var primaryMaskFormat: NSString = "" {
     didSet {
       maskInputListener?.primaryMaskFormat = primaryMaskFormat as String
-        maybeUpdateText(text: textView?.allText ?? "")
+      maybeUpdateText(text: textView?.allText ?? "")
     }
   }
 
@@ -115,7 +115,6 @@ class FabricAdvanceTextInputMaskDecoratorView: UIView {
   }
 
   @objc private func updateTextWithoutNotification(text: String) {
-
     if text == "" {
       return
     }
@@ -129,49 +128,48 @@ class FabricAdvanceTextInputMaskDecoratorView: UIView {
     textView?.allText = result.formattedText.string
   }
 
-    @objc private func maybeUpdateText(text: String) {
-        guard let primaryMask = maskInputListener?.primaryMask else { return }
-        let carretString = CaretString(
-          string: text, caretPosition: text.endIndex, caretGravity: CaretString.CaretGravity.forward(autocomplete: autocomplete)
-        )
-        let result = primaryMask.apply(toText: carretString)
+  @objc private func maybeUpdateText(text: String) {
+    guard let primaryMask = maskInputListener?.primaryMask else { return }
+    let carretString = CaretString(
+      string: text, caretPosition: text.endIndex, caretGravity: CaretString.CaretGravity.forward(autocomplete: autocomplete)
+    )
+    let result = primaryMask.apply(toText: carretString)
 
-        if text == result.formattedText.string {
-          return
-        }
-
-        textView?.allText = result.formattedText.string
-        maskInputListener?.notifyOnMaskedTextChangedListeners(forTextInput: textView as! UITextField, result: result)
-  }
-    
-    func findFirstTextField(in view: UIView) -> UITextField? {
-        // Loop through each subview
-        for subview in view.subviews {
-            // If the subview is a UITextField, return it
-            if let textField = subview as? UITextField {
-                return textField
-            }
-            // Otherwise, recursively search in the subview
-            if let found = findFirstTextField(in: subview) {
-                return found
-            }
-        }
-        // If no UITextField is found, return nil
-        return nil
+    if text == result.formattedText.string {
+      return
     }
+
+    textView?.allText = result.formattedText.string
+    maskInputListener?.notifyOnMaskedTextChangedListeners(forTextInput: textView as! UITextField, result: result)
+  }
+
+  func findFirstTextField(in view: UIView) -> UITextField? {
+    // Loop through each subview
+    for subview in view.subviews {
+      // If the subview is a UITextField, return it
+      if let textField = subview as? UITextField {
+        return textField
+      }
+      // Otherwise, recursively search in the subview
+      if let found = findFirstTextField(in: subview) {
+        return found
+      }
+    }
+    // If no UITextField is found, return nil
+    return nil
+  }
 
   @objc override func didMoveToWindow() {
     super.didMoveToWindow()
     var previousSibling: UITextField?
-      if let parent = superview?.superview {
-        for i in 1 ..< parent.subviews.count {
-            if parent.subviews[i] == self.superview {
-            previousSibling = findFirstTextField(in: parent.subviews[i - 1])
+    if let parent = superview?.superview {
+      for i in 1 ..< parent.subviews.count {
+        if parent.subviews[i] == superview {
+          previousSibling = findFirstTextField(in: parent.subviews[i - 1])
           break
         }
       }
     }
-      
 
     if let previousSibling = previousSibling {
       textView = previousSibling
