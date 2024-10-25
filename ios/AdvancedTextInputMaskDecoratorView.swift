@@ -2,18 +2,12 @@ import ForkInputMask
 import Foundation
 import UIKit
 
-@objc protocol MaskedTextInputDecoratorViewDelegate {
-  func onAdvancedMaskTextChanged(extracted: String, formatted: String)
-}
+class AdvancedTextInputMaskDecoratorView: UIView {
+  @objc var textView: RCTBaseTextInputView?
+  @objc var maskInputListener: MaskedTextInputListener?
+  @objc var lastDispatchedEvent: [String: String] = [:]
 
-class MaskedTextInputDecoratorView: UIView {
-  var textView: RCTBaseTextInputView?
-  var maskInputListener: MaskedTextInputListener?
-  var lastDispatchedEvent: [String: String] = [:]
-
-  @objc weak var delegate: MaskedTextInputDecoratorViewDelegate?
-
-  @objc var onAdvancedMaskTextChange: RCTBubblingEventBlock?
+  @objc var onAdvancedMaskTextChange: RCTDirectEventBlock?
 
   @objc var onAdvancedMaskTextChangedCallback: (_ extracted: String, _ formatted: String) -> Void {
     { [weak self] extracted, formatted in
@@ -33,18 +27,15 @@ class MaskedTextInputDecoratorView: UIView {
       }
     }
   }
-
+    
   @objc var primaryMaskFormat: NSString = "" {
     didSet {
-      print(primaryMaskFormat)
       maskInputListener?.primaryMaskFormat = primaryMaskFormat as String
       guard let backedTextInputView = textView?.backedTextInputView else { return }
 
       maybeUpdateText(text: backedTextInputView.allText)
     }
   }
-
-  @objc var onChangeText: RCTBubblingEventBlock?
 
   @objc var autocomplete: Bool = true {
     didSet {
@@ -111,7 +102,7 @@ class MaskedTextInputDecoratorView: UIView {
     }
   }
 
-  private func updateTextWithoutNotification(text: String) {
+  @objc private func updateTextWithoutNotification(text: String) {
     guard let backedTextInputView = textView?.backedTextInputView else { return }
 
     if text == "" {
@@ -127,7 +118,7 @@ class MaskedTextInputDecoratorView: UIView {
     backedTextInputView.allText = result.formattedText.string
   }
 
-  private func maybeUpdateText(text: String) {
+    @objc private func maybeUpdateText(text: String) {
     guard let backedTextInputView = textView?.backedTextInputView else { return }
 
     guard let primaryMask = maskInputListener?.primaryMask else { return }
@@ -144,12 +135,11 @@ class MaskedTextInputDecoratorView: UIView {
     maskInputListener?.notifyOnMaskedTextChangedListeners(forTextInput: backedTextInputView as! UITextField, result: result)
   }
 
-  override func didMoveToWindow() {
+  @objc override func didMoveToWindow() {
     super.didMoveToWindow()
-
     var previousSibling: UIView?
-    if let parent = superview {
-      for i in 1 ..< parent.subviews.count {
+      if let parent = superview {
+        for i in 1 ..< parent.subviews.count {
         if parent.subviews[i] == self {
           previousSibling = parent.subviews[i - 1]
           break

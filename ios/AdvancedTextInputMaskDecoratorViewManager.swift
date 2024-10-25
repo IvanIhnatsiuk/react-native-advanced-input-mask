@@ -7,10 +7,10 @@
 
 import Foundation
 
-@objc(MaskedTextInputDecoratorViewManager)
-class MaskedTextInputDecoratorViewManager: RCTViewManager {
+@objc(AdvancedTextInputMaskDecoratorViewManager)
+class AdvancedTextInputMaskDecoratorViewManager: RCTViewManager {
   override func view() -> UIView! {
-    MaskedTextInputDecoratorView()
+    AdvancedTextInputMaskDecoratorView()
   }
 
   override public static func requiresMainQueueSetup() -> Bool {

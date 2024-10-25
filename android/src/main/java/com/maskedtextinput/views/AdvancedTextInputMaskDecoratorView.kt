@@ -1,6 +1,7 @@
 package com.maskedtextinput.views
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import com.facebook.react.bridge.ReactContext
@@ -15,7 +16,7 @@ import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.redmadrobot.inputmask.helper.AffinityCalculationStrategy
 import com.redmadrobot.inputmask.model.Notation
 
-class MaskedTextInputDecoratorView(
+class AdvancedTextInputMaskDecoratorView(
   context: Context,
 ) : View(context) {
   private var textField: ReactEditText? = null
@@ -72,14 +73,6 @@ class MaskedTextInputDecoratorView(
             affinityCalculationStrategy = affinityCalculationStrategy,
           )
       }
-    }
-  }
-
-  override fun onDetachedFromWindow() {
-    super.onDetachedFromWindow()
-    if (textField != null) {
-      textField = null
-      maskFormat = ""
     }
   }
 

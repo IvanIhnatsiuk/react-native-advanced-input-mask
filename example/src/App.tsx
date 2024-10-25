@@ -24,19 +24,18 @@ export default function App() {
     console.log('extracted:', extracted, 'formatted:', formatted);
     setTextState({ extracted, formatted });
   }, []);
-
   return (
     <View style={styles.container}>
       <Text>extracted value {textState.extracted}</Text>
       <Text>formatted value {textState.formatted}</Text>
       <MaskedTextInput
         defaultValue=""
+        value={textState.formatted}
         style={styles.maskedTextInput}
         onAdvancedMaskTextChange={onChangeText}
-        primaryMaskFormat="[00]-[00]-[00]"
-        value={textState.formatted}
-        autocomplete={true}
-        allowSuggestions={false}
+        primaryMaskFormat="[00]-[$$]-[00]"
+        autocomplete={false}
+        allowSuggestions={true}
         autocompleteOnFocus={false}
         autoSkip={false}
         customNotations={charAlphaNumerics}
