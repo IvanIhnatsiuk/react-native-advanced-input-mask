@@ -3,6 +3,8 @@ require "json"
 package = JSON.parse(File.read(File.join(__dir__, "package.json")))
 folly_compiler_flags = '-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32'
 
+new_arch_enabled = ENV['RCT_NEW_ARCH_ENABLED'] == '1'
+
 Pod::Spec.new do |s|
   s.name         = "react-native-advanced-input-mask"
   s.version      = package["version"]
@@ -19,6 +21,19 @@ Pod::Spec.new do |s|
 
   s.dependency "ForkInputMask", "~> 7.3.2"
 
+
+  if new_arch_enabled then
+    s.pod_target_xcconfig = {
+      # This is handy when we want to detect if new arch is enabled in Swift code
+      # and can be used like:
+      # #if ADVANCE_INPUT_MASK_NEW_ARCH_ENABLED
+      # // do sth when new arch is enabled
+      # #else
+      # // do sth when old arch is enabled
+      # #endif
+      "OTHER_SWIFT_FLAGS" => "-DADVANCE_INPUT_MASK_NEW_ARCH_ENABLED"
+    }
+  end
   
 
   # Use install_modules_dependencies helper to install the dependencies if React Native version >=0.71.0.
