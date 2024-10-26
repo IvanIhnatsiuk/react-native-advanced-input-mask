@@ -116,7 +116,7 @@ class AdvancedTextInputMaskDecoratorView(
   }
 
   fun setValue(value: String?) {
-    if(textField?.text.toString() != value) {
+    if (textField?.text.toString() != value) {
       maskedTextChangeListener?.autocomplete = false
       value?.let { maskedTextChangeListener?.setText(it) }
       maskedTextChangeListener?.autocomplete = autocomplete
