@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 import MaskedTextInput from 'react-native-advanced-input-mask';
 
 const alphaNumericChars =
@@ -24,6 +24,11 @@ export default function App() {
     console.log('extracted:', extracted, 'formatted:', formatted);
     setTextState({ extracted, formatted });
   }, []);
+
+  const clearText = React.useCallback(() => {
+    setTextState({ extracted: '', formatted: '' });
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text>extracted value {textState.extracted}</Text>
@@ -40,6 +45,7 @@ export default function App() {
         autoSkip={false}
         customNotations={charAlphaNumerics}
       />
+      <Button title="Clear text" onPress={clearText} />
     </View>
   );
 }

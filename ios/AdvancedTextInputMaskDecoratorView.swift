@@ -118,7 +118,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
   }
 
   @objc private func updateTextWithoutNotification(text: String) {
-    if text == "" {
+    if text == textView?.allText {
       return
     }
 
@@ -134,6 +134,10 @@ class AdvancedTextInputMaskDecoratorView: UIView {
   @objc private func maybeUpdateText(text: String) {
     guard let primaryMask = maskInputListener?.primaryMask else { return }
     guard let textView = textView else { return }
+
+    if text == textView.allText {
+      return
+    }
 
     let carretString = CaretString(
       string: text, caretPosition: text.endIndex, caretGravity: CaretString.CaretGravity.forward(autocomplete: autocomplete)
