@@ -24,11 +24,11 @@
 
 using namespace facebook::react;
 
-@interface AdvancedTextInputMaskDecoratorView() <RCTAdvancedTextInputMaskDecoratorViewViewProtocol>
+@interface AdvancedTextInputMaskDecoratorView () <RCTAdvancedTextInputMaskDecoratorViewViewProtocol>
 @end
 
 @implementation AdvancedTextInputMaskDecoratorView {
-    AdvancedTextInputViewDecoratorView *_view;
+  AdvancedTextInputViewDecoratorView *_view;
 }
 
 // Needed because of this: https://github.com/facebook/react-native/pull/37274
@@ -37,95 +37,101 @@ using namespace facebook::react;
   [super load];
 }
 
-- (instancetype) initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    if (self = [super initWithFrame:frame]) {
-        static const auto defaultProps = std::make_shared<const AdvancedTextInputMaskDecoratorViewProps>();
-        _props = defaultProps;
+  if (self = [super initWithFrame:frame]) {
+    static const auto defaultProps =
+        std::make_shared<const AdvancedTextInputMaskDecoratorViewProps>();
+    _props = defaultProps;
 
-        _view = [AdvancedTextInputViewDecoratorView new];
-        _view.delegate = self;
+    _view = [AdvancedTextInputViewDecoratorView new];
+    _view.delegate = self;
 
-        self.contentView = _view;
-    }
+    self.contentView = _view;
+  }
 
-    return self;
+  return self;
 }
 
 #pragma mark - RCTComponentViewProtocol
 
 + (ComponentDescriptorProvider)componentDescriptorProvider
 {
-  return concreteComponentDescriptorProvider<AdvancedTextInputMaskDecoratorViewComponentDescriptor>();
+  return concreteComponentDescriptorProvider<
+      AdvancedTextInputMaskDecoratorViewComponentDescriptor>();
 }
 
--(void)updateProps:(const facebook::react::Props::Shared &)props oldProps:(const facebook::react::Props::Shared &)oldProps
+- (void)updateProps:(const facebook::react::Props::Shared &)props
+           oldProps:(const facebook::react::Props::Shared &)oldProps
 {
-    const auto &oldViewProps = *std::static_pointer_cast<const AdvancedTextInputMaskDecoratorViewProps>(_props);
-    const auto &newViewProps = *std::static_pointer_cast<const AdvancedTextInputMaskDecoratorViewProps>(props);
-    
-    if(newViewProps.value != oldViewProps.value){
-        [_view setValue: RCTNSStringFromString(newViewProps.value)];
-    }
-    
-    if(newViewProps.defaultValue != oldViewProps.defaultValue){
-        [_view setDefaultValue: RCTNSStringFromString(newViewProps.defaultValue)];
-    }
-    
-    if(newViewProps.primaryMaskFormat != oldViewProps.primaryMaskFormat){
-        [_view setPrimaryMaskFormat: RCTNSStringFromString(newViewProps.primaryMaskFormat)];
-    }
-    
-    if(newViewProps.customNotations != oldViewProps.customNotations){
-        [_view setCustomNotations: convertCustomNotations(newViewProps.customNotations)];
-    }
-    
-    if(newViewProps.allowSuggestions != oldViewProps.allowSuggestions){
-        [_view setAllowSuggestions: newViewProps.allowSuggestions];
-    }
-    
-    if(newViewProps.autocomplete != oldViewProps.autocomplete){
-        [_view setAutocomplete: newViewProps.autocomplete];
-    }
-    
-    if(newViewProps.autocompleteOnFocus != oldViewProps.autocompleteOnFocus) {
-        [_view setAutocompleteOnFocus: newViewProps.autocompleteOnFocus];
-    }
-    
-    if(newViewProps.autoSkip != oldViewProps.autoSkip) {
-        [_view setAutoSkip: newViewProps.autoSkip];
-    }
-    
-    if(newViewProps.affinityFormat != oldViewProps.affinityFormat) {
-        [_view setAffinityFormat: convertAffinityFormat(newViewProps.affinityFormat)];
-    }
-    
-    if(newViewProps.isRTL != oldViewProps.isRTL){
-        [_view setIsRTL: newViewProps.isRTL];
-    }
-    
-    if(newViewProps.affinityCalculationStrategy != oldViewProps.affinityCalculationStrategy){
-        [_view setAffinityCalculationStrategy: newViewProps.affinityCalculationStrategy];
-    }
-    
-    [super updateProps:props oldProps:oldProps];
+  const auto &oldViewProps =
+      *std::static_pointer_cast<const AdvancedTextInputMaskDecoratorViewProps>(_props);
+  const auto &newViewProps =
+      *std::static_pointer_cast<const AdvancedTextInputMaskDecoratorViewProps>(props);
+
+  if (newViewProps.value != oldViewProps.value) {
+    [_view setValue:RCTNSStringFromString(newViewProps.value)];
+  }
+
+  if (newViewProps.defaultValue != oldViewProps.defaultValue) {
+    [_view setDefaultValue:RCTNSStringFromString(newViewProps.defaultValue)];
+  }
+
+  if (newViewProps.primaryMaskFormat != oldViewProps.primaryMaskFormat) {
+    [_view setPrimaryMaskFormat:RCTNSStringFromString(newViewProps.primaryMaskFormat)];
+  }
+
+  if (newViewProps.customNotations != oldViewProps.customNotations) {
+    [_view setCustomNotations:convertCustomNotations(newViewProps.customNotations)];
+  }
+
+  if (newViewProps.allowSuggestions != oldViewProps.allowSuggestions) {
+    [_view setAllowSuggestions:newViewProps.allowSuggestions];
+  }
+
+  if (newViewProps.autocomplete != oldViewProps.autocomplete) {
+    [_view setAutocomplete:newViewProps.autocomplete];
+  }
+
+  if (newViewProps.autocompleteOnFocus != oldViewProps.autocompleteOnFocus) {
+    [_view setAutocompleteOnFocus:newViewProps.autocompleteOnFocus];
+  }
+
+  if (newViewProps.autoSkip != oldViewProps.autoSkip) {
+    [_view setAutoSkip:newViewProps.autoSkip];
+  }
+
+  if (newViewProps.affinityFormat != oldViewProps.affinityFormat) {
+    [_view setAffinityFormat:convertAffinityFormat(newViewProps.affinityFormat)];
+  }
+
+  if (newViewProps.isRTL != oldViewProps.isRTL) {
+    [_view setIsRTL:newViewProps.isRTL];
+  }
+
+  if (newViewProps.affinityCalculationStrategy != oldViewProps.affinityCalculationStrategy) {
+    [_view setAffinityCalculationStrategy:newViewProps.affinityCalculationStrategy];
+  }
+
+  [super updateProps:props oldProps:oldProps];
 }
 
 - (void)onAdvancedMaskTextChangeWithEventData:(NSDictionary *)eventData
 {
-    if(!_eventEmitter) {
-        return;
-    }
-    
-    NSString *formatted = eventData[(id)@"formatted"];
-    NSString *extracted = eventData[(id)@"extracted"];
-    
-    AdvancedTextInputMaskDecoratorViewEventEmitter::OnAdvancedMaskTextChange event = {
-       .formatted = std::string([formatted UTF8String]),
-       .extracted = std::string([extracted UTF8String]),
-    };
+  if (!_eventEmitter) {
+    return;
+  }
 
-    std::dynamic_pointer_cast<const AdvancedTextInputMaskDecoratorViewEventEmitter>(_eventEmitter)->onAdvancedMaskTextChange(event);
+  NSString *formatted = eventData[(id) @"formatted"];
+  NSString *extracted = eventData[(id) @"extracted"];
+
+  AdvancedTextInputMaskDecoratorViewEventEmitter::OnAdvancedMaskTextChange event = {
+      .formatted = std::string([formatted UTF8String]),
+      .extracted = std::string([extracted UTF8String]),
+  };
+
+  std::dynamic_pointer_cast<const AdvancedTextInputMaskDecoratorViewEventEmitter>(_eventEmitter)
+      ->onAdvancedMaskTextChange(event);
 }
 
 @end
@@ -134,6 +140,5 @@ Class<RCTComponentViewProtocol> AdvancedTextInputMaskDecoratorViewCls(void)
 {
   return AdvancedTextInputMaskDecoratorView.class;
 }
-
 
 #endif

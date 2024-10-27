@@ -17,8 +17,8 @@
 @end
 
 @interface AdvancedTextInputViewDecoratorView : RCTView
-@property (nonatomic, weak) id <AdvancedTextInputViewContainerDelegate> _Nullable delegate;
-- (void)setPrimaryMaskFormat:(NSString * _Nonnull)primaryMaskFormat;
+@property (nonatomic, weak) id<AdvancedTextInputViewContainerDelegate> _Nullable delegate;
+- (void)setPrimaryMaskFormat:(NSString *_Nonnull)primaryMaskFormat;
 - (void)setAutocomplete:(BOOL)autocomplete;
 - (void)setAutocompleteOnFocus:(BOOL)autocompleteOnFocus;
 - (void)setAllowSuggestions:(BOOL)allowSuggestions;

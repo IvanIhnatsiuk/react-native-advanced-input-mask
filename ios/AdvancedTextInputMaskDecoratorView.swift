@@ -90,13 +90,14 @@ class AdvancedTextInputMaskDecoratorView: UIView {
 
   @objc var affinityCalculationStrategy: NSNumber? = 0 {
     didSet {
-      maskInputListener?.affinityCalculationStrategy = AffinityCalculationStrategy.forNumber(number: affinityCalculationStrategy)
+      maskInputListener?.affinityCalculationStrategy =
+        AffinityCalculationStrategy.forNumber(number: affinityCalculationStrategy)
     }
   }
 
   @objc var customNotations: NSArray? {
     didSet {
-      let customNotations = (customNotations as? [[String: Any]])?.map { $0.toNotation() } ?? []
+      let customNotations = (customNotations as? [[String: Any]])?.compactMap { $0.toNotation() } ?? []
 
       maskInputListener?.customNotations = customNotations
     }
@@ -121,7 +122,9 @@ class AdvancedTextInputMaskDecoratorView: UIView {
 
     guard let primaryMask = maskInputListener?.primaryMask else { return }
     let caretString = CaretString(
-      string: text, caretPosition: text.endIndex, caretGravity: CaretString.CaretGravity.forward(autocomplete: autocomplete)
+      string: text,
+      caretPosition: text.endIndex,
+      caretGravity: CaretString.CaretGravity.forward(autocomplete: autocomplete)
     )
     let result = primaryMask.apply(toText: caretString)
 
@@ -136,10 +139,12 @@ class AdvancedTextInputMaskDecoratorView: UIView {
       return
     }
 
-    let carretString = CaretString(
-      string: text, caretPosition: text.endIndex, caretGravity: CaretString.CaretGravity.forward(autocomplete: autocomplete)
+    let caretString = CaretString(
+      string: text,
+      caretPosition: text.endIndex,
+      caretGravity: CaretString.CaretGravity.forward(autocomplete: autocomplete)
     )
-    let result = primaryMask.apply(toText: carretString)
+    let result = primaryMask.apply(toText: caretString)
 
     if text == result.formattedText.string {
       return
@@ -163,22 +168,18 @@ class AdvancedTextInputMaskDecoratorView: UIView {
 
   private func findTextFieldFabric() {
     if let parent = superview?.superview {
-      for i in 1 ..< parent.subviews.count {
-        if parent.subviews[i] == superview {
-          textView = findFirstTextField(in: parent.subviews[i - 1])
-          break
-        }
+      for elementIndex in 1 ..< parent.subviews.count where parent.subviews[elementIndex] == superview {
+        textView = findFirstTextField(in: parent.subviews[elementIndex - 1])
+        break
       }
     }
   }
 
   private func findTextFieldPaper() {
     if let parent = superview {
-      for i in 1 ..< parent.subviews.count {
-        if parent.subviews[i] == self {
-          textView = findFirstTextField(in: parent.subviews[i - 1])
-          break
-        }
+      for elementIndex in 1 ..< parent.subviews.count where parent.subviews[elementIndex] == self {
+        textView = findFirstTextField(in: parent.subviews[elementIndex - 1])
+        break
       }
     }
   }
@@ -204,7 +205,8 @@ class AdvancedTextInputMaskDecoratorView: UIView {
       autoskip: autoSkip,
       rightToLeft: isRTL,
       affineFormats: affinityFormat,
-      affinityCalculationStrategy: AffinityCalculationStrategy.forNumber(number: affinityCalculationStrategy), customNotations: (customNotations as? [[String: Any]])?.map { $0.toNotation() } ?? [],
+      affinityCalculationStrategy: AffinityCalculationStrategy.forNumber(number: affinityCalculationStrategy),
+      customNotations: (customNotations as? [[String: Any]])?.compactMap { $0.toNotation() } ?? [],
       onMaskedTextChangedCallback: { input, value, _, _ in
         self.onAdvancedMaskTextChangedCallback(value, input.allText)
       },
