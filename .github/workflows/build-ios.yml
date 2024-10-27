@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - ".github/workflows/build-ios.yml"
-      - "react-native-keyboard-controller.podspec"
+      - "react-native-advanced-input-mask.podspec"
       - "ios/**"
       - "example/ios/**"
       - "yarn.lock"
@@ -16,7 +16,7 @@ on:
       - main
     paths:
       - ".github/workflows/build-ios.yml"
-      - "react-native-keyboard-controller.podspec"
+      - "react-native-advanced-input-mask.podspec"
       - "ios/**"
       - "example/ios/**"
       - "yarn.lock"
