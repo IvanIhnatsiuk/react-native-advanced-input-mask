@@ -28,7 +28,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
 
       let eventData: [String: String] = [
         "extracted": extracted,
-        "formatted": formatted
+        "formatted": formatted,
       ]
 
       if NSDictionary(dictionary: eventData).isEqual(to: lastDispatchedEvent) {
