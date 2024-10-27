@@ -32,7 +32,7 @@ const MaskedTextInput = memo<MaskedTextInputProps>(
         customTransformation,
         defaultValue,
         isRTL,
-        primaryMaskFormat,
+        mask,
         autoCapitalize = 'words',
         value,
         onAdvancedMaskTextChange,
@@ -45,7 +45,7 @@ const MaskedTextInput = memo<MaskedTextInputProps>(
 
       const onAdvancedMaskTextChangeCallback = useCallback(
         ({ nativeEvent: { extracted, formatted, tailPlaceholder } }) => {
-          onAdvancedMaskTextChange?.(extracted, formatted);
+          onAdvancedMaskTextChange?.(formatted, extracted);
           onTailPlaceholderChange?.(tailPlaceholder);
         },
         [onAdvancedMaskTextChange, onTailPlaceholderChange]
@@ -66,7 +66,7 @@ const MaskedTextInput = memo<MaskedTextInputProps>(
             defaultValue={defaultValue}
             isRTL={isRTL}
             onAdvancedMaskTextChange={onAdvancedMaskTextChangeCallback}
-            primaryMaskFormat={primaryMaskFormat}
+            primaryMaskFormat={mask}
             style={IS_FABRIC ? styles.farAway : styles.displayNone}
             value={value}
           />
