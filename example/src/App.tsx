@@ -20,7 +20,7 @@ export default function App() {
     formatted: '',
   });
 
-  const onChangeText = React.useCallback((extracted, formatted) => {
+  const onChangeText = React.useCallback((formatted, extracted) => {
     console.log('extracted:', extracted, 'formatted:', formatted);
     setTextState({ extracted, formatted });
   }, []);
@@ -37,9 +37,9 @@ export default function App() {
         defaultValue=""
         value={textState.formatted}
         style={styles.maskedTextInput}
-        onAdvancedMaskTextChange={onChangeText}
+        onChangeText={onChangeText}
         onTailPlaceholderChange={console.log}
-        primaryMaskFormat="[00]-[$$]-[00]"
+        mask="[00]-[$$]-[00]"
         autocomplete={false}
         allowSuggestions={true}
         autocompleteOnFocus={false}

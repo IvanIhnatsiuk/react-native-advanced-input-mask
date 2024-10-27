@@ -4,7 +4,7 @@ import React, { forwardRef, memo, useCallback } from 'react';
 import MaskedTextInputDecoratorView from './MaskedTextInputNative';
 import type { MaskedTextInputDecoratorViewNativeProps } from './types';
 
-type MaskedTextInputProps = TextInputProps &
+type MaskedTextInputProps = Omit<TextInputProps, 'onChangeText'> &
   MaskedTextInputDecoratorViewNativeProps;
 
 const styles = StyleSheet.create({
@@ -32,10 +32,10 @@ const MaskedTextInput = memo<MaskedTextInputProps>(
         customTransformation,
         defaultValue,
         isRTL,
-        primaryMaskFormat,
+        mask,
         autoCapitalize = 'words',
         value,
-        onAdvancedMaskTextChange,
+        onChangeText,
         onTailPlaceholderChange,
         ...rest
       },
@@ -45,10 +45,10 @@ const MaskedTextInput = memo<MaskedTextInputProps>(
 
       const onAdvancedMaskTextChangeCallback = useCallback(
         ({ nativeEvent: { extracted, formatted, tailPlaceholder } }) => {
-          onAdvancedMaskTextChange?.(extracted, formatted);
+          onChangeText?.(formatted, extracted);
           onTailPlaceholderChange?.(tailPlaceholder);
         },
-        [onAdvancedMaskTextChange, onTailPlaceholderChange]
+        [onChangeText, onTailPlaceholderChange]
       );
 
       return (
@@ -66,7 +66,7 @@ const MaskedTextInput = memo<MaskedTextInputProps>(
             defaultValue={defaultValue}
             isRTL={isRTL}
             onAdvancedMaskTextChange={onAdvancedMaskTextChangeCallback}
-            primaryMaskFormat={primaryMaskFormat}
+            primaryMaskFormat={mask}
             style={IS_FABRIC ? styles.farAway : styles.displayNone}
             value={value}
           />
