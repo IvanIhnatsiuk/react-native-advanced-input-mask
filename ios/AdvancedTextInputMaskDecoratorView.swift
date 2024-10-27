@@ -22,7 +22,11 @@ class AdvancedTextInputMaskDecoratorView: UIView {
 
   @objc var onAdvancedMaskTextChange: RCTDirectEventBlock?
 
-  @objc var onAdvancedMaskTextChangedCallback: (_ extracted: String, _ formatted: String, _ tailPlaceholder: String) -> Void {
+  @objc var onAdvancedMaskTextChangedCallback: (
+    _ extracted: String,
+    _ formatted: String,
+    _ tailPlaceholder: String
+  ) -> Void {
     { [weak self] extracted, formatted, tailPlaceholder in
       guard let self = self else { return }
 
