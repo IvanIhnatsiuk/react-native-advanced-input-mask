@@ -22,13 +22,18 @@ class AdvancedTextInputMaskDecoratorView: UIView {
 
   @objc var onAdvancedMaskTextChange: RCTDirectEventBlock?
 
-  @objc var onAdvancedMaskTextChangedCallback: (_ extracted: String, _ formatted: String) -> Void {
-    { [weak self] extracted, formatted in
+  @objc var onAdvancedMaskTextChangedCallback: (
+    _ extracted: String,
+    _ formatted: String,
+    _ tailPlaceholder: String
+  ) -> Void {
+    { [weak self] extracted, formatted, tailPlaceholder in
       guard let self = self else { return }
 
       let eventData: [String: String] = [
         "extracted": extracted,
         "formatted": formatted,
+        "tailPlaceholder": tailPlaceholder,
       ]
 
       if NSDictionary(dictionary: eventData).isEqual(to: lastDispatchedEvent) {
@@ -207,8 +212,8 @@ class AdvancedTextInputMaskDecoratorView: UIView {
       affineFormats: affinityFormat,
       affinityCalculationStrategy: AffinityCalculationStrategy.forNumber(number: affinityCalculationStrategy),
       customNotations: (customNotations as? [[String: Any]])?.compactMap { $0.toNotation() } ?? [],
-      onMaskedTextChangedCallback: { input, value, _, _ in
-        self.onAdvancedMaskTextChangedCallback(value, input.allText)
+      onMaskedTextChangedCallback: { input, value, _, tailPlaceholder in
+        self.onAdvancedMaskTextChangedCallback(value, input.allText, tailPlaceholder)
       },
       allowSuggestions: allowSuggestions
     )

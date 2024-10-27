@@ -36,6 +36,7 @@ const MaskedTextInput = memo<MaskedTextInputProps>(
         autoCapitalize = 'words',
         value,
         onAdvancedMaskTextChange,
+        onTailPlaceholderChange,
         ...rest
       },
       ref
@@ -43,9 +44,11 @@ const MaskedTextInput = memo<MaskedTextInputProps>(
       const IS_FABRIC = 'nativeFabricUIManager' in global;
 
       const onAdvancedMaskTextChangeCallback = useCallback(
-        ({ nativeEvent: { extracted, formatted } }) =>
-          onAdvancedMaskTextChange(extracted, formatted),
-        [onAdvancedMaskTextChange]
+        ({ nativeEvent: { extracted, formatted, tailPlaceholder } }) => {
+          onAdvancedMaskTextChange?.(extracted, formatted);
+          onTailPlaceholderChange?.(tailPlaceholder);
+        },
+        [onAdvancedMaskTextChange, onTailPlaceholderChange]
       );
 
       return (
