@@ -4250,6 +4250,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"async@npm:^3.2.3":
+  version: 3.2.6
+  resolution: "async@npm:3.2.6"
+  checksum: ee6eb8cd8a0ab1b58bd2a3ed6c415e93e773573a91d31df9d5ef559baafa9dab37d3b096fa7993e84585cac3697b2af6ddb9086f45d3ac8cae821bb2aab65682
+  languageName: node
+  linkType: hard
+
 "available-typed-arrays@npm:^1.0.7":
   version: 1.0.7
   resolution: "available-typed-arrays@npm:1.0.7"
@@ -4821,6 +4828,21 @@ __metadata:
   version: 1.4.1
   resolution: "cjs-module-lexer@npm:1.4.1"
   checksum: 2556807a99aec1f9daac60741af96cd613a707f343174ae7967da46402c91dced411bf830d209f2e93be4cecea46fc75cecf1f17c799d7d8a9e1dd6204bfcd22
+  languageName: node
+  linkType: hard
+
+"clang-format@npm:^1.8.0":
+  version: 1.8.0
+  resolution: "clang-format@npm:1.8.0"
+  dependencies:
+    async: ^3.2.3
+    glob: ^7.0.0
+    resolve: ^1.1.6
+  bin:
+    check-clang-format: bin/check-clang-format.js
+    clang-format: index.js
+    git-clang-format: bin/git-clang-format
+  checksum: 8e4198e976e8ca1dcb6f7eba09db89db44ce39c326a249b1a28ea2b3fd7dc5ece389d328bb9781424a708e63044b1432d85b9d8f65c46d3d5c13d2b6bf745a50
   languageName: node
   linkType: hard
 
@@ -11276,6 +11298,7 @@ __metadata:
     "@types/jest": ^28.1.2
     "@types/react": ~17.0.21
     "@types/react-native": 0.70.0
+    clang-format: ^1.8.0
     commitlint: ^17.0.2
     del-cli: ^5.0.0
     eslint: ^8.4.1
