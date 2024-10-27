@@ -4,7 +4,7 @@ import React, { forwardRef, memo, useCallback } from 'react';
 import MaskedTextInputDecoratorView from './MaskedTextInputNative';
 import type { MaskedTextInputDecoratorViewNativeProps } from './types';
 
-type MaskedTextInputProps = TextInputProps &
+type MaskedTextInputProps = Omit<TextInputProps, 'onChangeText'> &
   MaskedTextInputDecoratorViewNativeProps;
 
 const styles = StyleSheet.create({
@@ -35,7 +35,7 @@ const MaskedTextInput = memo<MaskedTextInputProps>(
         mask,
         autoCapitalize = 'words',
         value,
-        onAdvancedMaskTextChange,
+        onChangeText,
         onTailPlaceholderChange,
         ...rest
       },
@@ -45,10 +45,10 @@ const MaskedTextInput = memo<MaskedTextInputProps>(
 
       const onAdvancedMaskTextChangeCallback = useCallback(
         ({ nativeEvent: { extracted, formatted, tailPlaceholder } }) => {
-          onAdvancedMaskTextChange?.(formatted, extracted);
+          onChangeText?.(formatted, extracted);
           onTailPlaceholderChange?.(tailPlaceholder);
         },
-        [onAdvancedMaskTextChange, onTailPlaceholderChange]
+        [onChangeText, onTailPlaceholderChange]
       );
 
       return (
