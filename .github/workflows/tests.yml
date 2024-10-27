@@ -1,6 +1,14 @@
 name: unit-tests
 
-on: workflow_call
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/tests.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/tests.yml"
 
 jobs:
   test:
