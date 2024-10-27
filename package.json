@@ -45,7 +45,12 @@
     "react-native-component",
     "form",
     "validation",
-    "formatting"
+    "formatting",
+    "phone input",
+    "credit card input",
+    "date input",
+    "time input",
+    "mask"
   ],
   "repository": {
     "type": "git",
