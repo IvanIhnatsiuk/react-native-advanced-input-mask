@@ -110,10 +110,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
 
   @objc var value: NSString = "" {
     didSet {
-      let autocomplete = autocomplete
-      self.autocomplete = false
       updateTextWithoutNotification(text: value as String)
-      self.autocomplete = autocomplete
     }
   }
 

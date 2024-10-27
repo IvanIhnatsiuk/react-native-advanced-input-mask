@@ -58,7 +58,9 @@ class AdvancedTextInputMaskDecoratorView(
     if (previousSibling is ReactEditText) {
       textField = previousSibling
       textField?.let {
-        it.transformationMethod = customTransformationMethod
+        if (customTransformationMethod != null) {
+          it.transformationMethod = customTransformationMethod
+        }
         maskedTextChangeListener =
           ReactMaskedTextChangeListener.installOn(
             field = it,
@@ -117,9 +119,7 @@ class AdvancedTextInputMaskDecoratorView(
 
   fun setValue(value: String?) {
     if (textField?.text.toString() != value) {
-      maskedTextChangeListener?.autocomplete = false
       value?.let { maskedTextChangeListener?.setText(it) }
-      maskedTextChangeListener?.autocomplete = autocomplete
     }
   }
 
