@@ -1,5 +1,5 @@
 //
-//  MaskedTextInputDecoratorViewManager.swift
+//  AdvancedTextInputMaskDecoratorViewManager.swift
 //  react-native-advanced-input-mask
 //
 //  Created by Ivan Ignathuk on 05/10/2024.
@@ -7,10 +7,10 @@
 
 import Foundation
 
-@objc(MaskedTextInputDecoratorViewManager)
-class MaskedTextInputDecoratorViewManager: RCTViewManager {
+@objc(AdvancedTextInputMaskDecoratorViewManager)
+class AdvancedTextInputMaskDecoratorViewManager: RCTViewManager {
   override func view() -> UIView! {
-    MaskedTextInputDecoratorView()
+    AdvancedTextInputMaskDecoratorView()
   }
 
   override public static func requiresMainQueueSetup() -> Bool {

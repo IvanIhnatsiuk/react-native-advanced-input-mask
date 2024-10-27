@@ -15,7 +15,7 @@ import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.redmadrobot.inputmask.helper.AffinityCalculationStrategy
 import com.redmadrobot.inputmask.model.Notation
 
-class MaskedTextInputDecoratorView(
+class AdvancedTextInputMaskDecoratorView(
   context: Context,
 ) : View(context) {
   private var textField: ReactEditText? = null
@@ -58,7 +58,9 @@ class MaskedTextInputDecoratorView(
     if (previousSibling is ReactEditText) {
       textField = previousSibling
       textField?.let {
-        it.transformationMethod = customTransformationMethod
+        if (customTransformationMethod != null) {
+          it.transformationMethod = customTransformationMethod
+        }
         maskedTextChangeListener =
           ReactMaskedTextChangeListener.installOn(
             field = it,
@@ -72,14 +74,6 @@ class MaskedTextInputDecoratorView(
             affinityCalculationStrategy = affinityCalculationStrategy,
           )
       }
-    }
-  }
-
-  override fun onDetachedFromWindow() {
-    super.onDetachedFromWindow()
-    if (textField != null) {
-      textField = null
-      maskFormat = ""
     }
   }
 
@@ -124,9 +118,9 @@ class MaskedTextInputDecoratorView(
   }
 
   fun setValue(value: String?) {
-    maskedTextChangeListener?.autocomplete = false
-    value?.let { maskedTextChangeListener?.setText(it) }
-    maskedTextChangeListener?.autocomplete = autocomplete
+    if (textField?.text.toString() != value) {
+      value?.let { maskedTextChangeListener?.setText(it) }
+    }
   }
 
   fun setCustomTransformationMethod(transformationMethod: ReadableMap?) {

@@ -1,37 +1,38 @@
 package com.maskedtextinput.managers
 
-import android.view.View
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.common.MapBuilder
 import com.facebook.react.common.MapBuilder.newHashMap
-import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
+import com.maskedtextinput.AdvancedTextInputMaskDecoratorViewManagerSpec
 import com.maskedtextinput.events.EventNames
 import com.maskedtextinput.mappers.AffinityCalculationStrategyMapper
 import com.maskedtextinput.mappers.NotationMapper
-import com.maskedtextinput.views.MaskedTextInputDecoratorView
+import com.maskedtextinput.views.AdvancedTextInputMaskDecoratorView
 
-class MaskedTextInputDecoratorViewManager(
+class AdvancedTextInputMaskDecoratorViewManager(
   private val callerContext: ReactApplicationContext,
-) : SimpleViewManager<View>() {
+) : AdvancedTextInputMaskDecoratorViewManagerSpec<AdvancedTextInputMaskDecoratorView>() {
   override fun getName() = NAME
 
-  override fun createViewInstance(context: ThemedReactContext) = MaskedTextInputDecoratorView(context)
+  override fun createViewInstance(context: ThemedReactContext) = AdvancedTextInputMaskDecoratorView(context)
 
   @ReactProp(name = "primaryMaskFormat")
-  fun setMask(
-    view: MaskedTextInputDecoratorView,
-    mask: String,
+  override fun setPrimaryMaskFormat(
+    view: AdvancedTextInputMaskDecoratorView,
+    value: String?,
   ) {
-    view.setMask(mask)
+    if (value != null) {
+      view.setMask(value)
+    }
   }
 
   @ReactProp(name = "customNotations")
-  fun setCustomNotations(
-    view: MaskedTextInputDecoratorView,
+  override fun setCustomNotations(
+    view: AdvancedTextInputMaskDecoratorView,
     customNotation: ReadableArray?,
   ) {
     val notationsList = customNotation?.let { NotationMapper().fromReadableArray(it) }
@@ -41,34 +42,32 @@ class MaskedTextInputDecoratorViewManager(
   }
 
   @ReactProp(name = "defaultValue")
-  fun setDefaultValue(
-    view: MaskedTextInputDecoratorView,
+  override fun setDefaultValue(
+    view: AdvancedTextInputMaskDecoratorView,
     defaultValue: String?,
   ) {
     view.setDefaultValue(defaultValue)
   }
 
   @ReactProp(name = "value")
-  fun setValue(
-    view: MaskedTextInputDecoratorView,
+  override fun setValue(
+    view: AdvancedTextInputMaskDecoratorView,
     value: String?,
   ) {
     view.setValue(value)
   }
 
   @ReactProp(name = "affinityCalculationStrategy")
-  fun setAffinityCalculationStrategy(
-    view: MaskedTextInputDecoratorView,
-    affinityCalculationStrategy: Int?,
+  override fun setAffinityCalculationStrategy(
+    view: AdvancedTextInputMaskDecoratorView,
+    affinityCalculationStrategy: Int,
   ) {
-    if (affinityCalculationStrategy != null) {
-      view.setAffinityCalculationStrategy(AffinityCalculationStrategyMapper().fromInt(affinityCalculationStrategy))
-    }
+    view.setAffinityCalculationStrategy(AffinityCalculationStrategyMapper().fromInt(affinityCalculationStrategy))
   }
 
   @ReactProp(name = "affinityFormat")
-  fun setAffinityFormat(
-    view: MaskedTextInputDecoratorView,
+  override fun setAffinityFormat(
+    view: AdvancedTextInputMaskDecoratorView,
     affinityFormat: ReadableArray?,
   ) {
     if (affinityFormat != null) {
@@ -83,35 +82,33 @@ class MaskedTextInputDecoratorViewManager(
   }
 
   @ReactProp(name = "isRTL")
-  fun setRTL(
-    view: MaskedTextInputDecoratorView,
-    isRTL: Boolean?,
+  override fun setIsRTL(
+    view: AdvancedTextInputMaskDecoratorView,
+    isRTL: Boolean,
   ) {
-    if (isRTL != null) {
-      view.setIsRtl(isRTL)
-    }
+    view.setIsRtl(isRTL)
   }
 
   @ReactProp(name = "autoSkip")
-  fun setAutoSkip(
-    view: MaskedTextInputDecoratorView,
-    autoSkip: Boolean = false,
+  override fun setAutoSkip(
+    view: AdvancedTextInputMaskDecoratorView,
+    autoSkip: Boolean,
   ) {
     view.setAutoSkip(autoSkip)
   }
 
   @ReactProp(name = "autocomplete")
-  fun setAutoComplete(
-    view: MaskedTextInputDecoratorView,
-    autocomplete: Boolean = false,
+  override fun setAutocomplete(
+    view: AdvancedTextInputMaskDecoratorView,
+    autocomplete: Boolean,
   ) {
     view.setAutoComplete(autocomplete)
   }
 
   @ReactProp(name = "customTransformation")
-  fun setCustomTransformation(
-    view: MaskedTextInputDecoratorView,
-    customTransformation: ReadableMap? = null,
+  override fun setCustomTransformation(
+    view: AdvancedTextInputMaskDecoratorView,
+    customTransformation: ReadableMap?,
   ) {
     view.setCustomTransformationMethod(customTransformation)
   }
@@ -124,7 +121,19 @@ class MaskedTextInputDecoratorViewManager(
     return export
   }
 
+  override fun setAllowSuggestions(
+    view: AdvancedTextInputMaskDecoratorView?,
+    value: Boolean,
+  ) {
+  }
+
+  override fun setAutocompleteOnFocus(
+    view: AdvancedTextInputMaskDecoratorView?,
+    value: Boolean,
+  ) {
+  }
+
   companion object {
-    const val NAME = "MaskedTextInputDecoratorView"
+    const val NAME = "AdvancedTextInputMaskDecoratorView"
   }
 }

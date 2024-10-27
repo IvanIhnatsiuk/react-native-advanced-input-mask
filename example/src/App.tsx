@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 import MaskedTextInput from 'react-native-advanced-input-mask';
 
 const alphaNumericChars =
@@ -25,22 +25,27 @@ export default function App() {
     setTextState({ extracted, formatted });
   }, []);
 
+  const clearText = React.useCallback(() => {
+    setTextState({ extracted: '', formatted: '' });
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text>extracted value {textState.extracted}</Text>
       <Text>formatted value {textState.formatted}</Text>
       <MaskedTextInput
         defaultValue=""
+        value={textState.formatted}
         style={styles.maskedTextInput}
         onAdvancedMaskTextChange={onChangeText}
-        primaryMaskFormat="[00]-[00]-[00]"
-        value={textState.formatted}
-        autocomplete={true}
-        allowSuggestions={false}
+        primaryMaskFormat="[00]-[$$]-[00]"
+        autocomplete={false}
+        allowSuggestions={true}
         autocompleteOnFocus={false}
         autoSkip={false}
         customNotations={charAlphaNumerics}
       />
+      <Button title="Clear text" onPress={clearText} />
     </View>
   );
 }

@@ -168,5 +168,13 @@
         }
       ]
     ]
+  },
+  "codegenConfig": {
+    "name": "maskedtextinput",
+    "type": "all",
+    "jsSrcsDir": "./src/specs",
+    "android": {
+      "javaPackageName": "com.maskedtextinput"
+    }
   }
 }

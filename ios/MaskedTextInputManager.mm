@@ -2,7 +2,7 @@
 #import <React/RCTViewManager.h>
 #import <React/RCTEventEmitter.h>
 
-@interface RCT_EXTERN_MODULE(MaskedTextInputDecoratorViewManager, RCTViewManager)
+@interface RCT_EXTERN_MODULE(AdvancedTextInputMaskDecoratorViewManager, RCTViewManager)
   RCT_EXPORT_VIEW_PROPERTY(primaryMaskFormat, NSString)
   RCT_EXPORT_VIEW_PROPERTY(customNotations, NSArray)
   RCT_EXPORT_VIEW_PROPERTY(autocomplete, BOOL)
@@ -13,5 +13,5 @@
   RCT_EXPORT_VIEW_PROPERTY(defaultValue, NSString)
   RCT_EXPORT_VIEW_PROPERTY(value, NSString)
 
-  RCT_EXPORT_VIEW_PROPERTY(onAdvancedMaskTextChange, RCTBubblingEventBlock);
+  RCT_EXPORT_VIEW_PROPERTY(onAdvancedMaskTextChange, RCTDirectEventBlock);
 @end

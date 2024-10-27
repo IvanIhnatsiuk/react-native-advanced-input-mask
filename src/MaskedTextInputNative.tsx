@@ -1,6 +1,7 @@
-import { requireNativeComponent } from 'react-native';
-import type { MaskedTextInputDecoratorViewNativeProps } from './types';
+import type { NativeProps } from './specs/AdvancedTextInputMaskDecoratorViewNativeComponent';
+import type { FC } from 'react';
 
-export default requireNativeComponent<MaskedTextInputDecoratorViewNativeProps>(
-  'MaskedTextInputDecoratorView'
-);
+const MaskedTextInputDecoratorView: FC<NativeProps> =
+  require('./specs/AdvancedTextInputMaskDecoratorViewNativeComponent').default;
+
+export default MaskedTextInputDecoratorView;
