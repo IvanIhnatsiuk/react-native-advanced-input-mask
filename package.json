@@ -178,8 +178,5 @@
     "android": {
       "javaPackageName": "com.maskedtextinput"
     }
-  },
-  "dependencies": {
-    "react-native-mask-input": "^1.2.3"
   }
 }
