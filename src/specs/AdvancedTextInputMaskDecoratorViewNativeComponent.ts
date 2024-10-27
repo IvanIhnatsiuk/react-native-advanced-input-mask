@@ -9,6 +9,7 @@ import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNati
 export type OnAdvancedMaskTextChange = Readonly<{
   extracted: string;
   formatted: string;
+  tailPlaceholder: string;
 }>;
 
 type CustomTransformation = Readonly<{
@@ -32,20 +33,19 @@ type Notation = {
 };
 
 export interface NativeProps extends ViewProps {
-  primaryMaskFormat: string;
-  customNotations?: ReadonlyArray<Notation>;
-  onAdvancedMaskTextChange?: DirectEventHandler<OnAdvancedMaskTextChange>;
-  affinityFormat?: ReadonlyArray<string>;
-  autocomplete?: boolean;
-  autoSkip?: boolean;
-  isRTL?: boolean;
   affinityCalculationStrategy?: Int32;
+  affinityFormat?: ReadonlyArray<string>;
+  allowSuggestions?: boolean;
+  autocomplete?: boolean;
+  autocompleteOnFocus?: boolean;
+  autoSkip?: boolean;
+  customNotations?: ReadonlyArray<Notation>;
   customTransformation?: CustomTransformation;
   defaultValue?: string;
+  isRTL?: boolean;
+  onAdvancedMaskTextChange?: DirectEventHandler<OnAdvancedMaskTextChange>;
+  primaryMaskFormat: string;
   value?: string;
-  // IOS only props
-  allowSuggestions?: boolean;
-  autocompleteOnFocus?: boolean;
 }
 
 export default codegenNativeComponent<NativeProps>(
