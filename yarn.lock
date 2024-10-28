@@ -7784,6 +7784,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint-plugin-ft-flow@npm:^3.0.11":
+  version: 3.0.11
+  resolution: "eslint-plugin-ft-flow@npm:3.0.11"
+  dependencies:
+    lodash: ^4.17.21
+    string-natural-compare: ^3.0.1
+  peerDependencies:
+    eslint: ^8.56.0 || ^9.0.0
+    hermes-eslint: ">=0.15.0"
+  checksum: eba55022633424b7c5e491d4939eeba5525f5b1345a9fa0846a47f508885b91a0ee2a008276e4031260d0f9c1d971903b7469d8915ebc668cce67a01cdb808d0
+  languageName: node
+  linkType: hard
+
 "eslint-plugin-jest@npm:^26.5.3":
   version: 26.9.0
   resolution: "eslint-plugin-jest@npm:26.9.0"
@@ -13170,6 +13183,7 @@ __metadata:
     del-cli: ^5.0.0
     eslint: ^8.4.1
     eslint-config-prettier: ^8.5.0
+    eslint-plugin-ft-flow: ^3.0.11
     eslint-plugin-prettier: ^4.0.0
     jest: ^28.1.1
     pod-install: ^0.1.0
