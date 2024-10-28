@@ -1,10 +1,10 @@
 import type { TextInputProps } from 'react-native';
 import { StyleSheet, TextInput } from 'react-native';
 import React, { forwardRef, memo, useCallback } from 'react';
-import MaskedTextInputDecoratorView from './MaskedTextInputNative';
+import MaskedTextInputDecoratorView from './MaskedTextInput';
 import type { MaskedTextInputDecoratorViewNativeProps } from './types';
 
-type MaskedTextInputProps = Omit<TextInputProps, 'onChangeText'> &
+export type MaskedTextInputProps = Omit<TextInputProps, 'onChangeText'> &
   MaskedTextInputDecoratorViewNativeProps;
 
 const styles = StyleSheet.create({

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { Button, StyleSheet, Text, View } from 'react-native';
-import MaskedTextInput from 'react-native-advanced-input-mask';
+import { StyleSheet, View } from 'react-native';
+import AdvancedTextInput from './components/AdvancedInputMask';
 
 const alphaNumericChars =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -15,38 +15,18 @@ const charAlphaNumerics = [
 ];
 
 export default function App() {
-  const [textState, setTextState] = React.useState({
-    extracted: '',
-    formatted: '',
-  });
-
-  const onChangeText = React.useCallback((formatted, extracted) => {
-    console.log('extracted:', extracted, 'formatted:', formatted);
-    setTextState({ extracted, formatted });
-  }, []);
-
-  const clearText = React.useCallback(() => {
-    setTextState({ extracted: '', formatted: '' });
-  }, []);
-
   return (
     <View style={styles.container}>
-      <Text>extracted value {textState.extracted}</Text>
-      <Text>formatted value {textState.formatted}</Text>
-      <MaskedTextInput
+      <AdvancedTextInput
         defaultValue=""
-        value={textState.formatted}
-        style={styles.maskedTextInput}
-        onChangeText={onChangeText}
-        onTailPlaceholderChange={console.log}
-        mask="[00]-[$$]-[00]"
+        mask="+48 [000]-[000]-[000]"
         autocomplete={false}
         allowSuggestions={true}
         autocompleteOnFocus={false}
         autoSkip={false}
         customNotations={charAlphaNumerics}
+        title="Phone"
       />
-      <Button title="Clear text" onPress={clearText} />
     </View>
   );
 }
@@ -62,15 +42,5 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     marginVertical: 20,
-  },
-  textInputMaskInput: {
-    width: '100%',
-    height: 50,
-    backgroundColor: 'lightblue',
-  },
-  maskedTextInput: {
-    width: '100%',
-    height: 50,
-    backgroundColor: 'orange',
   },
 });
