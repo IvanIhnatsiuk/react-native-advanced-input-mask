@@ -53,16 +53,16 @@ jobs:
           run: |
             /bin/bash -c "yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null"
 
-        - name: Cache Gradle
-          if: env.turbo_cache_hit != 1
-          uses: actions/cache@v4
-          with:
-            path: |
-              ~/.gradle/wrapper
-              ~/.gradle/caches
-            key: ${{ runner.os }}-gradle-${{ hashFiles('example/android/gradle/wrapper/gradle-wrapper.properties') }}
-            restore-keys: |
-              ${{ runner.os }}-gradle-
+        # - name: Cache Gradle
+        #   if: env.turbo_cache_hit != 1
+        #   uses: actions/cache@v4
+        #   with:
+        #     path: |
+        #       ~/.gradle/wrapper
+        #       ~/.gradle/caches
+        #     key: ${{ runner.os }}-gradle-${{ hashFiles('example/android/gradle/wrapper/gradle-wrapper.properties') }}
+        #     restore-keys: |
+        #       ${{ runner.os }}-gradle-
 
         - name: Build example for Android
           run: |
