@@ -66,4 +66,4 @@ jobs:
 
         - name: Build example for Android
           run: |
-            yarn turbo run build:android --cache-dir="${{ env.TURBO_CACHE_DIR }}"
+           cd example && yarn android
