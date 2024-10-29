@@ -5,17 +5,7 @@ import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.uimanager.SimpleViewManager
 
-abstract class AdvancedTextInputMaskDecoratorViewManagerSpec<T : View> : SimpleViewManager<T>() {
-  abstract fun setPrimaryMaskFormat(
-    view: T,
-    mask: String?,
-  )
-
-  abstract fun setCustomNotations(
-    view: T,
-    customNotation: ReadableArray?,
-  )
-
+abstract class PhoneInputDecoratorViewManagerSpec<T : View> : SimpleViewManager<T>() {
   abstract fun setDefaultValue(
     view: T,
     defaultValue: String?,
@@ -31,11 +21,6 @@ abstract class AdvancedTextInputMaskDecoratorViewManagerSpec<T : View> : SimpleV
     affinityCalculationStrategy: Int,
   )
 
-  abstract fun setAffinityFormat(
-    view: T,
-    affinityFormat: ReadableArray?,
-  )
-
   abstract fun setIsRTL(
     view: T,
     isRTL: Boolean = false,
@@ -49,11 +34,6 @@ abstract class AdvancedTextInputMaskDecoratorViewManagerSpec<T : View> : SimpleV
   abstract fun setAutocomplete(
     view: T,
     autocomplete: Boolean = false,
-  )
-
-  abstract fun setCustomTransformation(
-    view: T,
-    customTransformation: ReadableMap? = null,
   )
 
   abstract fun setAllowSuggestions(
