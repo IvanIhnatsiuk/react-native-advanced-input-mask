@@ -1,33 +1,342 @@
+To create detailed documentation for the `react-native-advanced-input-mask` package by following the structure and details provided in the `input-mask-android` library by RedMadRobot, we can develop an organized, comprehensive document that will help users understand the purpose, setup, and use of `react-native-advanced-input-mask` for masking input fields in React Native apps. Below is a suggested structure for the documentation:
+
+---
+
 # React Native Advanced Input Mask
 
-`react-native-advanced-input-mask` is a customizable input masking library for React Native applications. It allows you to create formatted input fields with ease, supporting a variety of input types such as phone numbers, dates, and more. The package leverages advanced masking features to improve user input experiences, making form data entry more consistent and intuitive.
+## Overview
 
-## Features
-- Flexible and customizable input masks.
-- Easy integration with React Native components.
-- Supports various types of formatted inputs (e.g., phone numbers, credit cards, dates).
-- Works seamlessly across Android and iOS platforms.
+`react-native-advanced-input-mask` is a React Native package that provides flexible input masking functionality for mobile applications. It allows you to format input fields dynamically as users type, ensuring that data is entered in a consistent and valid format. This package wraps the `input-mask-android` library for Android and its equivalent for iOS, offering a cross-platform solution.
+
+Input masking can be used to format text fields for phone numbers, dates, credit card numbers, social security numbers, and other input types that require specific formatting.
+
+### Features
+- Supports multiple mask types and formats.
+- Automatic formatting as users type.
+- Cross-platform support for iOS and Android.
+- Easy integration with existing React Native components.
 
 ## Installation
 
-### Using npm:
+Install the package using npm or yarn:
 ```bash
 npm install react-native-advanced-input-mask
+# or
+yarn add react-native-advanced-input-mask
 ```
 
-### Using Yarn:
-```bash
-yarn add react-native-advanced-input-mask
+## Usage
+
+Import `react-native-advanced-input-mask` in your component to apply masking to input fields.
+
+### Basic Example
+
+```typescript
+import React, { useState, useCallback } from 'react';
+import { TextInput, View } from 'react-native';
+import { MaskedTextInput } from 'react-native-advanced-input-mask';
+
+const ExampleComponent = () => {
+  const [phoneNumber, setPhoneNumber] = useState('');
+
+  const onChangeText = useCallback((formatted, extracted) => {
+   setPhoneNumber(formatted)
+  }, []);
+
+  return (
+    <View>
+      <MaskedTextInput
+        mask="+1 ([000]) [000]-[0000]"
+        value={phoneNumber}
+        onChangeText={onChangeText}
+        keyboardType="numeric"
+      />
+    </View>
+  );
+};
+
+export default ExampleComponent;
+```
+
+### UK IBAN:
+
+```typescript
+import React, { useState, useCallback } from 'react';
+import { TextInput, View } from 'react-native';
+import { MaskedTextInput } from 'react-native-advanced-input-mask';
+
+const ExampleComponent = () => {
+  const [IBAN, setIBAN] = useState('');
+
+  const onChangeText = useCallback((formatted, extracted) => {
+   setIBAN(formatted)
+  }, []);
+
+  return (
+    <View>
+      <MaskedTextInput
+        mask="GB[00] [____] [0000] [0000] [0000] [00]"
+        value={IBAN}
+        onChangeText={onChangeText}
+      />
+    </View>
+  );
+};
+
+export default ExampleComponent;
+```
+
+### Dates:
+
+```typescript
+import React, { useState, useCallback } from 'react';
+import { TextInput, View } from 'react-native';
+import { MaskedTextInput } from 'react-native-advanced-input-mask';
+
+const ExampleComponent = () => {
+  const [date, setDate] = useState('');
+
+  const onChangeText = useCallback((formatted, extracted) => {
+   setDate(formatted)
+  }, []);
+
+  return (
+    <View>
+      <MaskedTextInput
+        mask="[00]{.}[00]{.}[9900]"
+        value={date}
+        onChangeText={onChangeText}
+      />
+    </View>
+  );
+};
+
+export default ExampleComponent;
+```
+
+### Detailed Mask Explanation
+
+The mask pattern defines how user input is processed and displayed. The characters below are used for defining patterns:
+- `[0]`: Allows only digits (0-9).
+- `[A]`: Allows only letters (A-Z, case insensitive).
+- `[...]`: Allows any character(s) in a custom range, e.g., `[0-9A-Za-z]`.
+
+## Advanced Usage
+
+For applications requiring conditional or more complex formatting, this package provides additional configuration options.
+
+### MaskedTextInput Component - Props
+
+| Prop                          | Type                                 | Description                                                                                                                                    |
+|-------------------------------|--------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| `mask`                        | `string`                             | The mask format to be applied to the text input, defining the pattern for formatting. Example: `"[0000] [0000] [0000] [0000]"`.               |
+| `customNotations`             | `Notation[]`                         | Array of custom notations for the mask format. Each notation object includes: `character`, `characterSet`, and `isOptional`.                  |
+| `onChangeText`                | `(formatted: string, extracted: string) => void` | Callback function triggered on text change. Receives `formattedValue` (with mask) and `extractedValue` (raw input).                           |
+| `onTailPlaceholderChange`     | `(tailPlaceholder: string) => void`  | Callback function called when the tail placeholder changes, receiving the updated `tailPlaceholder` value.                                    |
+| `affinityFormat`              | `string[]`                           | Array of strings for affinity format, used to determine the best mask format based on the input.                                              |
+| `autocomplete`                | `boolean`                            | Enables or disables autocomplete for the text input. Default is `false`.                                                                      |
+| `autoSkip`                    | `boolean`                            | Automatically skips to the next input field when the current one is filled. Default is `false`.                                               |
+| `isRTL`                       | `boolean`                            | Enables right-to-left (RTL) text direction for the text input. Default is `false`.                                                            |
+| `affinityCalculationStrategy` | `AFFINITY_CALCULATION_STRATEGY`      | Defines the strategy for affinity calculation, determining how the best mask format is selected based on input.                               |
+| `customTransformation`        | `CustomTransformation`               | Custom transformation applied to the text input to define how the input text should be transformed.                                           |
+| `defaultValue`                | `string`                             | The default value for the input field.                                                                                                        |
+| `value`                       | `string`                             | Current value of the input field, allowing controlled input behavior.                                                                         |
+| `allowSuggestions`            | `boolean` (iOS only)                | Enables or disables input suggestions on iOS. Default is `false`.                                                                             |
+| `autocompleteOnFocus`         | `boolean` (iOS only)                | Enables autocomplete when the text input is focused (iOS only).                                                                               |
+| `placeholder`                 | `string`                             | Placeholder text displayed in the input.                                                                                                      |
+| `keyboardType`                | `string`                             | Sets the keyboard type. Useful for numeric masks with `keyboardType="numeric"`.                                                               |
+| `autoFocus`                   | `boolean`                            | If `true`, focuses the input on component load. Default is `false`.                                                                           |
+
+
+## Mask Format Guide
+
+The mask format uses placeholders to define the acceptable input:
+- `0`: Digit (0-9).
+- `A`: Letter (A-Z).
+- `_`: Any character.
+
+# Cookbook
+
+Cookbook is a community-driven handbook with complete solutions for common problems.  
+Text formatting problems, of course.
+
+Feel free to suggest your own recipes or correct the existing ones.
+
+## Chapters
+
+* [Credit cards](#cards)
+* [Dates](#date)
+* [IBAN, International Bank Account Number](#iban)
+* [Phone numbers](#phone)
+
+<a name="cards" />
+
+## Credit cards
+
+MM/YY: `[00]{/}[00]`  
+CVV: `[000]`
+
+#### American Express
+
+```
+[0000] [000000] [00000]
+3[000] [000000] [00000]
+```
+
+#### Diners Club International
+
+```
+[0000] [000000] [0000]
+3[000] [000000] [0000]
+```
+
+#### Discover
+
+```
+[0000] [0000] [0000] [0000]
+6[000] [0000] [0000] [0000]
+```
+
+#### MasterCard
+
+```
+[0000] [0000] [0000] [0000]
+5[000] [0000] [0000] [0000]
+```
+
+#### Visa
+
+```
+[0000] [0000] [0000] [0000]
+4[000] [0000] [0000] [0000]
+```
+
+<a name="date" />
+
+## Dates
+
+Affine formats:
+
+```
+[00]{/}[00]{/}[00]
+[00]{/}[00]{/}[0000]
+```
+
+```
+[00]{.}[00]{.}[00]
+[00]{.}[00]{.}[0000]
+```
+
+<a name="iban" />
+
+## IBAN, International Bank Account Number
+
+#### Belgium
+
+```
+BE[00] [0000] [0000] [0000]
+```
+
+#### France
+
+```
+FR[00] [0000] [0000] [0000] [0000] [0000] [000]
+```
+
+#### Germany
+
+```
+DE[00] [0000] [0000] [0000] [0000] [00]
+```
+
+#### Greece	
+
+```
+GR[00] [0000] [0000] [0000] [0000] [0000] [000]
+```
+
+#### Romania	
+
+```
+RO[00] [____] [0000] [0000] [0000] [0000]
+```
+
+#### Saudi Arabia
+
+```
+SA[00] [0000] [0000] [0000] [0000] [0000]
+```
+
+#### Spain
+
+```
+ES[00] [0000] [0000] [0000] [0000] [0000]
+```
+
+#### Switzerland
+
+```
+CH[00] [0000] [0000] [0000] [0000] [0]
+```
+
+#### United Kingdom
+
+```
+GB[00] [____] [0000] [0000] [0000] [00]
+```
+
+<a name="phone" />
+
+## Phone numbers
+
+```
+8 ([000]) [000]-[00]-[00]
+```
+
+### Custom notations
+
+```tsx
+import React, { useState, useCallback } from 'react';
+import { TextInput, View } from 'react-native';
+import { MaskedTextInput } from 'react-native-advanced-input-mask';
+
+
+const alphaNumericChars =
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+const charAlphaNumerics = [
+  {
+    character: '$',
+    characterSet: alphaNumericChars,
+    isOptional: false,
+  },
+];
+
+
+const ExampleComponent = () => {
+  const [text, setText] = useState('');
+
+  const onChangeText = useCallback((formatted, extracted) => {
+   setText(formatted)
+  }, []);
+
+  return (
+    <View>
+      <MaskedTextInput
+        mask="[$$$$$$$$$$$]"
+        value={text}
+        onChangeText={onChangeText}
+      />
+    </View>
+  );
+};
+
 ```
 
 ## Contributing
 
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
-
-## License
-
-MIT
-
----
-
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
+To contribute to this package, clone the repository and install dependencies:
+```bash
+git clone https://github.com/IvanIhnatsiuk/react-native-advanced-input-mask
+cd react-native-advanced-input-mask && yarn install
+```
