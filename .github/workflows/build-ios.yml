@@ -25,8 +25,9 @@ on:
 jobs:
   build-ios:
     runs-on: macos-latest
-    env:
-      TURBO_CACHE_DIR: .turbo/ios
+    defaults:
+      run:
+        working-directory: example/ios
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -57,4 +58,4 @@ jobs:
 
       - name: Build example for iOS
         run: |
-         cd example && yarn build:ios
+          yarn build:ios
