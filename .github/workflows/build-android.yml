@@ -65,4 +65,4 @@ jobs:
               ${{ runner.os }}-gradle-
 
         - name: Build example for Android
-          run: yarn turbo run build:android --force --no-cache --cache-dir="${{ env.TURBO_CACHE_DIR }}"
+          run: cd android && ./gradlew assembleDebug
