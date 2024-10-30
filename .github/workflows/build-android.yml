@@ -16,8 +16,6 @@ on:
 jobs:
   build-android:
       runs-on: ubuntu-latest
-      env:
-        TURBO_CACHE_DIR: .turbo/android
       steps:
         - name: Checkout
           uses: actions/checkout@v4
@@ -42,4 +40,4 @@ jobs:
               ${{ runner.os }}-gradle-
 
         - name: Build example for Android
-          run: cd android && ./gradlew assembleDebug --build-cache && cd ../..
+          run: cd example/android && ./gradlew assembleDebug --build-cache && cd ../..
