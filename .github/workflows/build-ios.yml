@@ -57,4 +57,4 @@ jobs:
 
       - name: Build example for iOS
         run: |
-          yarn turbo build:ios --cache-dir="{{ env.TURBO_CACHE_DIR }}"
+         cd example && yarn build:ios
