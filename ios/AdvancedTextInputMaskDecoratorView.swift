@@ -217,6 +217,8 @@ class AdvancedTextInputMaskDecoratorView: UIView {
       },
       allowSuggestions: allowSuggestions
     )
+    let currentFieldDelegate = textView.delegate
+    maskInputListener?.textFieldDelegate = currentFieldDelegate
     textView.delegate = maskInputListener
     updateTextWithoutNotification(text: defaultValue as String)
   }
