@@ -2,7 +2,7 @@ package com.maskedtextinput.mappers
 
 import com.redmadrobot.inputmask.helper.AffinityCalculationStrategy
 
-class AffinityCalculationStrategyMapper {
+object AffinityCalculationStrategyMapper {
   fun fromInt(value: Int): AffinityCalculationStrategy =
     when (value) {
       0 -> AffinityCalculationStrategy.WHOLE_STRING

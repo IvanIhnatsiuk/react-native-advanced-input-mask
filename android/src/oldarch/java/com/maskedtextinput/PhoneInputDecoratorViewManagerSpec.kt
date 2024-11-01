@@ -2,7 +2,6 @@ package com.maskedtextinput
 
 import android.view.View
 import com.facebook.react.bridge.ReadableArray
-import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.uimanager.SimpleViewManager
 
 abstract class PhoneInputDecoratorViewManagerSpec<T : View> : SimpleViewManager<T>() {
@@ -44,5 +43,20 @@ abstract class PhoneInputDecoratorViewManagerSpec<T : View> : SimpleViewManager<
   abstract fun setAutocompleteOnFocus(
     view: T?,
     value: Boolean,
+  )
+
+  abstract fun setCustomCountries(
+    view: T,
+    customCountries: ReadableArray?,
+  )
+
+  abstract fun setDisableCountries(
+    view: T,
+    disableCountries: ReadableArray?,
+  )
+
+  abstract fun setEnableCountries(
+    view: T,
+    enableCountries: ReadableArray?,
   )
 }

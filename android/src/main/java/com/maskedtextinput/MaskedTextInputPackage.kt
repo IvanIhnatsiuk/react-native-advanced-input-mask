@@ -13,5 +13,6 @@ class MaskedTextInputPackage : ReactPackage {
   override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> =
     listOf(
       AdvancedTextInputMaskDecoratorViewManager(reactContext),
-      PhoneInputViewManager(reactContext))
+      PhoneInputViewManager(reactContext),
+    )
 }

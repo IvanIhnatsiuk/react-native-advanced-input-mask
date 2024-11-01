@@ -10,6 +10,7 @@ import com.facebook.react.uimanager.annotations.ReactProp
 import com.maskedtextinput.AdvancedTextInputMaskDecoratorViewManagerSpec
 import com.maskedtextinput.events.EventNames
 import com.maskedtextinput.mappers.AffinityCalculationStrategyMapper
+import com.maskedtextinput.mappers.AffinityFormatMapper
 import com.maskedtextinput.mappers.NotationMapper
 import com.maskedtextinput.views.AdvancedTextInputMaskDecoratorView
 
@@ -23,10 +24,10 @@ class AdvancedTextInputMaskDecoratorViewManager(
   @ReactProp(name = "primaryMaskFormat")
   override fun setPrimaryMaskFormat(
     view: AdvancedTextInputMaskDecoratorView,
-    value: String?,
+    mask: String?,
   ) {
-    if (value != null) {
-      view.setMask(value)
+    if (mask != null) {
+      view.setMask(mask)
     }
   }
 
@@ -35,7 +36,7 @@ class AdvancedTextInputMaskDecoratorViewManager(
     view: AdvancedTextInputMaskDecoratorView,
     customNotation: ReadableArray?,
   ) {
-    val notationsList = customNotation?.let { NotationMapper().fromReadableArray(it) }
+    val notationsList = customNotation?.let { NotationMapper.fromReadableArray(it) }
     if (notationsList != null) {
       view.setCustomNotations(notationsList)
     }
@@ -62,7 +63,7 @@ class AdvancedTextInputMaskDecoratorViewManager(
     view: AdvancedTextInputMaskDecoratorView,
     affinityCalculationStrategy: Int,
   ) {
-    view.setAffinityCalculationStrategy(AffinityCalculationStrategyMapper().fromInt(affinityCalculationStrategy))
+    view.setAffinityCalculationStrategy(AffinityCalculationStrategyMapper.fromInt(affinityCalculationStrategy))
   }
 
   @ReactProp(name = "affinityFormat")
@@ -71,12 +72,7 @@ class AdvancedTextInputMaskDecoratorViewManager(
     affinityFormat: ReadableArray?,
   ) {
     if (affinityFormat != null) {
-      val list = mutableListOf<String>()
-
-      for (i in 0 until affinityFormat.size()) {
-        val value = affinityFormat.getString(i)
-        list.add(value)
-      }
+      val list = AffinityFormatMapper.fromReadableArray(affinityFormat)
       view.setAffinityFormat(list)
     }
   }

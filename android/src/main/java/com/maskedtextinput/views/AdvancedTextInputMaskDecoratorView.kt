@@ -8,6 +8,7 @@ import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.uimanager.UIManagerHelper
 import com.facebook.react.views.textinput.ReactEditText
 import com.maskedtextinput.events.ChangeTextEvent
+import com.maskedtextinput.events.EventNames
 import com.maskedtextinput.listeners.MaskedTextValueListener
 import com.maskedtextinput.listeners.ReactMaskedTextChangeListener
 import com.maskedtextinput.transformation.CustomTransformationMethod
@@ -33,7 +34,7 @@ class AdvancedTextInputMaskDecoratorView(
     MaskedTextValueListener { _, extracted, formatted, tailPlaceholder ->
       val surfaceId = UIManagerHelper.getSurfaceId(context as ReactContext)
       UIManagerHelper.getEventDispatcherForReactTag(context, id)?.dispatchEvent(
-        ChangeTextEvent(surfaceId, id, extracted, formatted, tailPlaceholder),
+        ChangeTextEvent(surfaceId, id, EventNames.CHANGE_TEXT_EVENT, extracted, formatted, tailPlaceholder),
       )
     }
 

@@ -1,6 +1,9 @@
 import type { HostComponent } from 'react-native';
 import type { ViewProps } from 'react-native/Libraries/Components/View/ViewPropTypes';
-import type { DirectEventHandler } from 'react-native/Libraries/Types/CodegenTypes';
+import type {
+  DirectEventHandler,
+  Int32,
+} from 'react-native/Libraries/Types/CodegenTypes';
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 
 export type onPhoneInputMaskChangeText = Readonly<{
@@ -8,21 +11,6 @@ export type onPhoneInputMaskChangeText = Readonly<{
   formatted: string;
   tailPlaceholder: string;
 }>;
-
-type Notation = {
-  /**
-   * A symbol in format string.
-   */
-  character: string;
-  /**
-   * An associated character set of acceptable input characters.
-   */
-  characterSet: string;
-  /**
-   * Is it an optional symbol or mandatory?
-   */
-  isOptional: boolean;
-};
 
 type Country = {
   /**
@@ -72,11 +60,11 @@ type Country = {
 };
 
 export interface NativeProps extends ViewProps {
+  affinityCalculationStrategy?: Int32;
   allowSuggestions?: boolean;
   autocomplete?: boolean;
   autocompleteOnFocus?: boolean;
   autoSkip?: boolean;
-  customNotations?: ReadonlyArray<Notation>;
   defaultValue?: string;
   isRTL?: boolean;
   onPhoneInputMaskChangeText?: DirectEventHandler<onPhoneInputMaskChangeText>;

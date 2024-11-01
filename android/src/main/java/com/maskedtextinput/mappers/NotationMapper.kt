@@ -3,7 +3,7 @@ package com.maskedtextinput.mappers
 import com.facebook.react.bridge.ReadableArray
 import com.redmadrobot.inputmask.model.Notation
 
-class NotationMapper {
+object NotationMapper {
   fun fromReadableArray(readableArray: ReadableArray): List<Notation> {
     val list = mutableListOf<Notation>()
     for (i in 0 until readableArray.size()) {

@@ -7,11 +7,12 @@ import com.facebook.react.uimanager.events.Event
 class ChangeTextEvent(
   surfaceId: Int,
   viewTag: Int,
+  private val eventName: String,
   private val extractedText: String,
   private val formattedText: String,
   private val tailPlaceholder: String,
 ) : Event<ChangeTextEvent>(surfaceId, viewTag) {
-  override fun getEventName(): String = EventNames.CHANGE_TEXT_EVENT
+  override fun getEventName(): String = eventName
 
   override fun getCoalescingKey(): Short = 0
 
