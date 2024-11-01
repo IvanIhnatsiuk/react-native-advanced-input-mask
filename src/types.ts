@@ -1,4 +1,4 @@
-import type { ViewProps } from 'react-native';
+import type { TextInputProps } from 'react-native';
 import type { AFFINITY_CALCULATION_STRATEGY } from './enums';
 
 export type Notation = {
@@ -21,7 +21,7 @@ type CustomTransformation = {
   transformationString: string;
 };
 
-export type MaskedTextInputDecoratorViewNativeProps = ViewProps & {
+export type MaskedTextInputProps = Omit<TextInputProps, 'onChangeText'> & {
   /**
    * The mask format to be applied to the text input.
    * @example "[0000] [0000] [0000] [0000]"

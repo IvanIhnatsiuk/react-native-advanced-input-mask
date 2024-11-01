@@ -1,79 +1,10 @@
-import type { TextInputProps } from 'react-native';
-import { StyleSheet, TextInput } from 'react-native';
-import React, { forwardRef, memo, useCallback } from 'react';
-import MaskedTextInputDecoratorView from './MaskedTextInputNative';
-import type { MaskedTextInputDecoratorViewNativeProps } from './types';
+import MaskedTextInput from './views/MaskedTextInput';
 
-type MaskedTextInputProps = Omit<TextInputProps, 'onChangeText'> &
-  MaskedTextInputDecoratorViewNativeProps;
+import type { MaskedTextInputProps } from './types';
+import { AFFINITY_CALCULATION_STRATEGY } from './enums';
 
-const styles = StyleSheet.create({
-  displayNone: {
-    display: 'none',
-  },
-  farAway: {
-    position: 'absolute',
-    top: 1e8,
-    left: 1e8,
-  },
-});
+export type { MaskedTextInputProps };
 
-const MaskedTextInput = memo<MaskedTextInputProps>(
-  forwardRef<TextInput, MaskedTextInputProps>(
-    (
-      {
-        affinityCalculationStrategy,
-        affinityFormat,
-        allowSuggestions,
-        autocomplete,
-        autocompleteOnFocus,
-        autoSkip,
-        customNotations,
-        customTransformation,
-        defaultValue,
-        isRTL,
-        mask,
-        autoCapitalize = 'words',
-        value,
-        onChangeText,
-        onTailPlaceholderChange,
-        ...rest
-      },
-      ref
-    ) => {
-      const IS_FABRIC = 'nativeFabricUIManager' in global;
+export { AFFINITY_CALCULATION_STRATEGY };
 
-      const onAdvancedMaskTextChangeCallback = useCallback(
-        ({ nativeEvent: { extracted, formatted, tailPlaceholder } }) => {
-          onChangeText?.(formatted, extracted);
-          onTailPlaceholderChange?.(tailPlaceholder);
-        },
-        [onChangeText, onTailPlaceholderChange]
-      );
-
-      return (
-        <>
-          <TextInput {...rest} autoCapitalize={autoCapitalize} ref={ref} />
-          <MaskedTextInputDecoratorView
-            affinityCalculationStrategy={affinityCalculationStrategy}
-            affinityFormat={affinityFormat}
-            allowSuggestions={allowSuggestions}
-            autocomplete={autocomplete}
-            autocompleteOnFocus={autocompleteOnFocus}
-            autoSkip={autoSkip}
-            customNotations={customNotations}
-            customTransformation={customTransformation}
-            defaultValue={defaultValue}
-            isRTL={isRTL}
-            onAdvancedMaskTextChange={onAdvancedMaskTextChangeCallback}
-            primaryMaskFormat={mask}
-            style={IS_FABRIC ? styles.farAway : styles.displayNone}
-            value={value}
-          />
-        </>
-      );
-    }
-  )
-);
-
-export default MaskedTextInput;
+export { MaskedTextInput };

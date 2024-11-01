@@ -8,7 +8,7 @@ export const AFFINITY_CALCULATION_STRATEGY = {
 };
 
 const mock = {
-  default: TextInput,
+  MaskedTextInput: TextInput,
   AFFINITY_CALCULATION_STRATEGY,
 };
 

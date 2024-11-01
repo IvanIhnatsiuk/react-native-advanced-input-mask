@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Button, StyleSheet, Text, View } from 'react-native';
-import MaskedTextInput from 'react-native-advanced-input-mask';
+import { MaskedTextInput } from 'react-native-advanced-input-mask';
 
 const alphaNumericChars =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
