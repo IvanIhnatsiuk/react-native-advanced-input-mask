@@ -20,10 +20,19 @@ export default function App() {
     formatted: '',
   });
 
+  const [focused, setFocused] = React.useState(false);
+
   const onChangeText = React.useCallback((formatted, extracted) => {
     console.log('extracted:', extracted, 'formatted:', formatted);
     setTextState({ extracted, formatted });
   }, []);
+
+  const onFocus = React.useCallback((e) => {
+    console.log(e.nativeEvent);
+    setFocused(true);
+  }, []);
+
+  const onBlur = React.useCallback(() => setFocused(false), []);
 
   const clearText = React.useCallback(() => {
     setTextState({ extracted: '', formatted: '' });
@@ -33,9 +42,12 @@ export default function App() {
     <View style={styles.container}>
       <Text>extracted value {textState.extracted}</Text>
       <Text>formatted value {textState.formatted}</Text>
+      <Text>focused {focused ? 'Yes' : 'No'}</Text>
       <MaskedTextInput
         defaultValue=""
         value={textState.formatted}
+        onFocus={onFocus}
+        onBlur={onBlur}
         style={styles.maskedTextInput}
         onChangeText={onChangeText}
         onTailPlaceholderChange={console.log}

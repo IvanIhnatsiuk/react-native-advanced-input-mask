@@ -20,6 +20,8 @@ class AdvancedTextInputMaskDecoratorView: UIView {
 
   @objc weak var delegate: AdvancedTextInputMaskDecoratorViewDelegate?
 
+  @objc var textFieldDelegate: UITextFieldDelegate?
+
   @objc var onAdvancedMaskTextChange: RCTDirectEventBlock?
 
   @objc var onAdvancedMaskTextChangedCallback: (
@@ -217,9 +219,13 @@ class AdvancedTextInputMaskDecoratorView: UIView {
       },
       allowSuggestions: allowSuggestions
     )
-    let currentFieldDelegate = textView.delegate
-    maskInputListener?.textFieldDelegate = currentFieldDelegate
+
+    textFieldDelegate = AdvancedInputMaskDelegateWrapper(textFieldDelegate: textView.delegate)
+    maskInputListener?.textFieldDelegate = textFieldDelegate
     textView.delegate = maskInputListener
+
     updateTextWithoutNotification(text: defaultValue as String)
   }
 }
+
+class RCTMaskedTextFieldDelegateAdapter: RCTBackedTextViewDelegateAdapter {}
