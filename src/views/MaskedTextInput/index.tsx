@@ -31,6 +31,7 @@ const MaskedTextInput = memo<MaskedTextInputProps>(
         mask,
         autoCapitalize = 'words',
         value,
+        renderTailPlaceholder,
         onChangeText,
         onTailPlaceholderChange,
         ...rest
@@ -61,6 +62,7 @@ const MaskedTextInput = memo<MaskedTextInputProps>(
             customTransformation={customTransformation}
             defaultValue={defaultValue}
             isRTL={isRTL}
+            renderTailPlaceholder={renderTailPlaceholder}
             onAdvancedMaskTextChange={onAdvancedMaskTextChangeCallback}
             primaryMaskFormat={mask}
             style={IS_FABRIC ? styles.farAway : styles.displayNone}

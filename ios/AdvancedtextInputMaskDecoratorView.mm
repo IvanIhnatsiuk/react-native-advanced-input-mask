@@ -112,6 +112,10 @@ using namespace facebook::react;
   if (newViewProps.affinityCalculationStrategy != oldViewProps.affinityCalculationStrategy) {
     [_view setAffinityCalculationStrategy:newViewProps.affinityCalculationStrategy];
   }
+    
+    if(newViewProps.renderTailPlaceholder != oldViewProps.renderTailPlaceholder){
+        [_view setRenderTailPlaceholder: newViewProps.renderTailPlaceholder];
+    }
 
   [super updateProps:props oldProps:oldProps];
 }

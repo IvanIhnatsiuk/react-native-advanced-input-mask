@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "react": "18.3.1",
-    "react-native": "0.76.1"
+    "react-native": "0.76.1",
+    "react-native-mask-input": "^1.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

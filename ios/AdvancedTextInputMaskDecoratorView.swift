@@ -14,9 +14,11 @@ import UIKit
 
 @objc(AdvancedTextInputViewDecoratorView)
 class AdvancedTextInputMaskDecoratorView: UIView {
-  @objc var textView: UITextField?
+  @objc var textField: UITextField?
   @objc var maskInputListener: MaskedTextInputListener?
   @objc var lastDispatchedEvent: [String: String] = [:]
+    
+  private var tailPlaceholderLabelManager: TailPlaceholderLabelManager? = nil
 
   @objc weak var delegate: AdvancedTextInputMaskDecoratorViewDelegate?
 
@@ -49,11 +51,36 @@ class AdvancedTextInputMaskDecoratorView: UIView {
       self.delegate?.onAdvancedMaskTextChange(eventData: eventData as NSDictionary)
     }
   }
+    
+    @objc var renderTailPlaceholder: Bool = false {
+        didSet {
+            guard let textField = textField else { return }
+            if(renderTailPlaceholder) {
+                if(tailPlaceholderLabelManager == nil) {
+                    tailPlaceholderLabelManager = TailPlaceholderLabelManager(textField: textField)
+                    tailPlaceholderLabelManager?.mountTailPlaceholderLabel()
+                } else {
+                    tailPlaceholderLabelManager?.mountTailPlaceholderLabel()
+                }
+                
+                guard let primaryMask = maskInputListener?.primaryMask else { return }
+                let caretString = CaretString(
+                  string: textField.allText,
+                  caretPosition: textField.allText.endIndex,
+                  caretGravity: CaretString.CaretGravity.forward(autocomplete: autocomplete)
+                )
+                let result = primaryMask.apply(toText: caretString)
+                tailPlaceholderLabelManager?.updateTailPlaceholder(inputText: textField.allText, tailPlaceholder: result.tailPlaceholder)
+            } else {
+                self.tailPlaceholderLabelManager?.unmountTailPlaceholderLabel()
+            }
+        }
+    }
 
   @objc var primaryMaskFormat: NSString = "" {
     didSet {
       maskInputListener?.primaryMaskFormat = primaryMaskFormat as String
-      maybeUpdateText(text: textView?.allText ?? "")
+      maybeUpdateText(text: textField?.allText ?? "")
     }
   }
 
@@ -85,7 +112,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     didSet {
       maskInputListener?.rightToLeft = isRTL
 
-      maybeUpdateText(text: textView?.allText ?? "")
+      maybeUpdateText(text: textField?.allText ?? "")
     }
   }
 
@@ -123,7 +150,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
   }
 
   @objc private func updateTextWithoutNotification(text: String) {
-    if text == textView?.allText {
+    if text == textField?.allText {
       return
     }
 
@@ -134,17 +161,18 @@ class AdvancedTextInputMaskDecoratorView: UIView {
       caretGravity: CaretString.CaretGravity.forward(autocomplete: autocomplete)
     )
     let result = primaryMask.apply(toText: caretString)
+      
+      if(tailPlaceholderLabelManager != nil) {
+          tailPlaceholderLabelManager?.updateTailPlaceholder(inputText: result.formattedText.string, tailPlaceholder:result.tailPlaceholder)
+          tailPlaceholderLabelManager?.mountTailPlaceholderLabel()
+      }
 
-    textView?.allText = result.formattedText.string
+    textField?.allText = result.formattedText.string
   }
 
   @objc private func maybeUpdateText(text: String) {
     guard let primaryMask = maskInputListener?.primaryMask else { return }
-    guard let textView = textView else { return }
-
-    if text == textView.allText {
-      return
-    }
+    guard let textView = textField else { return }
 
     let caretString = CaretString(
       string: text,
@@ -161,50 +189,12 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     maskInputListener?.notifyOnMaskedTextChangedListeners(forTextInput: textView, result: result)
   }
 
-  private func findFirstTextField(in view: UIView) -> UITextField? {
-    // Loop through each subview
-    for subview in view.subviews {
-      // If the subview is a UITextField, return it
-      if let textField = subview as? UITextField {
-        return textField
-      }
-    }
-    // If no UITextField is found, return nil
-    return nil
-  }
-
-  private func findTextFieldFabric() {
-    if let parent = superview?.superview {
-      for elementIndex in 1 ..< parent.subviews.count where parent.subviews[elementIndex] == superview {
-        textView = findFirstTextField(in: parent.subviews[elementIndex - 1])
-        break
-      }
-    }
-  }
-
-  private func findTextFieldPaper() {
-    if let parent = superview {
-      for elementIndex in 1 ..< parent.subviews.count where parent.subviews[elementIndex] == self {
-        textView = findFirstTextField(in: parent.subviews[elementIndex - 1])
-        break
-      }
-    }
-  }
-
-  private func finTextField() {
-    #if ADVANCE_INPUT_MASK_NEW_ARCH_ENABLED
-      findTextFieldFabric()
-    #else
-      findTextFieldPaper()
-    #endif
-  }
-
   @objc override func didMoveToWindow() {
     super.didMoveToWindow()
+      
+    findTextField()
 
-    finTextField()
-
-    guard let textView = textView else { return }
+    guard let textField = textField else { return }
     maskInputListener = MaskedTextInputListener(
       primaryFormat: primaryMaskFormat as String,
       autocomplete: autocomplete,
@@ -216,16 +206,60 @@ class AdvancedTextInputMaskDecoratorView: UIView {
       customNotations: (customNotations as? [[String: Any]])?.compactMap { $0.toNotation() } ?? [],
       onMaskedTextChangedCallback: { input, value, _, tailPlaceholder in
         self.onAdvancedMaskTextChangedCallback(value, input.allText, tailPlaceholder)
+        self.tailPlaceholderLabelManager?.updateTailPlaceholder(inputText: input.allText, tailPlaceholder: tailPlaceholder)
       },
       allowSuggestions: allowSuggestions
     )
-
-    textFieldDelegate = AdvancedInputMaskDelegateWrapper(textFieldDelegate: textView.delegate)
+      
+    textFieldDelegate = AdvancedInputMaskDelegateWrapper(textFieldDelegate: textField.delegate)
     maskInputListener?.textFieldDelegate = textFieldDelegate
-    textView.delegate = maskInputListener
+    textField.delegate = maskInputListener
 
-    updateTextWithoutNotification(text: defaultValue as String)
-  }
+      if(tailPlaceholderLabelManager == nil && renderTailPlaceholder) {
+          tailPlaceholderLabelManager = TailPlaceholderLabelManager(textField: textField)
+      }
+      updateTextWithoutNotification(text: defaultValue as String)
+    }
 }
 
-class RCTMaskedTextFieldDelegateAdapter: RCTBackedTextViewDelegateAdapter {}
+extension AdvancedTextInputMaskDecoratorView {
+    private func findFirstTextField(in view: UIView) -> UITextField? {
+      // Loop through each subview
+      for subview in view.subviews {
+        // If the subview is a UITextField, return it
+        if let textField = subview as? UITextField {
+          return textField
+        }
+      }
+      // If no UITextField is found, return nil
+      return nil
+    }
+
+    private func findTextFieldFabric() {
+      if let parent = superview?.superview {
+        for elementIndex in 1 ..< parent.subviews.count where parent.subviews[elementIndex] == superview {
+          let textView = parent.subviews[elementIndex - 1]
+          textField = findFirstTextField(in: textView)
+          break
+        }
+      }
+    }
+
+    private func findTextFieldPaper() {
+      if let parent = superview {
+        for elementIndex in 1 ..< parent.subviews.count where parent.subviews[elementIndex] == self {
+          let textView = parent.subviews[elementIndex - 1]
+          textField = findFirstTextField(in: textView)
+          break
+        }
+      }
+    }
+
+    private func findTextField() {
+      #if ADVANCE_INPUT_MASK_NEW_ARCH_ENABLED
+        findTextFieldFabric()
+      #else
+        findTextFieldPaper()
+      #endif
+    }
+}
