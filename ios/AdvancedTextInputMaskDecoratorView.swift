@@ -14,95 +14,71 @@ import UIKit
 
 @objc(AdvancedTextInputViewDecoratorView)
 class AdvancedTextInputMaskDecoratorView: UIView {
-  @objc var textView: UITextField?
-  @objc var maskInputListener: MaskedTextInputListener?
-  @objc var lastDispatchedEvent: [String: String] = [:]
-
-  @objc weak var delegate: AdvancedTextInputMaskDecoratorViewDelegate?
-
-  @objc var textFieldDelegate: UITextFieldDelegate?
+  // MARK: - Public Properties
 
   @objc var onAdvancedMaskTextChange: RCTDirectEventBlock?
+  @objc weak var delegate: AdvancedTextInputMaskDecoratorViewDelegate?
 
-  @objc var onAdvancedMaskTextChangedCallback: (
-    _ extracted: String,
-    _ formatted: String,
-    _ tailPlaceholder: String
-  ) -> Void {
-    { [weak self] extracted, formatted, tailPlaceholder in
-      guard let self = self else { return }
+  // MARK: - Private Properties
 
-      let eventData: [String: String] = [
-        "extracted": extracted,
-        "formatted": formatted,
-        "tailPlaceholder": tailPlaceholder,
-      ]
+  private weak var textField: UITextField?
+  private var maskInputListener: MaskedTextInputListener?
+  private var lastDispatchedEvent: [String: String] = [:]
+  private var textFieldDelegate: UITextFieldDelegate?
 
-      if NSDictionary(dictionary: eventData).isEqual(to: lastDispatchedEvent) {
-        return
-      }
-
-      lastDispatchedEvent = eventData
-      if self.onAdvancedMaskTextChange != nil {
-        self.onAdvancedMaskTextChange!(eventData)
-      }
-      self.delegate?.onAdvancedMaskTextChange(eventData: eventData as NSDictionary)
-    }
-  }
-
-  @objc var primaryMaskFormat: NSString = "" {
+  @objc private var primaryMaskFormat: NSString = "" {
     didSet {
       maskInputListener?.primaryMaskFormat = primaryMaskFormat as String
-      maybeUpdateText(text: textView?.allText ?? "")
+      maybeUpdateText(text: textField?.allText ?? "")
     }
   }
 
-  @objc var autocomplete: Bool = true {
+  @objc private var autocomplete: Bool = true {
     didSet {
       maskInputListener?.autocomplete = autocomplete
     }
   }
 
-  @objc var autocompleteOnFocus: Bool = false {
+  @objc private var autocompleteOnFocus: Bool = false {
     didSet {
       maskInputListener?.autocompleteOnFocus = autocompleteOnFocus
     }
   }
 
-  @objc var allowSuggestions: Bool = true {
+  @objc private var allowSuggestions: Bool = true {
     didSet {
       maskInputListener?.allowSuggestions = allowSuggestions
     }
   }
 
-  @objc var autoSkip: Bool = false {
+  @objc private var autoSkip: Bool = false {
     didSet {
       maskInputListener?.autoskip = autoSkip
     }
   }
 
-  @objc var isRTL: Bool = false {
+  @objc private var isRTL: Bool = false {
     didSet {
       maskInputListener?.rightToLeft = isRTL
 
-      maybeUpdateText(text: textView?.allText ?? "")
+      maybeUpdateText(text: textField?.allText ?? "")
     }
   }
 
-  @objc var affinityFormat: [String] = [] {
+  @objc private var affinityFormat: [String] = [] {
     didSet {
       maskInputListener?.affineFormats = affinityFormat
     }
   }
 
-  @objc var affinityCalculationStrategy: NSNumber? = 0 {
+  @objc private var affinityCalculationStrategy: NSNumber? = 0 {
     didSet {
       maskInputListener?.affinityCalculationStrategy =
         AffinityCalculationStrategy.forNumber(number: affinityCalculationStrategy)
     }
   }
 
-  @objc var customNotations: NSArray? {
+  @objc private var customNotations: NSArray? {
     didSet {
       let customNotations = (customNotations as? [[String: Any]])?.compactMap { $0.toNotation() } ?? []
 
@@ -110,20 +86,46 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     }
   }
 
-  @objc var defaultValue: NSString = "" {
+  @objc private var defaultValue: NSString = "" {
     didSet {
       updateTextWithoutNotification(text: defaultValue as String)
     }
   }
 
-  @objc var value: NSString = "" {
+  @objc private var value: NSString = "" {
     didSet {
       updateTextWithoutNotification(text: value as String)
     }
   }
 
+  // MARK: - Event Handlers
+
+  private func onAdvancedMaskTextChangedCallback(
+    extracted: String,
+    formatted: String,
+    tailPlaceholder: String
+  ) {
+    let eventData: [String: String] = [
+      "extracted": extracted,
+      "formatted": formatted,
+      "tailPlaceholder": tailPlaceholder,
+    ]
+
+    if NSDictionary(dictionary: eventData).isEqual(to: lastDispatchedEvent) {
+      return
+    }
+
+    lastDispatchedEvent = eventData
+    if onAdvancedMaskTextChange != nil {
+      onAdvancedMaskTextChange!(eventData)
+    }
+    delegate?.onAdvancedMaskTextChange(eventData: eventData as NSDictionary)
+  }
+
+  // MARK: - Utility Methods
+
   @objc private func updateTextWithoutNotification(text: String) {
-    if text == textView?.allText {
+    if text == textField?.allText {
       return
     }
 
@@ -135,14 +137,14 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     )
     let result = primaryMask.apply(toText: caretString)
 
-    textView?.allText = result.formattedText.string
+    textField?.allText = result.formattedText.string
   }
 
   @objc private func maybeUpdateText(text: String) {
     guard let primaryMask = maskInputListener?.primaryMask else { return }
-    guard let textView = textView else { return }
+    guard let textField = textField else { return }
 
-    if text == textView.allText {
+    if text == textField.allText {
       return
     }
 
@@ -157,10 +159,58 @@ class AdvancedTextInputMaskDecoratorView: UIView {
       return
     }
 
-    textView.allText = result.formattedText.string
-    maskInputListener?.notifyOnMaskedTextChangedListeners(forTextInput: textView, result: result)
+    textField.allText = result.formattedText.string
+    maskInputListener?.notifyOnMaskedTextChangedListeners(forTextInput: textField, result: result)
   }
 
+  // MARK: - Configuration Methods
+
+  private func configureTextField() {
+    findTextField()
+    guard let textField = textField else { return }
+
+    textFieldDelegate = AdvancedInputMaskDelegateWrapper(textFieldDelegate: textField.delegate)
+    textField.delegate = textFieldDelegate
+  }
+
+  private func configureMaskInputListener() {
+    guard let textField = textField else { return }
+
+    maskInputListener = MaskedTextInputListener(
+      primaryFormat: primaryMaskFormat as String,
+      autocomplete: autocomplete,
+      autocompleteOnFocus: autocompleteOnFocus,
+      autoskip: autoSkip,
+      rightToLeft: isRTL,
+      affineFormats: affinityFormat,
+      affinityCalculationStrategy: AffinityCalculationStrategy.forNumber(number: affinityCalculationStrategy),
+      customNotations: (customNotations as? [[String: Any]])?.compactMap { $0.toNotation() } ?? [],
+      onMaskedTextChangedCallback: { [weak self] input, value, _, tailPlaceholder in
+        self?.onAdvancedMaskTextChangedCallback(
+          extracted: value,
+          formatted: input.allText,
+          tailPlaceholder: tailPlaceholder
+        )
+      },
+      allowSuggestions: allowSuggestions
+    )
+
+    maskInputListener?.textFieldDelegate = textFieldDelegate
+    textField.delegate = maskInputListener
+  }
+
+  // MARK: - View Lifecycle
+
+  override func didMoveToWindow() {
+    super.didMoveToWindow()
+
+    configureTextField()
+    configureMaskInputListener()
+    updateTextWithoutNotification(text: defaultValue as String)
+  }
+}
+
+extension AdvancedTextInputMaskDecoratorView {
   private func findFirstTextField(in view: UIView) -> UITextField? {
     // Loop through each subview
     for subview in view.subviews {
@@ -173,59 +223,21 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     return nil
   }
 
-  private func findTextFieldFabric() {
-    if let parent = superview?.superview {
-      for elementIndex in 1 ..< parent.subviews.count where parent.subviews[elementIndex] == superview {
-        textView = findFirstTextField(in: parent.subviews[elementIndex - 1])
-        break
-      }
-    }
-  }
-
-  private func findTextFieldPaper() {
-    if let parent = superview {
-      for elementIndex in 1 ..< parent.subviews.count where parent.subviews[elementIndex] == self {
-        textView = findFirstTextField(in: parent.subviews[elementIndex - 1])
-        break
-      }
-    }
-  }
-
-  private func finTextField() {
+  private func findTextField() {
     #if ADVANCE_INPUT_MASK_NEW_ARCH_ENABLED
-      findTextFieldFabric()
+      if let parent = superview?.superview {
+        for elementIndex in 1 ..< parent.subviews.count where parent.subviews[elementIndex] == superview {
+          textField = findFirstTextField(in: parent.subviews[elementIndex - 1])
+          break
+        }
+      }
     #else
-      findTextFieldPaper()
+      if let parent = superview {
+        for elementIndex in 1 ..< parent.subviews.count where parent.subviews[elementIndex] == self {
+          textField = findFirstTextField(in: parent.subviews[elementIndex - 1])
+          break
+        }
+      }
     #endif
   }
-
-  @objc override func didMoveToWindow() {
-    super.didMoveToWindow()
-
-    finTextField()
-
-    guard let textView = textView else { return }
-    maskInputListener = MaskedTextInputListener(
-      primaryFormat: primaryMaskFormat as String,
-      autocomplete: autocomplete,
-      autocompleteOnFocus: autocompleteOnFocus,
-      autoskip: autoSkip,
-      rightToLeft: isRTL,
-      affineFormats: affinityFormat,
-      affinityCalculationStrategy: AffinityCalculationStrategy.forNumber(number: affinityCalculationStrategy),
-      customNotations: (customNotations as? [[String: Any]])?.compactMap { $0.toNotation() } ?? [],
-      onMaskedTextChangedCallback: { input, value, _, tailPlaceholder in
-        self.onAdvancedMaskTextChangedCallback(value, input.allText, tailPlaceholder)
-      },
-      allowSuggestions: allowSuggestions
-    )
-
-    textFieldDelegate = AdvancedInputMaskDelegateWrapper(textFieldDelegate: textView.delegate)
-    maskInputListener?.textFieldDelegate = textFieldDelegate
-    textView.delegate = maskInputListener
-
-    updateTextWithoutNotification(text: defaultValue as String)
-  }
 }
-
-class RCTMaskedTextFieldDelegateAdapter: RCTBackedTextViewDelegateAdapter {}
