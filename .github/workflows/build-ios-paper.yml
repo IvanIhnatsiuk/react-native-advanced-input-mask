@@ -1,4 +1,4 @@
-name: 🍏 Build iOS
+name: 🍏 Build iOS paper
 
 on:
   push:
