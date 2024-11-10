@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { MaskedTextInput } from 'react-native-advanced-input-mask';
 
 const alphaNumericChars =
@@ -15,6 +15,8 @@ const charAlphaNumerics = [
 ];
 
 export default function App() {
+  const inputRef = React.useRef<TextInput>(null);
+
   const [textState, setTextState] = React.useState({
     extracted: '',
     formatted: '',
@@ -22,10 +24,13 @@ export default function App() {
 
   const [focused, setFocused] = React.useState(false);
 
-  const onChangeText = React.useCallback((formatted, extracted) => {
-    console.log('extracted:', extracted, 'formatted:', formatted);
-    setTextState({ extracted, formatted });
-  }, []);
+  const onChangeText = React.useCallback(
+    (formatted: string, extracted: string) => {
+      console.log('extracted:', extracted, 'formatted:', formatted);
+      setTextState({ extracted, formatted });
+    },
+    []
+  );
 
   const onFocus = React.useCallback((e) => {
     console.log(e.nativeEvent);
@@ -44,6 +49,7 @@ export default function App() {
       <Text>formatted value {textState.formatted}</Text>
       <Text>focused {focused ? 'Yes' : 'No'}</Text>
       <MaskedTextInput
+        ref={inputRef}
         defaultValue=""
         value={textState.formatted}
         onFocus={onFocus}

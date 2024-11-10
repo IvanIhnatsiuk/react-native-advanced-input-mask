@@ -14,62 +14,59 @@ const styles = StyleSheet.create({
   },
 });
 
-const MaskedTextInput = memo<MaskedTextInputProps>(
-  forwardRef<TextInput, MaskedTextInputProps>(
-    (
-      {
-        affinityCalculationStrategy,
-        affinityFormat,
-        allowSuggestions,
-        autocomplete,
-        autocompleteOnFocus,
-        autoSkip,
-        customNotations,
-        customTransformation,
-        defaultValue,
-        isRTL,
-        mask,
-        autoCapitalize = 'words',
-        value,
-        onChangeText,
-        onTailPlaceholderChange,
-        ...rest
+const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
+  (
+    {
+      affinityCalculationStrategy,
+      affinityFormat,
+      allowSuggestions,
+      autocomplete,
+      autocompleteOnFocus,
+      autoSkip,
+      customNotations,
+      customTransformation,
+      defaultValue,
+      isRTL,
+      mask,
+      autoCapitalize = 'words',
+      value,
+      onChangeText,
+      onTailPlaceholderChange,
+      ...rest
+    },
+    ref
+  ) => {
+    const IS_FABRIC = 'nativeFabricUIManager' in global;
+
+    const onAdvancedMaskTextChangeCallback = useCallback(
+      ({ nativeEvent: { extracted, formatted, tailPlaceholder } }) => {
+        onChangeText?.(formatted, extracted);
+        onTailPlaceholderChange?.(tailPlaceholder);
       },
-      ref
-    ) => {
-      const IS_FABRIC = 'nativeFabricUIManager' in global;
+      [onChangeText, onTailPlaceholderChange]
+    );
 
-      const onAdvancedMaskTextChangeCallback = useCallback(
-        ({ nativeEvent: { extracted, formatted, tailPlaceholder } }) => {
-          onChangeText?.(formatted, extracted);
-          onTailPlaceholderChange?.(tailPlaceholder);
-        },
-        [onChangeText, onTailPlaceholderChange]
-      );
-
-      return (
-        <>
-          <TextInput {...rest} autoCapitalize={autoCapitalize} ref={ref} />
-          <MaskedTextInputDecoratorView
-            affinityCalculationStrategy={affinityCalculationStrategy}
-            affinityFormat={affinityFormat}
-            allowSuggestions={allowSuggestions}
-            autocomplete={autocomplete}
-            autocompleteOnFocus={autocompleteOnFocus}
-            autoSkip={autoSkip}
-            customNotations={customNotations}
-            customTransformation={customTransformation}
-            defaultValue={defaultValue}
-            isRTL={isRTL}
-            onAdvancedMaskTextChange={onAdvancedMaskTextChangeCallback}
-            primaryMaskFormat={mask}
-            style={IS_FABRIC ? styles.farAway : styles.displayNone}
-            value={value}
-          />
-        </>
-      );
-    }
-  )
+    return (
+      <>
+        <TextInput {...rest} autoCapitalize={autoCapitalize} ref={ref} />
+        <MaskedTextInputDecoratorView
+          affinityCalculationStrategy={affinityCalculationStrategy}
+          affinityFormat={affinityFormat}
+          allowSuggestions={allowSuggestions}
+          autocomplete={autocomplete}
+          autocompleteOnFocus={autocompleteOnFocus}
+          autoSkip={autoSkip}
+          customNotations={customNotations}
+          customTransformation={customTransformation}
+          defaultValue={defaultValue}
+          isRTL={isRTL}
+          onAdvancedMaskTextChange={onAdvancedMaskTextChangeCallback}
+          primaryMaskFormat={mask}
+          style={IS_FABRIC ? styles.farAway : styles.displayNone}
+          value={value}
+        />
+      </>
+    );
+  }
 );
-
-export default MaskedTextInput;
+export default memo(MaskedTextInput);
