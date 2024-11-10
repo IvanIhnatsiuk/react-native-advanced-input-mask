@@ -43,6 +43,10 @@ export default function App() {
     setTextState({ extracted: '', formatted: '' });
   }, []);
 
+  const onFocusButtonPress = React.useCallback(() => {
+    inputRef.current?.focus();
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text>extracted value {textState.extracted}</Text>
@@ -65,6 +69,7 @@ export default function App() {
         customNotations={charAlphaNumerics}
       />
       <Button title="Clear text" onPress={clearText} />
+      <Button title="Focus text input" onPress={onFocusButtonPress} />
     </View>
   );
 }
