@@ -5,7 +5,7 @@ import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.uimanager.SimpleViewManager
 
-abstract class AdvancedTextInputMaskDecoratorViewManagerSpec<T : View?> : SimpleViewManager<T>() {
+abstract class AdvancedTextInputMaskDecoratorViewManagerSpec<T : View> : SimpleViewManager<T>() {
   abstract fun setPrimaryMaskFormat(
     view: T,
     mask: String?,
