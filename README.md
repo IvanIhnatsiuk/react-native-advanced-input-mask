@@ -1,7 +1,3 @@
-To create detailed documentation for the `react-native-advanced-input-mask` package by following the structure and details provided in the `input-mask-android` library by RedMadRobot, we can develop an organized, comprehensive document that will help users understand the purpose, setup, and use of `react-native-advanced-input-mask` for masking input fields in React Native apps. Below is a suggested structure for the documentation:
-
----
-
 # React Native Advanced Input Mask
 
 ## Overview
@@ -44,14 +40,13 @@ const ExampleComponent = () => {
   }, []);
 
   return (
-    <View>
-      <MaskedTextInput
-        mask="+1 ([000]) [000]-[0000]"
-        value={phoneNumber}
-        onChangeText={onChangeText}
-        keyboardType="numeric"
-      />
-    </View>
+    <MaskedTextInput
+      autocomplete={false}
+      mask="+1 ([000]) [000]-[0000]"
+      value={phoneNumber}
+      onChangeText={onChangeText}
+      keyboardType="numeric"
+    />
   );
 };
 
@@ -73,13 +68,12 @@ const ExampleComponent = () => {
   }, []);
 
   return (
-    <View>
-      <MaskedTextInput
-        mask="GB[00] [____] [0000] [0000] [0000] [00]"
-        value={IBAN}
-        onChangeText={onChangeText}
-      />
-    </View>
+    <MaskedTextInput
+      autocomplete={false}
+      mask="GB[00] [____] [0000] [0000] [0000] [00]"
+      value={IBAN}
+      onChangeText={onChangeText}
+    />
   );
 };
 
@@ -101,13 +95,12 @@ const ExampleComponent = () => {
   }, []);
 
   return (
-    <View>
-      <MaskedTextInput
-        mask="[00]{.}[00]{.}[9900]"
-        value={date}
-        onChangeText={onChangeText}
-      />
-    </View>
+    <MaskedTextInput
+      autocomplete={false}
+      mask="[00]{.}[00]{.}[9900]"
+      value={date}
+      onChangeText={onChangeText}
+    />
   );
 };
 
@@ -321,13 +314,11 @@ const ExampleComponent = () => {
   }, []);
 
   return (
-    <View>
-      <MaskedTextInput
-        mask="[$$$$$$$$$$$]"
-        value={text}
-        onChangeText={onChangeText}
-      />
-    </View>
+    <MaskedTextInput
+      mask="[$$$$$$$$$$$]"
+      value={text}
+      onChangeText={onChangeText}
+    />
   );
 };
 
