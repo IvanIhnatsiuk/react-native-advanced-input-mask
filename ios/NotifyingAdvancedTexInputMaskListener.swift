@@ -1,5 +1,5 @@
 //
-//  NotifyingMaskedTextFieldListener.swift
+//  NotifyingAdvancedTexInputMaskListener.swift
 //  react-native-advanced-input-mask
 //
 //  Created by Ivan Ignathuk on 16/10/2024.
@@ -9,7 +9,7 @@ import ForkInputMask
 import Foundation
 import UIKit
 
-class NotifyingMaskedTextFieldListener: MaskedTextInputListener {
+class NotifyingAdvancedTexInputMaskListener: MaskedTextInputListener {
   override func textField(
     _ textField: UITextField,
     shouldChangeCharactersIn range: NSRange,

@@ -22,7 +22,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
   // MARK: - Private Properties
 
   private weak var textField: UITextField?
-  private var maskInputListener: MaskedTextInputListener?
+  private var maskInputListener: NotifyingAdvancedTexInputMaskListener?
   private var lastDispatchedEvent: [String: String] = [:]
   private var textFieldDelegate: UITextFieldDelegate?
 
@@ -176,7 +176,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
   private func configureMaskInputListener() {
     guard let textField = textField else { return }
 
-    maskInputListener = MaskedTextInputListener(
+    maskInputListener = NotifyingAdvancedTexInputMaskListener(
       primaryFormat: primaryMaskFormat as String,
       autocomplete: autocomplete,
       autocompleteOnFocus: autocompleteOnFocus,
