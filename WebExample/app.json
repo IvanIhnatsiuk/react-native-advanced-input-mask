@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "WebExample",
+    "slug": "WebExample",
+    "version": "1.0.0",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "web": {
+      "bundler": "metro",
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
