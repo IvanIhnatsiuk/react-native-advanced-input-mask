@@ -1,4 +1,4 @@
-import type { CaretGravity } from './CartGravity';
+import type { CaretGravity } from './types';
 
 class CaretString {
   string: string;

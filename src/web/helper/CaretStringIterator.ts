@@ -1,5 +1,5 @@
 import CaretString from '../model/CaretString';
-import { CaretGravityType } from '../model/CartGravity';
+import { CaretGravityType } from '../model/types';
 
 class CaretStringIterator {
   protected caretString: CaretString;

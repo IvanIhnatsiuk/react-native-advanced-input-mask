@@ -8,13 +8,7 @@ import type { StateType } from '../model/types';
 import FormatSanitizer from './FormatSanitizer';
 import type { Notation } from '../../types';
 import { FIXED_STATE_TYPES, OPTIONAL_STATE_TYPES } from '../model/constants';
-
-export class FormatError extends Error {
-  constructor() {
-    super('Format error');
-    Object.setPrototypeOf(this, FormatError.prototype);
-  }
-}
+import FormatError from './FormatError';
 
 export default class Compiler {
   private customNotations: Notation[];

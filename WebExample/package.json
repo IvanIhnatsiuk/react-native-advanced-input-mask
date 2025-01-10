@@ -19,6 +19,7 @@
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@babel/plugin-transform-strict-mode": "^7.25.9",
+    "@types/react-native-web": "^0.19.0",
     "babel-plugin-module-resolver": "^5.0.2"
   },
   "private": true,

@@ -1,4 +1,4 @@
-import { FormatError } from './Compiler';
+import FormatError from './FormatError';
 
 export default class FormatSanitizer {
   sanitize(formatString: string): string {
