@@ -21,7 +21,7 @@ type CustomTransformation = {
   transformationString: string;
 };
 
-export type MaskedTextInputProps = Omit<TextInputProps, 'onChangeText'> & {
+export type MaskedTextInputOwnProps = {
   /**
    * The mask format to be applied to the text input.
    * @example "[0000] [0000] [0000] [0000]"
@@ -86,3 +86,6 @@ export type MaskedTextInputProps = Omit<TextInputProps, 'onChangeText'> & {
   allowSuggestions?: boolean;
   autocompleteOnFocus?: boolean;
 };
+
+export type MaskedTextInputProps = Omit<TextInputProps, 'onChangeText'> &
+  MaskedTextInputOwnProps;

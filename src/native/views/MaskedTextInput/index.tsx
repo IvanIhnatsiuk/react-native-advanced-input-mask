@@ -1,7 +1,7 @@
 import { StyleSheet, TextInput } from 'react-native';
 import React, { forwardRef, memo, useCallback } from 'react';
 import MaskedTextInputDecoratorView from '../../MaskedTextInputNative';
-import type { MaskedTextInputProps } from '../../types';
+import type { MaskedTextInputProps } from '../../../types';
 
 const styles = StyleSheet.create({
   displayNone: {

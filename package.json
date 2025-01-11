@@ -68,11 +68,12 @@
   "devDependencies": {
     "@commitlint/config-conventional": "^17.0.2",
     "@evilmartians/lefthook": "^1.5.0",
-    "@react-native/eslint-config": "0.76.1",
+    "@react-native/eslint-config": "0.76.5",
     "@release-it/conventional-changelog": "^5.0.0",
     "@types/jest": "^28.1.2",
     "@types/react": "~17.0.21",
     "@types/react-native": "0.70.0",
+    "@types/react-native-web": "^0.19.0",
     "clang-format": "^1.8.0",
     "commitlint": "^17.0.2",
     "del-cli": "^5.0.0",
@@ -84,8 +85,10 @@
     "pod-install": "^0.1.0",
     "prettier": "^2.0.5",
     "react": "18.3.1",
-    "react-native": "0.76.1",
+    "react-dom": "18.3.1",
+    "react-native": "0.76.5",
     "react-native-builder-bob": "^0.20.0",
+    "react-native-web": "^0.19.13",
     "release-it": "^15.0.0",
     "typescript": "^5.0.2"
   },
@@ -185,7 +188,7 @@
   "codegenConfig": {
     "name": "maskedtextinput",
     "type": "all",
-    "jsSrcsDir": "./src/specs",
+    "jsSrcsDir": "./src/native/specs",
     "android": {
       "javaPackageName": "com.maskedtextinput"
     }
