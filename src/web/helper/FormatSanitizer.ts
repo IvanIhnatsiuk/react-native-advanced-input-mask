@@ -1,15 +1,15 @@
 import FormatError from './FormatError';
 
 export default class FormatSanitizer {
-  sanitize(formatString: string): string {
-    this.checkOpenBraces(formatString);
+  public static sanitize(formatString: string): string {
+    FormatSanitizer.checkOpenBraces(formatString);
     const blocks = this.divideBlocksWithMixedCharacters(
       this.getFormatBlocks(formatString)
     );
-    return this.sortFormatBlocks(blocks).join('');
+    return FormatSanitizer.sortFormatBlocks(blocks).join('');
   }
 
-  private getFormatBlocks(formatString: string): string[] {
+  private static getFormatBlocks(formatString: string): string[] {
     const blocks: string[] = [];
     let currentBlock = '';
     let escape = false;
@@ -47,7 +47,7 @@ export default class FormatSanitizer {
     return blocks;
   }
 
-  private divideBlocksWithMixedCharacters(blocks: string[]): string[] {
+  private static divideBlocksWithMixedCharacters(blocks: string[]): string[] {
     const resultingBlocks: string[] = [];
 
     for (const block of blocks) {
@@ -110,7 +110,7 @@ export default class FormatSanitizer {
     return resultingBlocks;
   }
 
-  private sortFormatBlocks(blocks: string[]): string[] {
+  private static sortFormatBlocks(blocks: string[]): string[] {
     const sortedBlocks: string[] = [];
 
     for (const block of blocks) {
@@ -150,7 +150,7 @@ export default class FormatSanitizer {
     return sortedBlocks;
   }
 
-  private checkOpenBraces(str: string): void {
+  private static checkOpenBraces(str: string): void {
     let escape = false;
     let squareBraceOpen = false;
     let curlyBraceOpen = false;

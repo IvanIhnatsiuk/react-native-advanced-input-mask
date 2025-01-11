@@ -1,5 +1,5 @@
 import CaretString from '../model/CaretString';
-import type { MaskResult, Next } from '../model/types';
+import { StateName, type MaskResult, type Next } from '../model/types';
 import type { Notation } from '../../types';
 import State from '../model/state/State';
 import Compiler from './Compiler';
@@ -11,13 +11,11 @@ import ValueState from '../model/state/ValueState';
 import CaretStringIterator from './CaretStringIterator';
 
 export class Mask {
-  protected customNotations: Notation[];
   private static cache: Map<string, Mask> = new Map();
   private initialState: State;
 
   constructor(format: string, customNotations: Notation[] = []) {
-    this.customNotations = customNotations;
-    this.initialState = new Compiler(this.customNotations).compile(format);
+    this.initialState = new Compiler(customNotations).compile(format);
   }
 
   static getOrCreate(format: string, customNotations: Notation[]): Mask {
@@ -154,9 +152,8 @@ export class Mask {
     return new CaretStringIterator(text);
   }
 
-  placeholder(): string {
-    return this.appendPlaceholder(this.initialState, '');
-  }
+  placeholder: () => string = () =>
+    this.appendPlaceholder(this.initialState, '');
 
   acceptableTextLength(): number {
     let state: State | null = this.initialState;
@@ -223,47 +220,26 @@ export class Mask {
     if (!state) {
       return placeholder;
     }
+
     if (state instanceof EOLState) {
       return placeholder;
     }
-    if (state instanceof FixedState) {
+
+    if (state instanceof FreeState || state instanceof FixedState) {
       return this.appendPlaceholder(
         state.child,
         placeholder + state.ownCharacter
       );
     }
-    if (state instanceof FreeState) {
-      return this.appendPlaceholder(
-        state.child,
-        placeholder + state.ownCharacter
-      );
-    }
-    if (state instanceof OptionalValueState) {
+
+    if (state instanceof ValueState || state instanceof OptionalValueState) {
       if ('name' in state.stateType) {
         switch (state.stateType.name) {
-          case 'alphaNumeric':
+          case StateName.alphaNumeric:
             return this.appendPlaceholder(state.child, placeholder + '-');
-          case 'literal':
+          case StateName.literal:
             return this.appendPlaceholder(state.child, placeholder + 'a');
-          case 'numeric':
-            return this.appendPlaceholder(state.child, placeholder + '0');
-        }
-      }
-
-      return this.appendPlaceholder(
-        state.child,
-        placeholder + state.stateType.character
-      );
-    }
-
-    if (state instanceof ValueState) {
-      if ('name' in state.stateType) {
-        switch (state.stateType.name) {
-          case 'alphaNumeric':
-            return this.appendPlaceholder(state.child, placeholder + '-');
-          case 'literal':
-            return this.appendPlaceholder(state.child, placeholder + 'a');
-          case 'numeric':
+          case StateName.numeric:
             return this.appendPlaceholder(state.child, placeholder + '0');
           case 'ellipsis':
             return placeholder;

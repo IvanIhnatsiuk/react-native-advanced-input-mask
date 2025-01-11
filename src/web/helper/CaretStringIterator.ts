@@ -11,27 +11,25 @@ class CaretStringIterator {
   }
 
   insertionAffectsCaret(): boolean {
-    const gravity = this.caretString.caretGravity;
-    if (gravity.type === CaretGravityType.Backward) {
-      return this.currentIndex < this.caretString.caretPosition;
-    }
-    return (
-      this.currentIndex <= this.caretString.caretPosition ||
-      (this.currentIndex === 0 && this.caretString.caretPosition === 0)
-    );
+    const { caretGravity, caretPosition } = this.caretString;
+
+    const isBackwardGravity = caretGravity.type === CaretGravityType.Backward;
+
+    return isBackwardGravity
+      ? this.currentIndex <= caretPosition
+      : this.currentIndex < caretPosition;
   }
 
-  deletionAffectsCaret(): boolean {
-    return this.currentIndex < this.caretString.caretPosition;
-  }
+  deletionAffectsCaret: () => boolean = () =>
+    this.currentIndex < this.caretString.caretPosition;
 
   next(): string | null {
-    const str = this.caretString.string;
-    if (this.currentIndex >= str.length) {
+    const { string } = this.caretString;
+    if (this.currentIndex >= string.length) {
       return null;
     }
 
-    const char = str.charAt(this.currentIndex);
+    const char = string.charAt(this.currentIndex);
 
     this.currentIndex += 1;
 

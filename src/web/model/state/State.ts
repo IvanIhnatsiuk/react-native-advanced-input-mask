@@ -1,6 +1,6 @@
 import type { Next } from '../types';
 
-export abstract class State {
+abstract class State {
   child: State | null = null;
 
   constructor(child: State | null) {

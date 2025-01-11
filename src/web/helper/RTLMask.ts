@@ -24,8 +24,6 @@ export default class RTLMask extends Mask {
   }
 
   apply(text: CaretString): MaskResult {
-    // Apply the mask to the reversed text,
-    // then reverse the result back.
     return super.apply(text.reversed()).reversed();
   }
 
@@ -34,34 +32,20 @@ export default class RTLMask extends Mask {
   }
 
   private static reversedFormat(format: string): string {
-    // Reverse the string first
-    let reversed = format.split('').reverse().join('');
-
-    // Replace bracket-escape sequences
-    reversed = reversed
-      .replace(/\[\\/g, '\\]')
-      .replace(/\]\\/, '\\[')
-      .replace(/\{\\/g, '\\}')
-      .replace(/\}\\/, '\\{');
-
-    // Flip '[' to ']' and '{' to '}' etc.
-    const mapped = reversed
-      .split('')
-      .map((ch) => {
-        switch (ch) {
-          case '[':
-            return ']';
-          case ']':
-            return '[';
-          case '{':
-            return '}';
-          case '}':
-            return '{';
-          default:
-            return ch;
-        }
-      })
-      .join('');
+    const mapped = format.split('').reduceRight((acc, char) => {
+      switch (char) {
+        case '[':
+          return acc + ']';
+        case ']':
+          return acc + '[';
+        case '{':
+          return acc + '}';
+        case '}':
+          return acc + '{';
+        default:
+          return acc + char;
+      }
+    }, '');
 
     return mapped;
   }

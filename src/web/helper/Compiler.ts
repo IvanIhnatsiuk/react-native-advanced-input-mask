@@ -18,7 +18,7 @@ export default class Compiler {
   }
 
   compile(formatString: string): State {
-    const sanitizedString = new FormatSanitizer().sanitize(formatString);
+    const sanitizedString = FormatSanitizer.sanitize(formatString);
     return this.compileInternal(sanitizedString, false, false, null);
   }
 
@@ -151,17 +151,15 @@ export default class Compiler {
   private compileWithCustomNotations(char: string, remaining: string): State {
     for (const customNotation of this.customNotations) {
       if (customNotation.character === char) {
-        if (customNotation.isOptional) {
-          return new OptionalValueState(
-            this.compileInternal(remaining, true, false, char),
-            customNotation
-          );
-        } else {
-          return new ValueState(
-            this.compileInternal(remaining, true, false, char),
-            customNotation
-          );
-        }
+        return customNotation.isOptional
+          ? new OptionalValueState(
+              this.compileInternal(remaining, true, false, char),
+              customNotation
+            )
+          : new ValueState(
+              this.compileInternal(remaining, true, false, char),
+              customNotation
+            );
       }
     }
     throw new FormatError();
@@ -175,11 +173,7 @@ export default class Compiler {
     }
     for (const notation of this.customNotations) {
       if (notation.character === lastCharacter) {
-        return {
-          isOptional: notation.isOptional,
-          character: lastCharacter,
-          characterSet: notation.characterSet,
-        };
+        return notation;
       }
     }
     throw new FormatError();

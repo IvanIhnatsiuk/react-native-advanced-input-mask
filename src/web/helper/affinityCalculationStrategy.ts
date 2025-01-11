@@ -22,7 +22,6 @@ export function calculateAffinityOfMask(
     }
     case AFFINITY_CALCULATION_STRATEGY.CAPACITY: {
       if (text.string.length > mask.totalTextLength()) {
-        // Mimic Int.MIN_VALUE
         return Number.MIN_SAFE_INTEGER;
       }
       return text.string.length - mask.totalTextLength();

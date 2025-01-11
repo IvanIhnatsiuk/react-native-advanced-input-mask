@@ -6,9 +6,8 @@ class RTLCaretStringIterator extends CaretStringIterator {
     super(caretString);
   }
 
-  insertionAffectsCaret(): boolean {
-    return this.currentIndex <= this.caretString.caretPosition;
-  }
+  insertionAffectsCaret: () => boolean = () =>
+    this.currentIndex <= this.caretString.caretPosition;
 }
 
 export default RTLCaretStringIterator;

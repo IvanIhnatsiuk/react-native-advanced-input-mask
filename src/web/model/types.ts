@@ -1,5 +1,5 @@
 import type CaretString from './CaretString';
-import type { State } from './state/State';
+import type State from './state/State';
 
 export type Next = {
   state: State;
@@ -9,7 +9,7 @@ export type Next = {
 };
 
 export type StateType = {
-  name: 'numeric' | 'literal' | 'alphaNumeric';
+  name: StateName;
   regex: RegExp;
   typeString: string;
 };
@@ -38,4 +38,10 @@ export interface CaretGravity {
 export const enum CaretGravityType {
   Forward,
   Backward,
+}
+
+export const enum StateName {
+  literal = 'literal',
+  numeric = 'numeric',
+  alphaNumeric = 'alphaNumeric',
 }
