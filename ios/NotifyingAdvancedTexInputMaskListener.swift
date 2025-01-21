@@ -10,15 +10,22 @@ import Foundation
 import UIKit
 
 class NotifyingAdvancedTexInputMaskListener: MaskedTextInputListener {
+  public var allowedKeys = ""
+
   override func textField(
     _ textField: UITextField,
     shouldChangeCharactersIn range: NSRange,
     replacementString string: String
   ) -> Bool {
+    let newText: String = !allowedKeys.isEmpty
+      ? String(string.filter { allowedKeys.contains($0) })
+      : string
+
     defer {
       NotificationCenter.default.post(name: UITextField.textDidChangeNotification, object: textField)
       textField.sendActions(for: .editingChanged)
     }
-    return super.textField(textField, shouldChangeCharactersIn: range, replacementString: string)
+
+    return super.textField(textField, shouldChangeCharactersIn: range, replacementString: newText)
   }
 }

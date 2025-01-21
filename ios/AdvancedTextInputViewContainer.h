@@ -22,6 +22,7 @@
 - (void)setAutocomplete:(BOOL)autocomplete;
 - (void)setAutocompleteOnFocus:(BOOL)autocompleteOnFocus;
 - (void)setAllowSuggestions:(BOOL)allowSuggestions;
+- (void)setAllowedKeys:(NSString *_Nonnull)allowedKeys;
 - (void)setCustomNotations:(NSArray<NSDictionary *> *)customNotations;
 - (void)setAutoSkip:(BOOL)autoSkip;
 - (void)setIsRTL:(BOOL)isRTL;
