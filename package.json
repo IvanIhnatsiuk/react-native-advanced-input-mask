@@ -86,7 +86,7 @@
     "prettier": "^2.0.5",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "react-native": "0.76.5",
+    "react-native": "0.77.0",
     "react-native-builder-bob": "^0.20.0",
     "react-native-web": "^0.19.13",
     "release-it": "^15.0.0",
@@ -191,6 +191,11 @@
     "jsSrcsDir": "./src/native/specs",
     "android": {
       "javaPackageName": "com.maskedtextinput"
+    },
+    "ios": {
+      "componentProvider": {
+        "AdvancedTextInputMaskDecoratorView": "AdvancedTextInputMaskDecoratorView"
+      }
     }
   }
 }

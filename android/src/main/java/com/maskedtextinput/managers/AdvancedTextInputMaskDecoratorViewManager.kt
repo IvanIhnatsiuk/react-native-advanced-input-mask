@@ -75,7 +75,7 @@ class AdvancedTextInputMaskDecoratorViewManager(
 
       for (i in 0 until affinityFormat.size()) {
         val value = affinityFormat.getString(i)
-        list.add(value)
+        list.add(value as String)
       }
       view.setAffinityFormat(list)
     }
