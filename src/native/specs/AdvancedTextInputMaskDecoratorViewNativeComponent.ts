@@ -41,6 +41,7 @@ export interface NativeProps extends ViewProps {
   autoSkip?: boolean;
   customNotations?: ReadonlyArray<Notation>;
   customTransformation?: Readonly<CustomTransformation>;
+  allowedKeys?: string;
   defaultValue?: string;
   isRTL?: boolean;
   onAdvancedMaskTextChange?: DirectEventHandler<OnAdvancedMaskTextChange>;

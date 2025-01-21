@@ -28,6 +28,7 @@ class AdvancedTextInputMaskDecoratorView(
   private var isRtl = false
   private var customTransformationMethod: CustomTransformationMethod? = null
   private var maskedTextChangeListener: MaskedTextChangedListener? = null
+  private var allowedKeys: String? = null
 
   private val valueListener =
     MaskedTextValueListener { _, extracted, formatted, tailPlaceholder ->
@@ -72,6 +73,7 @@ class AdvancedTextInputMaskDecoratorView(
             rightToLeft = isRtl,
             affineFormats = affineFormats,
             affinityCalculationStrategy = affinityCalculationStrategy,
+            allowedKeys = allowedKeys
           )
       }
     }
@@ -134,5 +136,10 @@ class AdvancedTextInputMaskDecoratorView(
       }
 
     textField?.transformationMethod = customTransformationMethod
+  }
+
+  fun setAllowedKeys(allowedKeys: String?) {
+    // TODO: if change in runtime update the delegate a well
+    this.allowedKeys = allowedKeys
   }
 }

@@ -76,6 +76,11 @@ export type MaskedTextInputOwnProps = {
    * Defines how the input text should be transformed.
    */
   customTransformation?: CustomTransformation;
+  /**
+   * A string representing all symbols that can be entered in the text input.
+   * For example: "0123456789".
+   */
+  allowedKeys?: string;
   defaultValue?: string;
   value?: string;
   // IOS only props

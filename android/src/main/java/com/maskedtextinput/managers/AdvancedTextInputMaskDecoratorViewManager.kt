@@ -113,6 +113,14 @@ class AdvancedTextInputMaskDecoratorViewManager(
     view.setCustomTransformationMethod(customTransformation)
   }
 
+  @ReactProp(name = "allowedKeys")
+  override fun setAllowedKeys(
+    view: AdvancedTextInputMaskDecoratorView,
+    allowedKeys: String?,
+  ) {
+    view.setAllowedKeys(allowedKeys)
+  }
+
   override fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any> {
     val export = super.getExportedCustomDirectEventTypeConstants() ?: newHashMap()
 
