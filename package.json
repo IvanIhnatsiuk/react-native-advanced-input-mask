@@ -193,7 +193,9 @@
       "javaPackageName": "com.maskedtextinput"
     },
     "ios": {
-      "componentProvider": "AdvancedTextInputMaskDecoratorView"
+      "componentProvider": {
+        "AdvancedTextInputMaskDecoratorView": "AdvancedTextInputMaskDecoratorView"
+      }
     }
   }
 }
