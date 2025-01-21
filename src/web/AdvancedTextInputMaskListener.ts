@@ -24,6 +24,7 @@ class MaskedTextChangedListener {
   public autocomplete: boolean;
   public autoskip: boolean;
   public rightToLeft: boolean;
+  public allowedKeys: string;
 
   private afterText: string = '';
 
@@ -34,7 +35,8 @@ class MaskedTextChangedListener {
     affinityCalculationStrategy: AFFINITY_CALCULATION_STRATEGY = AFFINITY_CALCULATION_STRATEGY.WHOLE_STRING,
     autocomplete: boolean = true,
     autoskip: boolean = false,
-    rightToLeft: boolean = false
+    rightToLeft: boolean = false,
+    allowedKeys: string = ''
   ) {
     this.primaryFormat = primaryFormat;
     this.affineFormats = affineFormats;
@@ -43,6 +45,7 @@ class MaskedTextChangedListener {
     this.autocomplete = autocomplete;
     this.autoskip = autoskip;
     this.rightToLeft = rightToLeft;
+    this.allowedKeys = allowedKeys;
   }
 
   private get primaryMask(): Mask {
@@ -111,7 +114,10 @@ class MaskedTextChangedListener {
       autoskip: useAutoskip,
       autocomplete: useAutocomplete,
     };
-    const textAndCaret = new CaretString(text, caretPosition, caretGravity);
+    const newText = this.allowedKeys
+      ? [...text].filter((char) => this.allowedKeys.includes(char)).join('')
+      : text;
+    const textAndCaret = new CaretString(newText, caretPosition, caretGravity);
     const mask = this.pickMask(textAndCaret);
     const result = mask.apply(textAndCaret);
 
