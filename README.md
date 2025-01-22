@@ -4,7 +4,7 @@
   <img align="right" src="./gifs/demo.gif?raw=true" width="30%">
 </div>
 
-## Overview
+### Overview
 
 `react-native-advanced-input-mask` is a React Native package that provides flexible input masking functionality for mobile applications. It allows you to format input fields dynamically as users type, ensuring that data is entered in a consistent and valid format. This package wraps the `input-mask-android` library for Android and its equivalent for iOS, offering a cross-platform solution.
 
@@ -160,11 +160,11 @@ Feel free to suggest your own recipes or correct the existing ones.
 
 ## Chapters
 
-* [Credit cards](#cards)
-* [Amount inputs](#amount)
-* [Dates](#date)
-* [IBAN, International Bank Account Number](#iban)
-* [Phone numbers](#phone)
+- [Credit cards](#cards)
+- [Amount inputs](#amount)
+- [Dates](#date)
+- [IBAN, International Bank Account Number](#iban)
+- [Phone numbers](#phone)
 
 <a name="cards" />
 
@@ -342,6 +342,7 @@ const ExampleComponent = () => {
 ## Contributing
 
 To contribute to this package, clone the repository and install dependencies:
+
 ```bash
 git clone https://github.com/IvanIhnatsiuk/react-native-advanced-input-mask
 cd react-native-advanced-input-mask && yarn install
