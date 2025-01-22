@@ -39,6 +39,7 @@
     "react-native",
     "ios",
     "android",
+    "web",
     "text-input",
     "masking",
     "input",

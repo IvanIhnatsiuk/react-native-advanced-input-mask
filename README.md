@@ -11,14 +11,17 @@
 Input masking can be used to format text fields for phone numbers, dates, credit card numbers, social security numbers, and other input types that require specific formatting.
 
 ### Features
+
+- Ensures smooth, flicker-free text formatting in a real time.
 - Supports multiple mask types and formats.
-- Automatic formatting as users type.
-- Cross-platform support for iOS and Android.
+- Instantly applies the correct format as users type, without delays.
+- Cross-platform support for iOS, Android and web.
 - Easy integration with existing React Native components.
 
 ## Installation
 
 Install the package using npm or yarn:
+
 ```bash
 npm install react-native-advanced-input-mask
 # or
