@@ -110,9 +110,14 @@ export default ExampleComponent;
 ### Detailed Mask Explanation
 
 The mask pattern defines how user input is processed and displayed. The characters below are used for defining patterns:
-- `[0]`: Allows only digits (0-9).
-- `[A]`: Allows only letters (A-Z, case insensitive).
-- `[...]`: Allows any character(s) in a custom range, e.g., `[0-9A-Za-z]`.
+
+- `[0]`: mandatory digit. For instance, `[000]` will allow entering three digits: `123`.
+- `[9]`: optional digit.For instance, `[00099]` will allow entering up to five digits, but at least three.
+- `[A]`: mandatory letter. For instance, `[AAA]` will allow entering three letters: `ABC`.
+- `[a]`: optional letter. `[АААааа]` will allow entering from three to six letters.
+- `[_]`: mandatory symbol (digit or letter).
+- `[-]`: optional symbol (digit or letter).
+- `[…]`: ellipsis. Allows to enter endless count of symbols.
 
 ## Advanced Usage
 
@@ -141,15 +146,7 @@ For applications requiring conditional or more complex formatting, this package 
 | `keyboardType`                | `string`                             | Sets the keyboard type. Useful for numeric masks with `keyboardType="numeric"`.                                                               |
 | `autoFocus`                   | `boolean`                            | If `true`, focuses the input on component load. Default is `false`.                                                                           |
 
-
-## Mask Format Guide
-
-The mask format uses placeholders to define the acceptable input:
-- `0`: Digit (0-9).
-- `A`: Letter (A-Z).
-- `_`: Any character.
-
-# Cookbook
+## Cookbook
 
 Cookbook is a community-driven handbook with complete solutions for common problems.  
 Text formatting problems, of course.
