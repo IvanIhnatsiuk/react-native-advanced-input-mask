@@ -1,20 +1,25 @@
 # React Native Advanced Input Mask
 
-## Overview
+<div>
+  <img align="right" src="./gifs/demo.gif?raw=true" width="30%">
+</div>
+
+### Overview
 
 `react-native-advanced-input-mask` is a React Native package that provides flexible input masking functionality for mobile applications. It allows you to format input fields dynamically as users type, ensuring that data is entered in a consistent and valid format. This package wraps the `input-mask-android` library for Android and its equivalent for iOS, offering a cross-platform solution.
 
 Input masking can be used to format text fields for phone numbers, dates, credit card numbers, social security numbers, and other input types that require specific formatting.
 
 ### Features
-- Supports multiple mask types and formats.
-- Automatic formatting as users type.
-- Cross-platform support for iOS and Android.
-- Easy integration with existing React Native components.
 
-## Installation
+- ✨ Ensures smooth, flicker-free text formatting in a real time.
+- 🧬 Supports multiple mask types and formats.
+- ⚡ Instantly applies the correct format as users type, without delays.
+- 🚀 Cross-platform support for iOS, Android and web.
+- 🛠️ Easy integration with existing React Native components.
 
 Install the package using npm or yarn:
+
 ```bash
 npm install react-native-advanced-input-mask
 # or
@@ -110,9 +115,14 @@ export default ExampleComponent;
 ### Detailed Mask Explanation
 
 The mask pattern defines how user input is processed and displayed. The characters below are used for defining patterns:
-- `[0]`: Allows only digits (0-9).
-- `[A]`: Allows only letters (A-Z, case insensitive).
-- `[...]`: Allows any character(s) in a custom range, e.g., `[0-9A-Za-z]`.
+
+- `[0]`: mandatory digit. For instance, `[000]` will allow entering three digits: `123`.
+- `[9]`: optional digit.For instance, `[00099]` will allow entering up to five digits, but at least three.
+- `[A]`: mandatory letter. For instance, `[AAA]` will allow entering three letters: `ABC`.
+- `[a]`: optional letter. `[АААааа]` will allow entering from three to six letters.
+- `[_]`: mandatory symbol (digit or letter).
+- `[-]`: optional symbol (digit or letter).
+- `[…]`: ellipsis. Allows to enter endless count of symbols.
 
 ## Advanced Usage
 
@@ -141,15 +151,7 @@ For applications requiring conditional or more complex formatting, this package 
 | `keyboardType`                | `string`                             | Sets the keyboard type. Useful for numeric masks with `keyboardType="numeric"`.                                                               |
 | `autoFocus`                   | `boolean`                            | If `true`, focuses the input on component load. Default is `false`.                                                                           |
 
-
-## Mask Format Guide
-
-The mask format uses placeholders to define the acceptable input:
-- `0`: Digit (0-9).
-- `A`: Letter (A-Z).
-- `_`: Any character.
-
-# Cookbook
+## Cookbook
 
 Cookbook is a community-driven handbook with complete solutions for common problems.  
 Text formatting problems, of course.
@@ -158,15 +160,15 @@ Feel free to suggest your own recipes or correct the existing ones.
 
 ## Chapters
 
-* [Credit cards](#cards)
-* [Amount inputs](#amount)
-* [Dates](#date)
-* [IBAN, International Bank Account Number](#iban)
-* [Phone numbers](#phone)
+- [Credit cards](#cards)
+- [Amount inputs](#amount)
+- [Dates](#date)
+- [IBAN, International Bank Account Number](#iban)
+- [Phone numbers](#phone)
 
 <a name="cards" />
 
-## Credit cards
+### Credit cards
 
 MM/YY: `[00]{/}[00]`  
 CVV: `[000]`
@@ -219,7 +221,7 @@ CVV: `[000]`
 
 <a name="date" />
 
-## Dates
+### Dates
 
 Affine formats:
 
@@ -235,7 +237,7 @@ Affine formats:
 
 <a name="iban" />
 
-## IBAN, International Bank Account Number
+### IBAN, International Bank Account Number
 
 #### Belgium
 
@@ -293,13 +295,13 @@ GB[00] [____] [0000] [0000] [0000] [00]
 
 <a name="phone" />
 
-## Phone numbers
+### Phone numbers
 
 ```
 8 ([000]) [000]-[00]-[00]
 ```
 
-### Custom notations
+## Custom notations
 
 ```tsx
 import React, { useState, useCallback } from 'react';
@@ -340,6 +342,7 @@ const ExampleComponent = () => {
 ## Contributing
 
 To contribute to this package, clone the repository and install dependencies:
+
 ```bash
 git clone https://github.com/IvanIhnatsiuk/react-native-advanced-input-mask
 cd react-native-advanced-input-mask && yarn install
