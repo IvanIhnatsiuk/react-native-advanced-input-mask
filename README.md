@@ -12,11 +12,11 @@ Input masking can be used to format text fields for phone numbers, dates, credit
 
 ### Features
 
-- Ensures smooth, flicker-free text formatting in a real time.
-- Supports multiple mask types and formats.
-- Instantly applies the correct format as users type, without delays.
-- Cross-platform support for iOS, Android and web.
-- Easy integration with existing React Native components.
+- ✨ Ensures smooth, flicker-free text formatting in a real time.
+- 🧬 Supports multiple mask types and formats.
+- ⚡ Instantly applies the correct format as users type, without delays.
+- 🚀 Cross-platform support for iOS, Android and web.
+- 🛠️ Easy integration with existing React Native components.
 
 Install the package using npm or yarn:
 
