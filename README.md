@@ -163,7 +163,7 @@ Feel free to suggest your own recipes or correct the existing ones.
 
 <a name="cards" />
 
-## Credit cards
+### Credit cards
 
 MM/YY: `[00]{/}[00]`  
 CVV: `[000]`
@@ -216,7 +216,7 @@ CVV: `[000]`
 
 <a name="date" />
 
-## Dates
+### Dates
 
 Affine formats:
 
@@ -232,7 +232,7 @@ Affine formats:
 
 <a name="iban" />
 
-## IBAN, International Bank Account Number
+### IBAN, International Bank Account Number
 
 #### Belgium
 
@@ -290,13 +290,13 @@ GB[00] [____] [0000] [0000] [0000] [00]
 
 <a name="phone" />
 
-## Phone numbers
+### Phone numbers
 
 ```
 8 ([000]) [000]-[00]-[00]
 ```
 
-### Custom notations
+## Custom notations
 
 ```tsx
 import React, { useState, useCallback } from 'react';
