@@ -2,7 +2,7 @@
 
 ## Demonstration
 
-<img src="./gifs/demo.gif?raw=true" width="60%">
+<img src="./gifs/demo.gif?raw=true" width="30%">
 
 ## Overview
 
