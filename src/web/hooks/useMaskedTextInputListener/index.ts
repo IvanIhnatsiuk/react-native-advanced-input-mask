@@ -12,6 +12,7 @@ const useMaskedTextInputListener = ({
   affinityFormat,
   affinityCalculationStrategy,
   customNotations,
+  allowedKeys = '',
   autocomplete = true,
   autoSkip = false,
   isRTL = false,
@@ -34,7 +35,8 @@ const useMaskedTextInputListener = ({
         affinityCalculationStrategy,
         autocomplete,
         autoSkip,
-        isRTL
+        isRTL,
+        allowedKeys
       )
   );
 
@@ -66,6 +68,10 @@ const useMaskedTextInputListener = ({
       listener.primaryFormat = mask;
     }
 
+    if (listener.allowedKeys !== allowedKeys) {
+      listener.allowedKeys = allowedKeys;
+    }
+
     if (listener.rightToLeft !== isRTL) {
       listener.rightToLeft = isRTL;
     }
@@ -77,6 +83,7 @@ const useMaskedTextInputListener = ({
     autoSkip,
     autocomplete,
     affinityCalculationStrategy,
+    allowedKeys,
     listener,
   ]);
 

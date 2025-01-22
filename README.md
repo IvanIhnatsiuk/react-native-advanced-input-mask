@@ -124,7 +124,8 @@ For applications requiring conditional or more complex formatting, this package 
 |-------------------------------|--------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
 | `mask`                        | `string`                             | The mask format to be applied to the text input, defining the pattern for formatting. Example: `"[0000] [0000] [0000] [0000]"`.               |
 | `customNotations`             | `Notation[]`                         | Array of custom notations for the mask format. Each notation object includes: `character`, `characterSet`, and `isOptional`.                  |
-| `onChangeText`                | `(formatted: string, extracted: string) => void` | Callback function triggered on text change. Receives `formattedValue` (with mask) and `extractedValue` (raw input).                           |
+| `allowedKeys`                  |`string`                              | A string specifying the characters that are permitted for input.                                                         |
+| `onChangeText`                | `(formatted: string, extracted: string) => void` | Callback function triggered on text change. Receives `formattedValue` (with mask) and `extractedValue` (raw input).                        |
 | `onTailPlaceholderChange`     | `(tailPlaceholder: string) => void`  | Callback function called when the tail placeholder changes, receiving the updated `tailPlaceholder` value.                                    |
 | `affinityFormat`              | `string[]`                           | Array of strings for affinity format, used to determine the best mask format based on the input.                                              |
 | `autocomplete`                | `boolean`                            | Enables or disables autocomplete for the text input. Default is `false`.                                                                      |
@@ -158,6 +159,7 @@ Feel free to suggest your own recipes or correct the existing ones.
 ## Chapters
 
 * [Credit cards](#cards)
+* [Amount inputs](#amount)
 * [Dates](#date)
 * [IBAN, International Bank Account Number](#iban)
 * [Phone numbers](#phone)
@@ -203,6 +205,17 @@ CVV: `[000]`
 [0000] [0000] [0000] [0000]
 4[000] [0000] [0000] [0000]
 ```
+
+<a name="amount" />
+
+### Amount inputs
+
+```
+[0999990].[09]
+```
+
+> [!NOTE]
+> To forbid entering not allowed characters, use `allowedKeys` prop. For example `allowedKeys="0123456789,."`.
 
 <a name="date" />
 

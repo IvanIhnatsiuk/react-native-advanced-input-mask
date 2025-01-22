@@ -85,6 +85,10 @@ using namespace facebook::react;
     [_view setCustomNotations:convertCustomNotations(newViewProps.customNotations)];
   }
 
+  if (newViewProps.allowedKeys != oldViewProps.allowedKeys) {
+    [_view setAllowedKeys:RCTNSStringFromString(newViewProps.allowedKeys)];
+  }
+
   if (newViewProps.allowSuggestions != oldViewProps.allowSuggestions) {
     [_view setAllowSuggestions:newViewProps.allowSuggestions];
   }

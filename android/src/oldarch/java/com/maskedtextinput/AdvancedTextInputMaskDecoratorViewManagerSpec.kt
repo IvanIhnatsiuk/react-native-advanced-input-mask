@@ -56,6 +56,11 @@ abstract class AdvancedTextInputMaskDecoratorViewManagerSpec<T : View> : SimpleV
     customTransformation: ReadableMap? = null,
   )
 
+  abstract fun setAllowedKeys(
+    view: T,
+    allowedKeys: String? = null,
+  )
+
   abstract fun setAllowSuggestions(
     view: T?,
     value: Boolean,

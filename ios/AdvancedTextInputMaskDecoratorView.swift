@@ -86,6 +86,12 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     }
   }
 
+  @objc private var allowedKeys: NSString? {
+    didSet {
+      maskInputListener?.allowedKeys = (allowedKeys ?? "") as String
+    }
+  }
+
   @objc private var defaultValue: NSString = "" {
     didSet {
       updateTextWithoutNotification(text: defaultValue as String)
@@ -196,6 +202,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     )
 
     maskInputListener?.textFieldDelegate = textFieldDelegate
+    maskInputListener?.allowedKeys = (allowedKeys ?? "") as String
     textField.delegate = maskInputListener
   }
 
