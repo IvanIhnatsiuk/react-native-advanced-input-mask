@@ -16,7 +16,7 @@ class ReactMaskedTextChangeListener(
   field: ReactEditText,
   rightToLeft: Boolean,
   valueListener: MaskedTextValueListener,
-  private var allowedKeys: String?,
+  var allowedKeys: String?,
   private val focusChangeListener: View.OnFocusChangeListener,
 ) : MaskedTextChangedListener(
     primaryFormat = primaryFormat,
@@ -35,10 +35,7 @@ class ReactMaskedTextChangeListener(
     before: Int,
     count: Int,
   ) {
-    val newText =
-      allowedKeys?.let { keys ->
-        text.filter { it in keys }
-      } ?: text
+    val newText = allowedKeys?.run { text.filter { it in this } } ?: text
     super.onTextChanged(newText, cursorPosition, before, count)
   }
 
@@ -62,8 +59,8 @@ class ReactMaskedTextChangeListener(
       rightToLeft: Boolean = false,
       valueListener: MaskedTextValueListener,
       allowedKeys: String?,
-    ): MaskedTextChangedListener {
-      val listener: MaskedTextChangedListener =
+    ): ReactMaskedTextChangeListener {
+      val listener =
         ReactMaskedTextChangeListener(
           primaryFormat = primaryFormat,
           affineFormats = affineFormats,

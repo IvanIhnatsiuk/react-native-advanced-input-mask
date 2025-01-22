@@ -11,7 +11,6 @@ import com.maskedtextinput.events.ChangeTextEvent
 import com.maskedtextinput.listeners.MaskedTextValueListener
 import com.maskedtextinput.listeners.ReactMaskedTextChangeListener
 import com.maskedtextinput.transformation.CustomTransformationMethod
-import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.redmadrobot.inputmask.helper.AffinityCalculationStrategy
 import com.redmadrobot.inputmask.model.Notation
 
@@ -27,7 +26,7 @@ class AdvancedTextInputMaskDecoratorView(
   private var autocomplete = true
   private var isRtl = false
   private var customTransformationMethod: CustomTransformationMethod? = null
-  private var maskedTextChangeListener: MaskedTextChangedListener? = null
+  private var maskedTextChangeListener: ReactMaskedTextChangeListener? = null
   private var allowedKeys: String? = null
 
   private val valueListener =
@@ -139,7 +138,7 @@ class AdvancedTextInputMaskDecoratorView(
   }
 
   fun setAllowedKeys(allowedKeys: String?) {
-    // TODO: if change in runtime update the delegate a well
     this.allowedKeys = allowedKeys
+    maskedTextChangeListener?.allowedKeys = allowedKeys
   }
 }
