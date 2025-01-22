@@ -29,11 +29,16 @@ class ReactMaskedTextChangeListener(
     rightToLeft = rightToLeft,
     valueListener = valueListener,
   ) {
-
-  override fun onTextChanged(text: CharSequence, cursorPosition: Int, before: Int, count: Int) {
-    val newText = allowedKeys?.let { keys ->
-      text.filter { it in keys }
-    } ?: text
+  override fun onTextChanged(
+    text: CharSequence,
+    cursorPosition: Int,
+    before: Int,
+    count: Int,
+  ) {
+    val newText =
+      allowedKeys?.let { keys ->
+        text.filter { it in keys }
+      } ?: text
     super.onTextChanged(newText, cursorPosition, before, count)
   }
 
@@ -56,7 +61,7 @@ class ReactMaskedTextChangeListener(
       field: ReactEditText,
       rightToLeft: Boolean = false,
       valueListener: MaskedTextValueListener,
-      allowedKeys: String?
+      allowedKeys: String?,
     ): MaskedTextChangedListener {
       val listener: MaskedTextChangedListener =
         ReactMaskedTextChangeListener(
@@ -70,7 +75,7 @@ class ReactMaskedTextChangeListener(
           rightToLeft = rightToLeft,
           focusChangeListener = field.onFocusChangeListener,
           valueListener = valueListener,
-          allowedKeys = allowedKeys
+          allowedKeys = allowedKeys,
         )
       field.addTextChangedListener(listener)
       field.onFocusChangeListener = listener

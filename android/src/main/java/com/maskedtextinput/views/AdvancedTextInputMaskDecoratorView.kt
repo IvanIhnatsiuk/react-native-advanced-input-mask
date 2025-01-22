@@ -73,7 +73,7 @@ class AdvancedTextInputMaskDecoratorView(
             rightToLeft = isRtl,
             affineFormats = affineFormats,
             affinityCalculationStrategy = affinityCalculationStrategy,
-            allowedKeys = allowedKeys
+            allowedKeys = allowedKeys,
           )
       }
     }
