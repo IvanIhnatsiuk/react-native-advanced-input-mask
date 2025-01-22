@@ -1,7 +1,5 @@
 # React Native Advanced Input Mask
 
-## Demonstration
-
 <div>
   <img align="right" src="./gifs/demo.gif?raw=true" width="30%">
 </div>
