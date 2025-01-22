@@ -18,8 +18,6 @@ Input masking can be used to format text fields for phone numbers, dates, credit
 - Cross-platform support for iOS, Android and web.
 - Easy integration with existing React Native components.
 
-## Installation
-
 Install the package using npm or yarn:
 
 ```bash
