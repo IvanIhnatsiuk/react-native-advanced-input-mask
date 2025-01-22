@@ -1,5 +1,9 @@
 # React Native Advanced Input Mask
 
+## Demonstration
+
+<img src="./gifs/demo.gif?raw=true" width="60%">
+
 ## Overview
 
 `react-native-advanced-input-mask` is a React Native package that provides flexible input masking functionality for mobile applications. It allows you to format input fields dynamically as users type, ensuring that data is entered in a consistent and valid format. This package wraps the `input-mask-android` library for Android and its equivalent for iOS, offering a cross-platform solution.
