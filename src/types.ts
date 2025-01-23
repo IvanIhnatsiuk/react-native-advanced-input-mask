@@ -90,6 +90,8 @@ export type MaskedTextInputOwnProps = {
    */
   allowSuggestions?: boolean;
   autocompleteOnFocus?: boolean;
+  renderTailPlaceholder?: boolean;
+  customTailPlaceholder?: string;
 };
 
 export type MaskedTextInputProps = Omit<TextInputProps, 'onChangeText'> &

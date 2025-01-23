@@ -67,6 +67,7 @@ export default function App() {
         autocompleteOnFocus={false}
         autoSkip={false}
         customNotations={charAlphaNumerics}
+        renderTailPlaceholder
       />
       <Button title="Clear text" onPress={clearText} />
       <Button title="Focus text input" onPress={onFocusButtonPress} />
@@ -94,6 +95,9 @@ const styles = StyleSheet.create({
   maskedTextInput: {
     width: '100%',
     height: 50,
-    backgroundColor: 'orange',
+    backgroundColor: 'transparent',
+    borderColor: 'black',
+    borderWidth: 1,
+    marginHorizontal: 20,
   },
 });

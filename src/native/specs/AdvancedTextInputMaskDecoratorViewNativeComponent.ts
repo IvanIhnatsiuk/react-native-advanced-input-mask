@@ -46,6 +46,7 @@ export interface NativeProps extends ViewProps {
   isRTL?: boolean;
   onAdvancedMaskTextChange?: DirectEventHandler<OnAdvancedMaskTextChange>;
   primaryMaskFormat: string;
+  tailPlaceholderNativeID?: string | null;
   value?: string;
 }
 

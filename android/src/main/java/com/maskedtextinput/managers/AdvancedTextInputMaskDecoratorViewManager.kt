@@ -121,6 +121,14 @@ class AdvancedTextInputMaskDecoratorViewManager(
     view.setAllowedKeys(allowedKeys)
   }
 
+  @ReactProp(name = "tailPlaceholderNativeID")
+  override fun setTailPlaceholderNativeID(
+    view: AdvancedTextInputMaskDecoratorView,
+    value: String?
+  ) {
+    view.setTailPlaceholderNativeID(value)
+  }
+
   override fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any> {
     val export = super.getExportedCustomDirectEventTypeConstants() ?: newHashMap()
 

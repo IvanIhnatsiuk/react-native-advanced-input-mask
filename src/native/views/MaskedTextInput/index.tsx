@@ -1,7 +1,8 @@
-import { StyleSheet, TextInput } from 'react-native';
+import { StyleSheet, TextInput, View, Text } from 'react-native';
 import React, { forwardRef, memo, useCallback } from 'react';
 import MaskedTextInputDecoratorView from '../../MaskedTextInputNative';
 import type { MaskedTextInputProps } from '../../../types';
+import useId from '../../../shared/hooks/useId';
 
 const styles = StyleSheet.create({
   displayNone: {
@@ -31,12 +32,18 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
       mask,
       autoCapitalize = 'words',
       value,
+      renderTailPlaceholder,
+      placeholderTextColor,
+      customTailPlaceholder,
+      style,
       onChangeText,
       onTailPlaceholderChange,
       ...rest
     },
     ref
   ) => {
+    const tailPlaceholderNativeID = useId();
+
     const IS_FABRIC = 'nativeFabricUIManager' in global;
 
     const onAdvancedMaskTextChangeCallback = useCallback(
@@ -48,8 +55,26 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
     );
 
     return (
-      <>
-        <TextInput {...rest} autoCapitalize={autoCapitalize} ref={ref} />
+      <View style={{ width: '100%', flexDirection: 'row' }}>
+        {renderTailPlaceholder && (
+          <Text
+            accessible={false}
+            importantForAccessibility="no"
+            nativeID={tailPlaceholderNativeID}
+            style={{
+              height: '100%',
+              width: '100%',
+              position: 'absolute',
+            }}
+          />
+        )}
+        <TextInput
+          {...rest}
+          style={style}
+          placeholderTextColor={placeholderTextColor}
+          autoCapitalize={autoCapitalize}
+          ref={ref}
+        />
         <MaskedTextInputDecoratorView
           affinityCalculationStrategy={affinityCalculationStrategy}
           affinityFormat={affinityFormat}
@@ -65,9 +90,12 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
           onAdvancedMaskTextChange={onAdvancedMaskTextChangeCallback}
           primaryMaskFormat={mask}
           style={IS_FABRIC ? styles.farAway : styles.displayNone}
+          tailPlaceholderNativeID={
+            renderTailPlaceholder ? tailPlaceholderNativeID : null
+          }
           value={value}
         />
-      </>
+      </View>
     );
   }
 );
