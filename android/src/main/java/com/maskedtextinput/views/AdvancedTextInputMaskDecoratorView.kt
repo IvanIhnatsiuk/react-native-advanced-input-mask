@@ -42,6 +42,10 @@ class AdvancedTextInputMaskDecoratorView(
     maskedTextChangeListener?.setText(textField?.text.toString())
   }
 
+  private fun applyDefaultValue() {
+    defaultValue?.let { maskedTextChangeListener?.setText(it, false) }
+  }
+
   override fun onAttachedToWindow() {
     super.onAttachedToWindow()
 
@@ -76,11 +80,7 @@ class AdvancedTextInputMaskDecoratorView(
             allowedKeys = allowedKeys,
           )
 
-        val defaultValue = this.defaultValue
-
-        if (!defaultValue.isNullOrEmpty()) {
-          maskedTextChangeListener?.setText(defaultValue, true)
-        }
+        applyDefaultValue()
       }
     }
   }
@@ -123,7 +123,7 @@ class AdvancedTextInputMaskDecoratorView(
 
   fun setDefaultValue(defaultValue: String?) {
     this.defaultValue = defaultValue
-    defaultValue?.let { maskedTextChangeListener?.setText(it, true) }
+    applyDefaultValue()
   }
 
   fun setValue(value: String?) {
