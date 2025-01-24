@@ -15,6 +15,7 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
       mask,
       autoCapitalize = 'words',
       allowedKeys,
+      defaultValue,
       onChange,
       onChangeText,
       onTailPlaceholderChange,
@@ -23,7 +24,11 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
     },
     ref
   ) => {
-    const { handleOnChange, handleFocus } = useMaskedTextInputListener({
+    const {
+      defaultValue: maskedDefaultValue,
+      handleFocus,
+      handleOnChange,
+    } = useMaskedTextInputListener({
       mask,
       affinityFormat,
       affinityCalculationStrategy,
@@ -36,12 +41,14 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
       onChangeText,
       onTailPlaceholderChange,
       onFocus,
+      defaultValue,
     });
 
     return (
       <TextInput
         ref={ref}
         autoCapitalize={autoCapitalize}
+        defaultValue={maskedDefaultValue}
         onChange={handleOnChange}
         onFocus={handleFocus}
         {...rest}

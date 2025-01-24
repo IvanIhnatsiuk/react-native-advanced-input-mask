@@ -54,7 +54,7 @@ export default function App() {
       <Text>focused {focused ? 'Yes' : 'No'}</Text>
       <MaskedTextInput
         ref={inputRef}
-        defaultValue=""
+        defaultValue="0000"
         value={textState.formatted}
         onFocus={onFocus}
         onBlur={onBlur}

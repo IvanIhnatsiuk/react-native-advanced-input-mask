@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import MaskedTextChangedListener from '../../AdvancedTextInputMaskListener';
 import type {
   NativeSyntheticEvent,
@@ -6,6 +6,8 @@ import type {
   TextInputFocusEventData,
 } from 'react-native';
 import type { Props } from './types';
+import CaretString from '../../model/CaretString';
+import { CaretGravityType } from '../../model/types';
 
 const useMaskedTextInputListener = ({
   mask,
@@ -20,6 +22,7 @@ const useMaskedTextInputListener = ({
   onChangeText,
   onTailPlaceholderChange,
   onFocus,
+  defaultValue,
 }: Props) => {
   const prevDispatchedPayload = useRef<{
     extracted: string;
@@ -121,7 +124,26 @@ const useMaskedTextInputListener = ({
     [listener, onFocus]
   );
 
-  return { handleOnChange, handleFocus, listener };
+  const defaultValueResult = useMemo(
+    () =>
+      defaultValue
+        ? listener.primaryMask.apply(
+            new CaretString(defaultValue, defaultValue.length, {
+              autocomplete: true,
+              autoskip: false,
+              type: CaretGravityType.Forward,
+            })
+          ).formattedText.string
+        : undefined,
+    [defaultValue, listener.primaryMask]
+  );
+
+  return {
+    handleOnChange,
+    handleFocus,
+    listener,
+    defaultValue: defaultValueResult,
+  };
 };
 
 export default useMaskedTextInputListener;
