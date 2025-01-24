@@ -55,19 +55,7 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
     );
 
     return (
-      <View style={{ width: '100%', flexDirection: 'row' }}>
-        {renderTailPlaceholder && (
-          <Text
-            accessible={false}
-            importantForAccessibility="no"
-            nativeID={tailPlaceholderNativeID}
-            style={{
-              height: '100%',
-              width: '100%',
-              position: 'absolute',
-            }}
-          />
-        )}
+      <>
         <TextInput
           {...rest}
           style={style}
@@ -95,7 +83,18 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
           }
           value={value}
         />
-      </View>
+        {renderTailPlaceholder && (
+          <Text
+            accessible={false}
+            importantForAccessibility="no"
+            nativeID={tailPlaceholderNativeID}
+            style={{
+              position: 'absolute',
+              width: '100%',
+            }}
+          />
+        )}
+      </>
     );
   }
 );

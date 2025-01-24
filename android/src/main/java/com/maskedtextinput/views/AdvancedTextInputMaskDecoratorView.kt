@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.marginStart
 import com.facebook.react.bridge.ReactContext
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.uimanager.UIManagerHelper
@@ -37,6 +36,7 @@ class AdvancedTextInputMaskDecoratorView(
   private var isInitialMount = true
   private var tailPlaceholderView: ReactTextView? = null
   private var tailPlaceholderNativeID: String? = null
+  private var tailPlaceholderFindViewListener: ReactFindViewUtil.OnViewFoundListener? = null
 
   private fun getOrFindTailPlaceHolderView(): ReactTextView? {
     return if(tailPlaceholderView != null) {
@@ -62,18 +62,15 @@ class AdvancedTextInputMaskDecoratorView(
         val textHeight = layout.height
         val gravity = editText.gravity and Gravity.VERTICAL_GRAVITY_MASK
 
-        val verticalOffset =
+        val topPosition =
           when (gravity) {
-            Gravity.CENTER_VERTICAL -> (editTextHeight - textHeight) / 2 + editText.paddingTop
+            Gravity.CENTER_VERTICAL -> editText.top + (editTextHeight - textHeight) / 2 + layout.getLineTop(0)
             Gravity.BOTTOM -> editTextHeight - textHeight
             // Default to Gravity.TOP or other cases
             else -> editText.paddingTop * 2
           }
+        val leftPosition = textField?.let { it.paint.measureText(formatted) + layout.getPrimaryHorizontal(0) + it.paddingStart + it.left }
 
-
-
-        val leftPosition = textField?.let { it.paint.measureText(formatted) + layout.getPrimaryHorizontal(0) +  it.paddingStart + it.marginStart }
-        val topPosition = textField?.let { it.top + layout.height / 2 } ?: 0
 
 
         tailPlaceholderPossibleView.left = leftPosition?.toInt() ?: 0
@@ -85,7 +82,10 @@ class AdvancedTextInputMaskDecoratorView(
     }
 
   private fun maybeUpdateText() {
-    maskedTextChangeListener?.setText(textField?.text.toString())
+    val text = textField?.text.toString()
+    if(!text.isNullOrEmpty()) {
+      maskedTextChangeListener?.setText(text)
+    }
   }
 
   private fun applyDefaultValue() {
@@ -93,7 +93,21 @@ class AdvancedTextInputMaskDecoratorView(
   }
 
   private fun findAndSetTailPlaceholder(tailPlaceholderNativeID: String?): ReactTextView? {
+    if(tailPlaceholderNativeID != null && this.parent != null) {
+      tailPlaceholderView = ReactFindViewUtil.findView(this.parent as View, tailPlaceholderNativeID) as ReactTextView?
+    }
+
     return tailPlaceholderView
+  }
+
+  override fun onDetachedFromWindow() {
+    super.onDetachedFromWindow()
+
+    val listener = tailPlaceholderFindViewListener
+
+    if(listener != null) {
+      ReactFindViewUtil.removeViewListener(listener)
+    }
   }
 
   override fun onAttachedToWindow() {
@@ -118,7 +132,6 @@ class AdvancedTextInputMaskDecoratorView(
       for (i in 1 until parent.childCount) {
         if (parent.getChildAt(i) == this) {
           previousSibling = parent.getChildAt(i - 1)
-          tailPlaceholderView = parent.getChildAt(i - 2) as ReactTextView?
           break
         }
       }
