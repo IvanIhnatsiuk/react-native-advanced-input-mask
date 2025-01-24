@@ -21,7 +21,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
 
   // MARK: - Private Properties
 
-  private weak var textField: UITextField?
+  private weak var textField: RCTUITextField?
   private var maskInputListener: NotifyingAdvancedTexInputMaskListener?
   private var lastDispatchedEvent: [String: String] = [:]
   private var textFieldDelegate: UITextFieldDelegate?
@@ -213,6 +213,9 @@ class AdvancedTextInputMaskDecoratorView: UIView {
 
     configureTextField()
     configureMaskInputListener()
+
+    // reset the initial text before setting the default value
+    textField?.allText = ""
     updateTextWithoutNotification(text: defaultValue as String)
   }
 }
@@ -234,7 +237,7 @@ extension AdvancedTextInputMaskDecoratorView {
     #if ADVANCE_INPUT_MASK_NEW_ARCH_ENABLED
       if let parent = superview?.superview {
         for elementIndex in 1 ..< parent.subviews.count where parent.subviews[elementIndex] == superview {
-          textField = findFirstTextField(in: parent.subviews[elementIndex - 1])
+          textField = findFirstTextField(in: parent.subviews[elementIndex - 1]) as? RCTUITextField
           break
         }
       }
