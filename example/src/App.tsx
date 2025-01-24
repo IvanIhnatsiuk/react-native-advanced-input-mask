@@ -54,7 +54,7 @@ export default function App() {
       <Text>focused {focused ? 'Yes' : 'No'}</Text>
       <MaskedTextInput
         ref={inputRef}
-        defaultValue=""
+        defaultValue="0000"
         value={textState.formatted}
         onFocus={onFocus}
         onBlur={onBlur}
@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
   maskedTextInput: {
     width: '100%',
     height: 50,
+    color: 'red',
     backgroundColor: 'orange',
   },
 });

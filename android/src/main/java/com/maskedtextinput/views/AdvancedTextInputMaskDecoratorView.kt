@@ -28,6 +28,7 @@ class AdvancedTextInputMaskDecoratorView(
   private var customTransformationMethod: CustomTransformationMethod? = null
   private var maskedTextChangeListener: ReactMaskedTextChangeListener? = null
   private var allowedKeys: String? = null
+  private var defaultValue: String? = null
 
   private val valueListener =
     MaskedTextValueListener { _, extracted, formatted, tailPlaceholder ->
@@ -74,6 +75,12 @@ class AdvancedTextInputMaskDecoratorView(
             affinityCalculationStrategy = affinityCalculationStrategy,
             allowedKeys = allowedKeys,
           )
+        
+        val defaultValue = this.defaultValue
+
+        if(!defaultValue.isNullOrEmpty()) {
+           maskedTextChangeListener?.setText(defaultValue, true)
+        }
       }
     }
   }
@@ -115,6 +122,7 @@ class AdvancedTextInputMaskDecoratorView(
   }
 
   fun setDefaultValue(defaultValue: String?) {
+    this.defaultValue = defaultValue
     defaultValue?.let { maskedTextChangeListener?.setText(it, true) }
   }
 
