@@ -57,6 +57,7 @@ export default function App() {
         defaultValue=""
         value={textState.formatted}
         onFocus={onFocus}
+        onLayout={(e) => console.log(e.nativeEvent.layout)}
         onBlur={onBlur}
         style={styles.maskedTextInput}
         onChangeText={onChangeText}
@@ -71,6 +72,15 @@ export default function App() {
       />
       <Button title="Clear text" onPress={clearText} />
       <Button title="Focus text input" onPress={onFocusButtonPress} />
+      <View
+        style={{
+          width: 100,
+          height: 100,
+          backgroundColor: 'red',
+          position: 'absolute',
+          bottom: 0,
+        }}
+      />
     </View>
   );
 }
