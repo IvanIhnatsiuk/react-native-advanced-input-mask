@@ -94,7 +94,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
 
   @objc private var defaultValue: NSString = "" {
     didSet {
-     updateTextWithoutNotification(text: defaultValue as String)
+      updateTextWithoutNotification(text: defaultValue as String)
     }
   }
 
