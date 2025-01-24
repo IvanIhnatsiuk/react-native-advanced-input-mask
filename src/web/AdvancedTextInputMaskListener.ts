@@ -48,7 +48,7 @@ class MaskedTextChangedListener {
     this.allowedKeys = allowedKeys;
   }
 
-  private get primaryMask(): Mask {
+  public get primaryMask(): Mask {
     return this.maskGetOrCreate(this.primaryFormat, this.customNotations);
   }
 
