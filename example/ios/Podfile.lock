@@ -1211,7 +1211,7 @@ PODS:
     - React-jsiexecutor
     - React-RCTFBReactNativeSpec
     - ReactCommon/turbomodule/core
-  - react-native-advanced-input-mask (1.2.0):
+  - react-native-advanced-input-mask (1.2.1):
     - DoubleConversion
     - ForkInputMask (~> 7.3.2)
     - glog
@@ -1776,7 +1776,7 @@ SPEC CHECKSUMS:
   React-logger: 02e5802824aa9b15cb7df42e10a91abead83cd8d
   React-Mapbuffer: 99bd566147aaa78e872568be53ebca8a4449ddae
   React-microtasksnativemodule: 51e7813abf875408a0f367e473a65bbab6aa8481
-  react-native-advanced-input-mask: b588fcc807a2c428e71d669f5e020ba074ee9561
+  react-native-advanced-input-mask: cc5972e991517c49dd4a6867a5c10df7b639d77c
   React-nativeconfig: cd0fbb40987a9658c24dab5812c14e5522a64929
   React-NativeModulesApple: 4a9c304aa4fb086af32e8758ba892386d895b4d3
   React-perflogger: 721172bda31a65ce7b7a0c3bf3de96f12ef6f45d
