@@ -75,11 +75,11 @@ class AdvancedTextInputMaskDecoratorView(
             affinityCalculationStrategy = affinityCalculationStrategy,
             allowedKeys = allowedKeys,
           )
-        
+
         val defaultValue = this.defaultValue
 
-        if(!defaultValue.isNullOrEmpty()) {
-           maskedTextChangeListener?.setText(defaultValue, true)
+        if (!defaultValue.isNullOrEmpty()) {
+          maskedTextChangeListener?.setText(defaultValue, true)
         }
       }
     }
