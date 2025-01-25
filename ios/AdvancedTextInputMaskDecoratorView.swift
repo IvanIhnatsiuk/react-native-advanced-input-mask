@@ -21,10 +21,11 @@ class AdvancedTextInputMaskDecoratorView: UIView {
 
   // MARK: - Private Properties
 
-  private weak var textField: RCTUITextField?
+  private weak var textField: UITextField?
   private var maskInputListener: NotifyingAdvancedTexInputMaskListener?
   private var lastDispatchedEvent: [String: String] = [:]
   private var textFieldDelegate: UITextFieldDelegate?
+  private var isInitialMount = true
 
   @objc private var primaryMaskFormat: NSString = "" {
     didSet {
@@ -206,17 +207,27 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     textField.delegate = maskInputListener
   }
 
+  @objc func cleanup() {
+    textField?.delegate = nil
+    maskInputListener?.textFieldDelegate = nil
+    maskInputListener = nil
+    textFieldDelegate = nil
+    textField = nil
+    delegate = nil
+  }
+
   // MARK: - View Lifecycle
 
   override func didMoveToWindow() {
-    super.didMoveToWindow()
-
     configureTextField()
     configureMaskInputListener()
 
-    // reset the initial text before setting the default value
-    textField?.allText = ""
-    updateTextWithoutNotification(text: defaultValue as String)
+    if isInitialMount {
+      // reset the initial text before setting the default value
+      textField?.allText = ""
+      updateTextWithoutNotification(text: defaultValue as String)
+      isInitialMount = false
+    }
   }
 }
 
@@ -237,7 +248,7 @@ extension AdvancedTextInputMaskDecoratorView {
     #if ADVANCE_INPUT_MASK_NEW_ARCH_ENABLED
       if let parent = superview?.superview {
         for elementIndex in 1 ..< parent.subviews.count where parent.subviews[elementIndex] == superview {
-          textField = findFirstTextField(in: parent.subviews[elementIndex - 1]) as? RCTUITextField
+          textField = findFirstTextField(in: parent.subviews[elementIndex - 1])
           break
         }
       }
