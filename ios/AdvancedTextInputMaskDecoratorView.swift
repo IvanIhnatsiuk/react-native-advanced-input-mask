@@ -93,7 +93,8 @@ class AdvancedTextInputMaskDecoratorView: UIView {
       maskInputListener?.allowedKeys = allowedKeys
       guard let textField = textField else { return }
       if !allowedKeys.isEmpty {
-        textField.allText = textField.allText.filter { allowedKeys.contains($0) }
+        let nextText = textField.allText.filter { allowedKeys.contains($0) }
+        updateTextWithoutNotification(text: nextText)
       }
     }
   }
