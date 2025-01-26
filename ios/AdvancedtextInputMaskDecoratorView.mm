@@ -53,6 +53,14 @@ using namespace facebook::react;
   return self;
 }
 
+- (void)prepareForRecycle
+{
+  [super prepareForRecycle];
+  [_view cleanup];
+  _view.delegate = nil;
+  _view = nil;
+}
+
 #pragma mark - RCTComponentViewProtocol
 
 + (ComponentDescriptorProvider)componentDescriptorProvider
