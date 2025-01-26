@@ -89,7 +89,12 @@ class AdvancedTextInputMaskDecoratorView: UIView {
 
   @objc private var allowedKeys: NSString? {
     didSet {
-      maskInputListener?.allowedKeys = (allowedKeys ?? "") as String
+      let allowedKeys = (allowedKeys ?? "") as String
+      maskInputListener?.allowedKeys = allowedKeys
+      guard let textField = textField else { return }
+      if !allowedKeys.isEmpty {
+        textField.allText = textField.allText.filter { allowedKeys.contains($0) }
+      }
     }
   }
 
@@ -199,10 +204,10 @@ class AdvancedTextInputMaskDecoratorView: UIView {
           tailPlaceholder: tailPlaceholder
         )
       },
-      allowSuggestions: allowSuggestions
+      allowSuggestions: allowSuggestions,
+      allowedKeys: (allowedKeys ?? "") as String
     )
     maskInputListener?.textFieldDelegate = textFieldDelegate
-    maskInputListener?.allowedKeys = (allowedKeys ?? "") as String
     textField.delegate = maskInputListener
   }
 

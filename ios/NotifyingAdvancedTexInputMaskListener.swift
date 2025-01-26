@@ -12,6 +12,21 @@ import UIKit
 class NotifyingAdvancedTexInputMaskListener: MaskedTextInputListener {
   public var allowedKeys = ""
 
+  public init(primaryFormat: String = "",
+              autocomplete: Bool = true,
+              autocompleteOnFocus: Bool = true,
+              autoskip: Bool = false,
+              rightToLeft: Bool = false,
+              affineFormats: [String] = [],
+              affinityCalculationStrategy: AffinityCalculationStrategy = .wholeString,
+              customNotations: [Notation] = [],
+              onMaskedTextChangedCallback: ((_ textInput: UITextInput, _ value: String, _ complete: Bool, _ tailPlaceholder: String) -> Void)? = nil,
+              allowSuggestions: Bool = true,
+              allowedKeys: String = "") {
+    self.allowedKeys = allowedKeys
+    super.init(primaryFormat: primaryFormat, autocomplete: autocomplete, autocompleteOnFocus: autocompleteOnFocus, autoskip: autoskip, rightToLeft: rightToLeft, affineFormats: affineFormats, affinityCalculationStrategy: affinityCalculationStrategy, customNotations: customNotations, onMaskedTextChangedCallback: onMaskedTextChangedCallback, allowSuggestions: allowSuggestions)
+  }
+
   override func textField(
     _ textField: UITextField,
     shouldChangeCharactersIn range: NSRange,
