@@ -29,6 +29,8 @@ const useMaskedTextInputListener = ({
     formatted: string;
   }>({ extracted: '', formatted: '' });
 
+  const isInitialMount = useRef(true);
+
   const [listener] = useState<MaskedTextChangedListener>(
     () =>
       new MaskedTextChangedListener(
@@ -44,6 +46,12 @@ const useMaskedTextInputListener = ({
   );
 
   useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+
+      return;
+    }
+
     if (listener.affineFormats !== affinityFormat && affinityFormat) {
       listener.affineFormats = affinityFormat;
     }
@@ -72,7 +80,7 @@ const useMaskedTextInputListener = ({
     }
 
     if (listener.allowedKeys !== allowedKeys) {
-      listener.allowedKeys = allowedKeys;
+      listener.setAllowedKeys(allowedKeys);
     }
 
     if (listener.rightToLeft !== isRTL) {
@@ -139,10 +147,12 @@ const useMaskedTextInputListener = ({
   );
 
   return {
+    setTextField: listener.setTextField,
     handleOnChange,
     handleFocus,
     listener,
     defaultValue: defaultValueResult,
+    inputRef: listener.textField,
   };
 };
 

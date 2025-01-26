@@ -159,5 +159,6 @@ class AdvancedTextInputMaskDecoratorView(
   fun setAllowedKeys(allowedKeys: String?) {
     this.allowedKeys = allowedKeys
     maskedTextChangeListener?.allowedKeys = allowedKeys
+    maybeUpdateText()
   }
 }

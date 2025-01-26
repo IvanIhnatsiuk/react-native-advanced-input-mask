@@ -24,6 +24,7 @@ class MaskedTextChangedListener {
   public autocomplete: boolean;
   public autoskip: boolean;
   public rightToLeft: boolean;
+  public textField: Field | null = null;
   public allowedKeys: string;
 
   private afterText: string = '';
@@ -52,24 +53,40 @@ class MaskedTextChangedListener {
     return this.maskGetOrCreate(this.primaryFormat, this.customNotations);
   }
 
-  public setText(field: Field, text: string, autocomplete?: boolean): void {
+  public setText(text: string, autocomplete?: boolean): void {
+    if (!this.textField) {
+      return;
+    }
+
+    const newText = this.allowedKeys
+      ? [...text].filter((char) => this.allowedKeys.includes(char)).join('')
+      : text;
+
     const useAutocomplete = autocomplete ?? this.autocomplete;
-    const textAndCaret = new CaretString(text, text.length, {
+    const textAndCaret = new CaretString(newText, newText.length, {
       type: CaretGravityType.Forward,
       autocomplete: useAutocomplete,
       autoskip: false,
     });
 
     const result: MaskResult = this.pickMask(textAndCaret).apply(textAndCaret);
-    field.value = result.formattedText.string;
+    this.textField.value = result.formattedText.string;
 
-    field.setSelectionRange(
+    this.textField.setSelectionRange(
       result.formattedText.caretPosition,
       result.formattedText.caretPosition
     );
 
     this.afterText = result.formattedText.string;
   }
+
+  public setAllowedKeys = (allowedKeys: string): void => {
+    this.allowedKeys = allowedKeys;
+
+    if (this.textField && allowedKeys) {
+      this.setText(this.textField.value, false);
+    }
+  };
 
   public get placeholder(): string {
     return this.primaryMask.placeholder();
@@ -90,6 +107,10 @@ class MaskedTextChangedListener {
   public get totalValueLength(): number {
     return this.primaryMask.totalValueLength();
   }
+
+  public setTextField = (textField: Field): void => {
+    this.textField = textField;
+  };
 
   public handleTextChange = (
     event: NativeSyntheticEvent<TextInputChangeEventData>
