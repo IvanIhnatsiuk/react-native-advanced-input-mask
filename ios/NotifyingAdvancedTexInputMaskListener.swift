@@ -26,7 +26,8 @@ class NotifyingAdvancedTexInputMaskListener: MaskedTextInputListener {
                  _ complete: Bool,
                  _ tailPlaceholder: String) -> Void)? = nil,
               allowSuggestions: Bool = true,
-              allowedKeys: String = "") {
+              allowedKeys: String = "")
+  {
     self.allowedKeys = allowedKeys
     super.init(
       primaryFormat: primaryFormat,
