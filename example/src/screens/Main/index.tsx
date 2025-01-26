@@ -80,38 +80,6 @@ const Main = () => {
         autoSkip={false}
         customNotations={charAlphaNumerics}
       />
-      <MaskedTextInput
-        ref={inputRef}
-        defaultValue="0000"
-        // value={textState.formatted}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        style={styles.maskedTextInput}
-        // onChangeText={onChangeText}
-        onTailPlaceholderChange={console.log}
-        mask="[00]-[$$]-[00]"
-        autocomplete={false}
-        allowSuggestions={true}
-        autocompleteOnFocus={false}
-        autoSkip={false}
-        customNotations={charAlphaNumerics}
-      />
-      <MaskedTextInput
-        ref={inputRef}
-        defaultValue="0000"
-        // value={textState.formatted}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        style={styles.maskedTextInput}
-        // onChangeText={onChangeText}
-        onTailPlaceholderChange={console.log}
-        mask="[00]-[$$]-[00]"
-        autocomplete={false}
-        allowSuggestions={true}
-        autocompleteOnFocus={false}
-        autoSkip={false}
-        customNotations={charAlphaNumerics}
-      />
       <Button title="Clear text" onPress={clearText} />
       <Button title="Focus text input" onPress={onFocusButtonPress} />
       <Button
