@@ -31,7 +31,6 @@ const Main = () => {
 
   const onChangeText = React.useCallback(
     (formatted: string, extracted: string) => {
-      console.log('extracted:', extracted, 'formatted:', formatted);
       setTextState({ extracted, formatted });
     },
     []
@@ -73,6 +72,38 @@ const Main = () => {
         onBlur={onBlur}
         style={styles.maskedTextInput}
         onChangeText={onChangeText}
+        onTailPlaceholderChange={console.log}
+        mask="[00]-[$$]-[00]"
+        autocomplete={false}
+        allowSuggestions={true}
+        autocompleteOnFocus={false}
+        autoSkip={false}
+        customNotations={charAlphaNumerics}
+      />
+      <MaskedTextInput
+        ref={inputRef}
+        defaultValue="0000"
+        // value={textState.formatted}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        style={styles.maskedTextInput}
+        // onChangeText={onChangeText}
+        onTailPlaceholderChange={console.log}
+        mask="[00]-[$$]-[00]"
+        autocomplete={false}
+        allowSuggestions={true}
+        autocompleteOnFocus={false}
+        autoSkip={false}
+        customNotations={charAlphaNumerics}
+      />
+      <MaskedTextInput
+        ref={inputRef}
+        defaultValue="0000"
+        // value={textState.formatted}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        style={styles.maskedTextInput}
+        // onChangeText={onChangeText}
         onTailPlaceholderChange={console.log}
         mask="[00]-[$$]-[00]"
         autocomplete={false}

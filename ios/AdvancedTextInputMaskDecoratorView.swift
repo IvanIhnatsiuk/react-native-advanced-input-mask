@@ -201,32 +201,30 @@ class AdvancedTextInputMaskDecoratorView: UIView {
       },
       allowSuggestions: allowSuggestions
     )
-
     maskInputListener?.textFieldDelegate = textFieldDelegate
     maskInputListener?.allowedKeys = (allowedKeys ?? "") as String
     textField.delegate = maskInputListener
   }
 
   @objc func cleanup() {
-    textField?.delegate = nil
+    textField = nil
     maskInputListener?.textFieldDelegate = nil
     maskInputListener = nil
-    textFieldDelegate = nil
-    textField = nil
-    delegate = nil
   }
 
   // MARK: - View Lifecycle
 
   override func didMoveToWindow() {
-    configureTextField()
-    configureMaskInputListener()
+    if textField == nil {
+      configureTextField()
+      configureMaskInputListener()
 
-    if isInitialMount {
-      // reset the initial text before setting the default value
-      textField?.allText = ""
-      updateTextWithoutNotification(text: defaultValue as String)
-      isInitialMount = false
+      if isInitialMount {
+        // reset the initial text before setting the default value
+        textField?.allText = ""
+        updateTextWithoutNotification(text: defaultValue as String)
+        isInitialMount = false
+      }
     }
   }
 }
