@@ -22,8 +22,7 @@ class NotifyingAdvancedTexInputMaskListener: MaskedTextInputListener {
               customNotations: [Notation] = [],
               onMaskedTextChangedCallback: ((_ textInput: UITextInput, _ value: String, _ complete: Bool, _ tailPlaceholder: String) -> Void)? = nil,
               allowSuggestions: Bool = true,
-              allowedKeys: String = "")
-  {
+              allowedKeys: String = "") {
     self.allowedKeys = allowedKeys
     super.init(primaryFormat: primaryFormat, autocomplete: autocomplete, autocompleteOnFocus: autocompleteOnFocus, autoskip: autoskip, rightToLeft: rightToLeft, affineFormats: affineFormats, affinityCalculationStrategy: affinityCalculationStrategy, customNotations: customNotations, onMaskedTextChangedCallback: onMaskedTextChangedCallback, allowSuggestions: allowSuggestions)
   }
