@@ -58,8 +58,12 @@ class MaskedTextChangedListener {
       return;
     }
 
+    const newText = this.allowedKeys
+      ? [...text].filter((char) => this.allowedKeys.includes(char)).join('')
+      : text;
+
     const useAutocomplete = autocomplete ?? this.autocomplete;
-    const textAndCaret = new CaretString(text, text.length, {
+    const textAndCaret = new CaretString(newText, newText.length, {
       type: CaretGravityType.Forward,
       autocomplete: useAutocomplete,
       autoskip: false,
@@ -80,7 +84,7 @@ class MaskedTextChangedListener {
     this.allowedKeys = allowedKeys;
 
     if (this.textField && allowedKeys) {
-      this.textField.value = '';
+      this.setText(this.textField.value, false);
     }
   };
 
