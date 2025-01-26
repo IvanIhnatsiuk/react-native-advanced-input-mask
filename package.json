@@ -1,6 +1,6 @@
 {
   "name": "react-native-advanced-input-mask",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Text input mask for React Native on iOS, Android and web. Synchronous and easy formatting without hustle",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -22,7 +22,6 @@
     "!android/local.properties",
     "!android/.editorconfig",
     "!lib/typescript/WebExample",
-    "!ios/build",
     "!ios/.swiftlint.yml",
     "!ios/.swiftformat",
     "!ios/.clang-format",
