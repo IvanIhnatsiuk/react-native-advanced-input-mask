@@ -30,7 +30,10 @@ jobs:
 
       - name: Calculate size of package (target)
         id: old-size
-        run: echo "OLD_SIZE=$(node scripts/size.js)" >> "$GITHUB_OUTPUT"
+        run: |
+          ls -R
+          ls -R scripts/
+          echo "OLD_SIZE=$(node scripts/size.js)" >> "$GITHUB_OUTPUT"
 
       - uses: actions/checkout@v4
 
