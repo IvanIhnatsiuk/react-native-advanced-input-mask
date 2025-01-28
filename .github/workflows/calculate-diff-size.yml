@@ -4,8 +4,8 @@ on:
   pull_request:
     paths-ignore:
       - "example/**"
-      - "FabricExample/**"
-      - "docs/**"
+      - "WebExample/**"
+      - "gifs/**"
 
 permissions:
   contents: read
