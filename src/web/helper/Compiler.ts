@@ -7,7 +7,22 @@ import ValueState from '../model/state/ValueState';
 import type { StateType } from '../model/types';
 import FormatSanitizer from './FormatSanitizer';
 import type { Notation } from '../../types';
-import { FIXED_STATE_TYPES, OPTIONAL_STATE_TYPES } from '../model/constants';
+import {
+  CLOSE_CURLY_BRACKET,
+  CLOSE_SQUARE_BRACKET,
+  ELLIPSIS_CHARACTER,
+  ESCAPE_CHARACTER,
+  FIXED_ALPHA_NUMERIC_CHARACTER,
+  FIXED_LITERAL_CHARACTER,
+  FIXED_NUMERIC_CHARACTER,
+  FIXED_STATE_TYPES,
+  OPEN_CURLY_BRACKET,
+  OPEN_SQUARE_BRACKET,
+  OPTIONAL_ALPHA_NUMERIC_CHARACTER,
+  OPTIONAL_LITERAL_CHARACTER,
+  OPTIONAL_NUMERIC_CHARACTER,
+  OPTIONAL_STATE_TYPES,
+} from '../model/constants';
 import FormatError from './FormatError';
 
 export default class Compiler {
@@ -35,19 +50,19 @@ export default class Compiler {
     const char = formatString.charAt(0);
 
     switch (char) {
-      case '[':
-        if (lastCharacter !== '\\') {
+      case OPEN_SQUARE_BRACKET:
+        if (lastCharacter !== ESCAPE_CHARACTER) {
           return this.compileInternal(formatString.slice(1), true, false, char);
         }
         break;
-      case '{':
-        if (lastCharacter !== '\\') {
+      case OPEN_CURLY_BRACKET:
+        if (lastCharacter !== ESCAPE_CHARACTER) {
           return this.compileInternal(formatString.slice(1), false, true, char);
         }
         break;
-      case ']':
-      case '}':
-        if (lastCharacter !== '\\') {
+      case CLOSE_CURLY_BRACKET:
+      case CLOSE_SQUARE_BRACKET:
+        if (lastCharacter !== ESCAPE_CHARACTER) {
           return this.compileInternal(
             formatString.slice(1),
             false,
@@ -56,8 +71,8 @@ export default class Compiler {
           );
         }
         break;
-      case '\\':
-        if (lastCharacter !== '\\') {
+      case ESCAPE_CHARACTER:
+        if (lastCharacter !== ESCAPE_CHARACTER) {
           return this.compileInternal(
             formatString.slice(1),
             valuable,
@@ -70,38 +85,38 @@ export default class Compiler {
 
     if (valuable) {
       switch (char) {
-        case '0':
+        case FIXED_NUMERIC_CHARACTER:
           return new ValueState(
             this.compileInternal(formatString.substring(1), true, false, char),
             FIXED_STATE_TYPES.numeric
           );
-        case 'A':
+        case FIXED_LITERAL_CHARACTER:
           return new ValueState(
             this.compileInternal(formatString.substring(1), true, false, char),
             FIXED_STATE_TYPES.literal
           );
-        case '_':
+        case FIXED_ALPHA_NUMERIC_CHARACTER:
           return new ValueState(
             this.compileInternal(formatString.substring(1), true, false, char),
             FIXED_STATE_TYPES.alphaNumeric
           );
-        case '…':
+        case ELLIPSIS_CHARACTER:
           // Ellipses remain elliptical: re-construct inherited type from lastCharacter
           return new ValueState(
             null,
             this.determineInheritedType(lastCharacter)
           );
-        case '9':
+        case OPTIONAL_NUMERIC_CHARACTER:
           return new OptionalValueState(
             this.compileInternal(formatString.substring(1), true, false, char),
             OPTIONAL_STATE_TYPES.numeric
           );
-        case 'a':
+        case OPTIONAL_LITERAL_CHARACTER:
           return new OptionalValueState(
             this.compileInternal(formatString.substring(1), true, false, char),
             OPTIONAL_STATE_TYPES.literal
           );
-        case '-':
+        case OPTIONAL_ALPHA_NUMERIC_CHARACTER:
           return new OptionalValueState(
             this.compileInternal(formatString.substring(1), true, false, char),
             OPTIONAL_STATE_TYPES.alphaNumeric
@@ -132,16 +147,16 @@ export default class Compiler {
     lastCharacter: string | null
   ): StateType | Notation {
     switch (lastCharacter) {
-      case '0':
-      case '9':
+      case FIXED_NUMERIC_CHARACTER:
+      case OPTIONAL_NUMERIC_CHARACTER:
         return FIXED_STATE_TYPES.numeric;
-      case 'A':
-      case 'a':
+      case FIXED_LITERAL_CHARACTER:
+      case OPTIONAL_LITERAL_CHARACTER:
         return FIXED_STATE_TYPES.literal;
-      case '_':
-      case '-':
-      case '…':
-      case '[':
+      case FIXED_ALPHA_NUMERIC_CHARACTER:
+      case OPTIONAL_ALPHA_NUMERIC_CHARACTER:
+      case ELLIPSIS_CHARACTER:
+      case OPEN_SQUARE_BRACKET:
         return FIXED_STATE_TYPES.alphaNumeric;
       default:
         return this.determineTypeWithCustomNotations(lastCharacter);

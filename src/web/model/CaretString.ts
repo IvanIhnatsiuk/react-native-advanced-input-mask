@@ -1,3 +1,4 @@
+import { reverse } from '../helper/string';
 import type { CaretGravity } from './types';
 
 class CaretString {
@@ -15,13 +16,12 @@ class CaretString {
     this.caretGravity = caretGravity;
   }
 
-  reversed(): CaretString {
-    return new CaretString(
-      this.string.split('').reverse().join(''),
+  reversed = (): CaretString =>
+    new CaretString(
+      reverse(this.string),
       this.string.length - this.caretPosition,
       this.caretGravity
     );
-  }
 }
 
 export default CaretString;

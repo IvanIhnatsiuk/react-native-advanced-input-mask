@@ -27,8 +27,6 @@ class MaskedTextChangedListener {
   public textField: Field | null = null;
   public allowedKeys: string;
 
-  private afterText: string = '';
-
   constructor(
     primaryFormat: string,
     affineFormats: string[] = [],
@@ -49,6 +47,41 @@ class MaskedTextChangedListener {
     this.allowedKeys = allowedKeys;
   }
 
+  private applyMaskAndSetText = (
+    textField: Field,
+    rawText: string,
+    caretPosition: number,
+    isDeletion: boolean,
+    autocomplete?: boolean
+  ): MaskResult => {
+    const filteredText = this.allowedKeys
+      ? [...rawText].filter((char) => this.allowedKeys.includes(char)).join('')
+      : rawText;
+
+    const caretGravity = {
+      type: isDeletion ? CaretGravityType.Backward : CaretGravityType.Forward,
+      autoskip: isDeletion ? this.autoskip : false,
+      autocomplete: isDeletion ? false : autocomplete ?? this.autocomplete,
+    };
+
+    const textAndCaret = new CaretString(
+      filteredText,
+      caretPosition,
+      caretGravity
+    );
+
+    const mask = this.pickMask(textAndCaret);
+    const result = mask.apply(textAndCaret);
+
+    textField.value = result.formattedText.string;
+    textField.setSelectionRange(
+      result.formattedText.caretPosition,
+      result.formattedText.caretPosition
+    );
+
+    return result;
+  };
+
   public get primaryMask(): Mask {
     return this.maskGetOrCreate(this.primaryFormat, this.customNotations);
   }
@@ -58,26 +91,15 @@ class MaskedTextChangedListener {
       return;
     }
 
-    const newText = this.allowedKeys
-      ? [...text].filter((char) => this.allowedKeys.includes(char)).join('')
-      : text;
+    const isDeletion = this.textField.value.length > text.length;
 
-    const useAutocomplete = autocomplete ?? this.autocomplete;
-    const textAndCaret = new CaretString(newText, newText.length, {
-      type: CaretGravityType.Forward,
-      autocomplete: useAutocomplete,
-      autoskip: false,
-    });
-
-    const result: MaskResult = this.pickMask(textAndCaret).apply(textAndCaret);
-    this.textField.value = result.formattedText.string;
-
-    this.textField.setSelectionRange(
-      result.formattedText.caretPosition,
-      result.formattedText.caretPosition
+    this.applyMaskAndSetText(
+      this.textField,
+      text,
+      text.length,
+      isDeletion,
+      autocomplete
     );
-
-    this.afterText = result.formattedText.string;
   }
 
   public setAllowedKeys = (allowedKeys: string): void => {
@@ -127,30 +149,8 @@ class MaskedTextChangedListener {
     const selectionStart = textField.selectionStart || 0;
     const isInside = selectionStart < text.length;
     const caretPosition = isDeletion || isInside ? selectionStart : text.length;
-    const useAutocomplete = isDeletion ? false : this.autocomplete;
-    const useAutoskip = isDeletion ? this.autoskip : false;
 
-    const caretGravity = {
-      type: isDeletion ? CaretGravityType.Backward : CaretGravityType.Forward,
-      autoskip: useAutoskip,
-      autocomplete: useAutocomplete,
-    };
-    const newText = this.allowedKeys
-      ? [...text].filter((char) => this.allowedKeys.includes(char)).join('')
-      : text;
-    const textAndCaret = new CaretString(newText, caretPosition, caretGravity);
-    const mask = this.pickMask(textAndCaret);
-    const result = mask.apply(textAndCaret);
-
-    textField.value = result.formattedText.string;
-    textField.setSelectionRange(
-      result.formattedText.caretPosition,
-      result.formattedText.caretPosition
-    );
-
-    this.afterText = result.formattedText.string;
-
-    return result;
+    return this.applyMaskAndSetText(textField, text, caretPosition, isDeletion);
   };
 
   handleFocus = (
@@ -159,61 +159,44 @@ class MaskedTextChangedListener {
     if (this.autocomplete) {
       const textField = event.target as unknown as HTMLInputElement;
       const text = textField.value.length > 0 ? textField.value : '';
-      const textAndCaret = new CaretString(text, text.length, {
-        type: CaretGravityType.Forward,
-        autocomplete: this.autocomplete,
-        autoskip: false,
-      });
-      const result = this.pickMask(textAndCaret).apply(textAndCaret);
 
-      this.afterText = result.formattedText.string;
-      textField.value = this.afterText;
-
-      textField.setSelectionRange(
-        result.formattedText.caretPosition,
-        result.formattedText.caretPosition
-      );
+      this.applyMaskAndSetText(textField, text, text.length, false, true);
     }
   };
 
   pickMask = (text: CaretString): Mask => {
-    if (this.affineFormats.length === 0) {
+    if (!this.affineFormats.length) {
       return this.primaryMask;
     }
 
-    const primaryAffinity = this.calculateAffinity(this.primaryMask, text);
-    const masksAndAffinities: MaskAffinity[] = [];
-
-    for (const format of this.affineFormats) {
-      const candidateMask = this.maskGetOrCreate(format, this.customNotations);
-      const affinity = this.calculateAffinity(candidateMask, text);
-      masksAndAffinities.push({ mask: candidateMask, affinity });
-    }
-
-    masksAndAffinities.sort((a, b) => b.affinity - a.affinity);
-
-    let insertIndex = -1;
-    for (let i = 0; i < masksAndAffinities.length; i++) {
-      const affinity = masksAndAffinities[i]?.affinity;
-      if (affinity && primaryAffinity === affinity) {
-        insertIndex = i;
-        break;
-      }
-    }
-
-    if (insertIndex >= 0) {
-      masksAndAffinities.splice(insertIndex, 0, {
+    const candidates: MaskAffinity[] = [
+      {
         mask: this.primaryMask,
-        affinity: primaryAffinity,
-      });
-    } else {
-      masksAndAffinities.push({
-        mask: this.primaryMask,
-        affinity: primaryAffinity,
-      });
-    }
+        affinity: calculateAffinityOfMask(
+          this.affinityCalculationStrategy,
+          this.primaryMask,
+          text
+        ),
+      },
+      ...this.affineFormats.map((format) => {
+        const candidateMask = this.maskGetOrCreate(
+          format,
+          this.customNotations
+        );
+        return {
+          mask: candidateMask,
+          affinity: calculateAffinityOfMask(
+            this.affinityCalculationStrategy,
+            candidateMask,
+            text
+          ),
+        };
+      }),
+    ];
 
-    return masksAndAffinities[0]!.mask;
+    candidates.sort((a, b) => b.affinity - a.affinity);
+
+    return candidates[0]!.mask;
   };
 
   private maskGetOrCreate = (
@@ -223,14 +206,6 @@ class MaskedTextChangedListener {
     this.rightToLeft
       ? RTLMask.getOrCreate(format, customNotations)
       : Mask.getOrCreate(format, customNotations);
-
-  private calculateAffinity(mask: Mask, text: CaretString): number {
-    return calculateAffinityOfMask(
-      this.affinityCalculationStrategy,
-      mask,
-      text
-    );
-  }
 }
 
 export default MaskedTextChangedListener;

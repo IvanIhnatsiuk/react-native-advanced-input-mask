@@ -1,3 +1,4 @@
+import { NULL_STRING } from '../constants';
 import type { Next } from '../types';
 
 abstract class State {
@@ -14,7 +15,7 @@ abstract class State {
   autocomplete = (): Next | null => null;
 
   toString = (): string =>
-    `BASE -> ${this.child ? this.child.toString() : 'null'}`;
+    `BASE -> ${this.child ? this.child.toString() : NULL_STRING}`;
 }
 
 export default State;

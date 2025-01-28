@@ -4,6 +4,12 @@ import RTLCaretStringIterator from './RTLCaretStringIterator';
 import CaretStringIterator from './CaretStringIterator';
 import type { Notation } from '../../types';
 import type { MaskResult } from '../model/types';
+import {
+  CLOSE_CURLY_BRACKET,
+  CLOSE_SQUARE_BRACKET,
+  OPEN_CURLY_BRACKET,
+  OPEN_SQUARE_BRACKET,
+} from '../model/constants';
 
 export default class RTLMask extends Mask {
   private static rtlCache: Map<string, RTLMask> = new Map();
@@ -34,14 +40,14 @@ export default class RTLMask extends Mask {
   private static reversedFormat(format: string): string {
     const mapped = format.split('').reduceRight((acc, char) => {
       switch (char) {
-        case '[':
-          return acc + ']';
-        case ']':
-          return acc + '[';
-        case '{':
-          return acc + '}';
-        case '}':
-          return acc + '{';
+        case OPEN_SQUARE_BRACKET:
+          return acc + CLOSE_SQUARE_BRACKET;
+        case CLOSE_SQUARE_BRACKET:
+          return acc + OPEN_SQUARE_BRACKET;
+        case OPEN_CURLY_BRACKET:
+          return acc + CLOSE_CURLY_BRACKET;
+        case CLOSE_CURLY_BRACKET:
+          return acc + OPEN_CURLY_BRACKET;
         default:
           return acc + char;
       }
