@@ -1,4 +1,4 @@
-name: 🧪 Size calculation
+name: test
 
 on:
   pull_request:

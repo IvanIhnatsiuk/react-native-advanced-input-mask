@@ -2,7 +2,7 @@ name: 📝 Create size diff comment
 
 on:
   workflow_run:
-    workflows: ["🧪 Size calculation"]
+    workflows: ["test"]
     types: [completed]
 
 permissions:
