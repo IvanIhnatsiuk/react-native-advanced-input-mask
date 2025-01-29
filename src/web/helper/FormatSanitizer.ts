@@ -1,4 +1,16 @@
+import {
+  CLOSE_CURLY_BRACKET,
+  CLOSE_SQUARE_BRACKET,
+  ESCAPE_CHARACTER,
+  FIXED_ALPHA_NUMERIC_CHARACTER,
+  FIXED_LITERAL_CHARACTER,
+  OPEN_CURLY_BRACKET,
+  OPEN_SQUARE_BRACKET,
+  OPTIONAL_ALPHA_NUMERIC_CHARACTER,
+  OPTIONAL_LITERAL_CHARACTER,
+} from '../model/constants';
 import FormatError from './FormatError';
+import { sortString } from './string';
 
 export default class FormatSanitizer {
   public static sanitize(formatString: string): string {
@@ -15,7 +27,7 @@ export default class FormatSanitizer {
     let escape = false;
 
     for (const char of formatString) {
-      if (char === '\\') {
+      if (char === ESCAPE_CHARACTER) {
         if (!escape) {
           escape = true;
           currentBlock += char;
@@ -23,7 +35,10 @@ export default class FormatSanitizer {
         }
       }
 
-      if ((char === '[' || char === '{') && !escape) {
+      if (
+        (char === OPEN_CURLY_BRACKET || char === OPEN_SQUARE_BRACKET) &&
+        !escape
+      ) {
         if (currentBlock.length > 0) {
           blocks.push(currentBlock);
         }
@@ -32,7 +47,10 @@ export default class FormatSanitizer {
 
       currentBlock += char;
 
-      if ((char === ']' || char === '}') && !escape) {
+      if (
+        (char === CLOSE_SQUARE_BRACKET || char === CLOSE_CURLY_BRACKET) &&
+        !escape
+      ) {
         blocks.push(currentBlock);
         currentBlock = '';
       }
@@ -47,61 +65,51 @@ export default class FormatSanitizer {
     return blocks;
   }
 
+  private static processBlock = (block: string): string[] => {
+    const results: string[] = [];
+    let buffer = '';
+    let i = 0;
+
+    while (i < block.length) {
+      const char = block.charAt(i);
+
+      if (char === CLOSE_SQUARE_BRACKET) {
+        buffer += char;
+        i++;
+        continue;
+      }
+
+      if (char === OPEN_SQUARE_BRACKET && !buffer.endsWith(ESCAPE_CHARACTER)) {
+        buffer += char;
+        results.push(buffer);
+        break;
+      }
+      if (
+        (/[09]/.test(char) && /[Aa_\\-]/.test(buffer)) ||
+        (/[Aa]/.test(char) && /[0-9_\\-]/.test(buffer)) ||
+        (/[_\\-]/.test(char) && /[0-9Aa]/.test(buffer))
+      ) {
+        buffer += CLOSE_SQUARE_BRACKET;
+        results.push(buffer);
+        buffer = OPEN_SQUARE_BRACKET + char;
+        i++;
+        continue;
+      }
+
+      buffer += char;
+      i++;
+    }
+
+    return results.length ? results : [block];
+  };
+
   private static divideBlocksWithMixedCharacters(blocks: string[]): string[] {
     const resultingBlocks: string[] = [];
 
     for (const block of blocks) {
-      if (block.startsWith('[')) {
-        let blockBuffer = '';
-        for (let i = 0; i < block.length; i++) {
-          const blockCharacter = block[i];
-          if (blockCharacter === '[') {
-            blockBuffer += blockCharacter;
-            continue;
-          }
-          if (blockCharacter === ']' && !blockBuffer.endsWith('\\')) {
-            blockBuffer += blockCharacter;
-            resultingBlocks.push(blockBuffer);
-            break;
-          }
-          if (
-            (blockCharacter === '0' || blockCharacter === '9') &&
-            (blockBuffer.includes('A') ||
-              blockBuffer.includes('a') ||
-              blockBuffer.includes('-') ||
-              blockBuffer.includes('_'))
-          ) {
-            blockBuffer += ']';
-            resultingBlocks.push(blockBuffer);
-            blockBuffer = '[' + blockCharacter;
-            continue;
-          }
-          if (
-            (blockCharacter === 'A' || blockCharacter === 'a') &&
-            (blockBuffer.includes('0') ||
-              blockBuffer.includes('9') ||
-              blockBuffer.includes('-') ||
-              blockBuffer.includes('_'))
-          ) {
-            blockBuffer += ']';
-            resultingBlocks.push(blockBuffer);
-            blockBuffer = '[' + blockCharacter;
-            continue;
-          }
-          if (
-            (blockCharacter === '-' || blockCharacter === '_') &&
-            (blockBuffer.includes('0') ||
-              blockBuffer.includes('9') ||
-              blockBuffer.includes('A') ||
-              blockBuffer.includes('a'))
-          ) {
-            blockBuffer += ']';
-            resultingBlocks.push(blockBuffer);
-            blockBuffer = '[' + blockCharacter;
-            continue;
-          }
-          blockBuffer += blockCharacter;
-        }
+      if (block.startsWith(OPEN_SQUARE_BRACKET)) {
+        const processedBlock = this.processBlock(block);
+        resultingBlocks.push(...processedBlock);
       } else {
         resultingBlocks.push(block);
       }
@@ -111,43 +119,28 @@ export default class FormatSanitizer {
   }
 
   private static sortFormatBlocks(blocks: string[]): string[] {
-    const sortedBlocks: string[] = [];
+    return blocks.map((block) => {
+      if (block.startsWith(OPEN_SQUARE_BRACKET)) {
+        const isSimpleBlock = /[09Aa]/.test(block);
+        const preparedBlock = block
+          .replace(OPEN_SQUARE_BRACKET, '')
+          .replace(CLOSE_SQUARE_BRACKET, '');
 
-    for (const block of blocks) {
-      let sortedBlock: string;
-      if (block.startsWith('[')) {
-        if (
-          block.includes('0') ||
-          block.includes('9') ||
-          block.includes('A') ||
-          block.includes('a')
-        ) {
-          sortedBlock =
-            '[' +
-            block.replace('[', '').replace(']', '').split('').sort().join('') +
-            ']';
-        } else {
-          // For `_` or `-`, temporarily replace for sorting
-          sortedBlock =
-            '[' +
-            block
-              .replace('[', '')
-              .replace(']', '')
-              .replace('_', 'A')
-              .replace('-', 'a')
-              .split('')
-              .sort()
-              .join('') +
-            ']';
-          sortedBlock = sortedBlock.replace('A', '_').replace('a', '-');
-        }
+        const sortedBlock = isSimpleBlock
+          ? sortString(preparedBlock)
+          : sortString(
+              preparedBlock
+                .replace(FIXED_ALPHA_NUMERIC_CHARACTER, FIXED_LITERAL_CHARACTER)
+                .replace(
+                  OPTIONAL_ALPHA_NUMERIC_CHARACTER,
+                  OPTIONAL_LITERAL_CHARACTER
+                )
+            );
+        return `${OPEN_SQUARE_BRACKET}${sortedBlock}${CLOSE_SQUARE_BRACKET}`;
       } else {
-        sortedBlock = block;
+        return block;
       }
-      sortedBlocks.push(sortedBlock);
-    }
-
-    return sortedBlocks;
+    });
   }
 
   private static checkOpenBraces(str: string): void {
@@ -156,26 +149,26 @@ export default class FormatSanitizer {
     let curlyBraceOpen = false;
 
     for (const char of str) {
-      if (char === '\\') {
+      if (char === ESCAPE_CHARACTER) {
         escape = !escape;
         continue;
       }
-      if (char === '[') {
+      if (char === OPEN_SQUARE_BRACKET) {
         if (squareBraceOpen) {
           throw new FormatError();
         }
         squareBraceOpen = !escape;
       }
-      if (char === ']' && !escape) {
+      if (char === CLOSE_SQUARE_BRACKET && !escape) {
         squareBraceOpen = false;
       }
-      if (char === '{') {
+      if (char === OPEN_CURLY_BRACKET) {
         if (curlyBraceOpen) {
           throw new FormatError();
         }
         curlyBraceOpen = !escape;
       }
-      if (char === '}' && !escape) {
+      if (char === CLOSE_CURLY_BRACKET && !escape) {
         curlyBraceOpen = false;
       }
       escape = false;

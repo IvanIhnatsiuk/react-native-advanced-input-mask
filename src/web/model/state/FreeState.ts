@@ -1,5 +1,6 @@
 import State from './State';
 import type { Next } from '../types';
+import { NULL_STRING } from '../constants';
 
 class FreeState extends State {
   ownCharacter: string;
@@ -9,7 +10,7 @@ class FreeState extends State {
     this.ownCharacter = ownCharacter;
   }
 
-  accept: (char: string) => Next | null = (char: string): Next | null => {
+  accept = (char: string): Next | null => {
     return this.ownCharacter === char
       ? {
           state: this.nextState(),
@@ -25,15 +26,17 @@ class FreeState extends State {
         };
   };
 
-  autocomplete: () => Next | null = () => ({
+  autocomplete = (): Next | null => ({
     state: this.nextState(),
     insert: this.ownCharacter,
     pass: false,
     value: null,
   });
 
-  toString: () => string = () =>
-    `${this.ownCharacter} -> ${this.child ? this.child.toString() : 'null'}`;
+  toString = (): string =>
+    `${this.ownCharacter} -> ${
+      this.child ? this.child.toString() : NULL_STRING
+    }`;
 }
 
 export default FreeState;

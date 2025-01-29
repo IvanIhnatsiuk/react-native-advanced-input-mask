@@ -2,6 +2,7 @@ import State from './State';
 import type { Ellipsis, Next, StateType } from '../types';
 import type { Notation } from '../../../types';
 import { getCharacterTypeString } from '../utils';
+import { ELLIPSES, NULL_STRING } from '../constants';
 
 class ValueState extends State {
   stateType: StateType | Ellipsis | Notation;
@@ -16,7 +17,7 @@ class ValueState extends State {
 
   private accepts(character: string): boolean {
     if ('name' in this.stateType) {
-      if (this.stateType.name === 'ellipsis') {
+      if (this.stateType.name === ELLIPSES) {
         return this.checkEllipsis(this.stateType.inheritedType, character);
       }
 
@@ -25,12 +26,12 @@ class ValueState extends State {
     return this.stateType.characterSet.includes(character);
   }
 
-  private checkEllipsis(
+  private checkEllipsis = (
     stateType: StateType | Ellipsis | Notation,
     character: string
-  ): boolean {
+  ): boolean => {
     if ('name' in stateType) {
-      if (stateType.name === 'ellipsis') {
+      if (stateType.name === ELLIPSES) {
         this.checkEllipsis(stateType.inheritedType, character);
       } else {
         return stateType.regex.test(character);
@@ -38,7 +39,7 @@ class ValueState extends State {
     }
 
     return (stateType as Notation).characterSet.includes(character);
-  }
+  };
 
   accept: (character: string) => Next | null = (character) =>
     this.accepts(character)
@@ -51,7 +52,7 @@ class ValueState extends State {
       : null;
 
   get isElliptical(): boolean {
-    return 'name' in this.stateType && this.stateType.name === 'ellipsis';
+    return 'name' in this.stateType && this.stateType.name === ELLIPSES;
   }
 
   nextState: () => State = () => (this.isElliptical ? this : this.child!);
@@ -59,7 +60,7 @@ class ValueState extends State {
   toString: () => string = () => {
     const typeStr = getCharacterTypeString(this.stateType);
 
-    return `${typeStr} -> ${this.child?.toString() ?? 'null'}`;
+    return `${typeStr} -> ${this.child?.toString() ?? NULL_STRING}`;
   };
 }
 

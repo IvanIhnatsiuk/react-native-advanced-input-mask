@@ -1,3 +1,4 @@
+import { NULL_STRING } from '../constants';
 import type { Next } from '../types';
 import State from './State';
 
@@ -32,7 +33,7 @@ class FixedState extends State {
   });
 
   toString = () =>
-    `{${this.ownCharacter}} -> ${this.child?.toString() ?? 'null'} `;
+    `{${this.ownCharacter}} -> ${this.child?.toString() ?? NULL_STRING} `;
 }
 
 export default FixedState;

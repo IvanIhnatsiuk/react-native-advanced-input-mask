@@ -9,6 +9,9 @@ import FreeState from '../model/state/FreeState';
 import OptionalValueState from '../model/state/OptionalValueState';
 import ValueState from '../model/state/ValueState';
 import CaretStringIterator from './CaretStringIterator';
+import { OPTIONAL_LITERAL_CHARACTER } from '../model/constants';
+import { reverse } from './string';
+import AutocompletionStack from './AutoCompelitionStack';
 
 export class Mask {
   private static cache: Map<string, Mask> = new Map();
@@ -137,10 +140,10 @@ export class Mask {
       reversed() {
         return {
           formattedText: this.formattedText.reversed(),
-          extractedValue: this.extractedValue.split('').reverse().join(''),
+          extractedValue: reverse(this.extractedValue),
           affinity: this.affinity,
           complete: this.complete,
-          tailPlaceholder: this.tailPlaceholder.split('').reverse().join(''),
+          tailPlaceholder: reverse(this.tailPlaceholder),
           reversed: this.reversed,
         };
       },
@@ -155,65 +158,48 @@ export class Mask {
   placeholder: () => string = () =>
     this.appendPlaceholder(this.initialState, '');
 
-  acceptableTextLength(): number {
-    let state: State | null = this.initialState;
+  private computeLength(includeOptional: boolean, onlyValue: boolean): number {
     let length = 0;
-    while (state && !(state instanceof EOLState)) {
-      if (
-        state instanceof FixedState ||
-        state instanceof FreeState ||
-        state instanceof ValueState
-      ) {
-        length += 1;
+    let current: State | null = this.initialState;
+
+    while (current && !(current instanceof EOLState)) {
+      if (onlyValue) {
+        if (
+          current instanceof ValueState ||
+          current instanceof FixedState ||
+          (includeOptional && current instanceof OptionalValueState)
+        ) {
+          length++;
+        }
+      } else {
+        if (
+          current instanceof FreeState ||
+          current instanceof FixedState ||
+          current instanceof ValueState ||
+          (includeOptional && current instanceof OptionalValueState)
+        ) {
+          length++;
+        }
       }
-      state = state.child;
+      current = current.child;
     }
     return length;
+  }
+
+  acceptableTextLength(): number {
+    return this.computeLength(false, false);
   }
 
   totalTextLength(): number {
-    let state: State | null = this.initialState;
-    let length = 0;
-    while (state && !(state instanceof EOLState)) {
-      if (
-        state instanceof FixedState ||
-        state instanceof FreeState ||
-        state instanceof ValueState ||
-        state instanceof OptionalValueState
-      ) {
-        length += 1;
-      }
-      state = state.child;
-    }
-    return length;
+    return this.computeLength(true, false);
   }
 
   acceptableValueLength(): number {
-    let state: State | null = this.initialState;
-    let length = 0;
-    while (state && !(state instanceof EOLState)) {
-      if (state instanceof FixedState || state instanceof ValueState) {
-        length += 1;
-      }
-      state = state.child;
-    }
-    return length;
+    return this.computeLength(false, true);
   }
 
   totalValueLength(): number {
-    let state: State | null = this.initialState;
-    let length = 0;
-    while (state && !(state instanceof EOLState)) {
-      if (
-        state instanceof FixedState ||
-        state instanceof ValueState ||
-        state instanceof OptionalValueState
-      ) {
-        length += 1;
-      }
-      state = state.child;
-    }
-    return length;
+    return this.computeLength(true, true);
   }
 
   private appendPlaceholder(state: State | null, placeholder: string): string {
@@ -236,9 +222,15 @@ export class Mask {
       if ('name' in state.stateType) {
         switch (state.stateType.name) {
           case StateName.alphaNumeric:
-            return this.appendPlaceholder(state.child, placeholder + '-');
+            return this.appendPlaceholder(
+              state.child,
+              placeholder + OPTIONAL_LITERAL_CHARACTER
+            );
           case StateName.literal:
-            return this.appendPlaceholder(state.child, placeholder + 'a');
+            return this.appendPlaceholder(
+              state.child,
+              placeholder + OPTIONAL_LITERAL_CHARACTER
+            );
           case StateName.numeric:
             return this.appendPlaceholder(state.child, placeholder + '0');
           case 'ellipsis':
@@ -265,24 +257,6 @@ export class Mask {
       return false;
     }
     return this.noMandatoryCharactersLeftAfterState(state.nextState());
-  }
-}
-
-class AutocompletionStack extends Array<Next> {
-  push(item: Next | null): number {
-    if (item == null) {
-      this.length = 0;
-      return 0;
-    }
-    return super.push(item);
-  }
-
-  pop(): Next {
-    return super.pop()!;
-  }
-
-  empty(): boolean {
-    return this.length === 0;
   }
 }
 

@@ -35,3 +35,25 @@ export const FIXED_STATE_TYPES: Record<StateName, StateType> = {
     typeString: '[_]',
   },
 };
+
+export const ELLIPSES = 'ellipsis';
+export const NULL_STRING = 'null';
+
+export const OPEN_SQUARE_BRACKET = '[';
+export const CLOSE_SQUARE_BRACKET = ']';
+
+export const OPEN_CURLY_BRACKET = '{';
+export const CLOSE_CURLY_BRACKET = '}';
+
+export const ESCAPE_CHARACTER = '\\';
+
+export const OPTIONAL_NUMERIC_CHARACTER = '9';
+export const FIXED_NUMERIC_CHARACTER = '0';
+
+export const FIXED_LITERAL_CHARACTER = 'A';
+export const OPTIONAL_LITERAL_CHARACTER = 'a';
+
+export const FIXED_ALPHA_NUMERIC_CHARACTER = '_';
+export const OPTIONAL_ALPHA_NUMERIC_CHARACTER = '-';
+
+export const ELLIPSIS_CHARACTER = '…';
