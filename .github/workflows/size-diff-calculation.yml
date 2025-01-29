@@ -1,0 +1,95 @@
+name: 🧪 Size calculation
+
+on:
+  pull_request:
+    paths-ignore:
+      - "example/**"
+      - "WebExample/**"
+      - "gifs/**"
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  calculate-sizes:
+    name: 🔬 Calculate package sizes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout to target branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.ref }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18.19.0
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Calculate size of package (target)
+        id: old-size
+        run: echo "OLD_SIZE=$(node scripts/size.js)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Pack
+        run: npm pack --json
+
+      - name: Calculate size of package (current)
+        id: new-size
+        run: echo "NEW_SIZE=$(node scripts/size.js)" >> "$GITHUB_OUTPUT"
+
+      - name: Calculate difference
+        id: diff
+        env:
+          NEW_SIZE: ${{ steps.new-size.outputs.NEW_SIZE }}
+          OLD_SIZE: ${{ steps.old-size.outputs.OLD_SIZE }}
+        run: |
+          echo "DIFF=$((NEW_SIZE - OLD_SIZE))" >> "$GITHUB_OUTPUT"
+          echo "SIGN=$([ $((NEW_SIZE - OLD_SIZE)) -gt 0 ] && echo "📈" || echo "📉")" >> "$GITHUB_OUTPUT"
+
+      - name: Create size data files
+        run: |
+          echo "${{ steps.new-size.outputs.NEW_SIZE }}" > new-size.txt
+          echo "${{ steps.old-size.outputs.OLD_SIZE }}" > old-size.txt
+          echo "${{ steps.diff.outputs.DIFF }}" > diff.txt
+          echo "${{ steps.diff.outputs.SIGN }}" > sign.txt
+          echo "${{ github.event.pull_request.number }}" > pr-number.txt
+
+      - name: Upload size data
+        uses: actions/upload-artifact@v4
+        with:
+          name: size-data
+          path: |
+            new-size.txt
+            old-size.txt
+            diff.txt
+            sign.txt
+            pr-number.txt
+          retention-days: 1
+
+      - name: Read size data
+        id: size-data
+        run: |
+          echo "NEW_SIZE=$(cat new-size.txt)" >> "$GITHUB_OUTPUT"
+          echo "OLD_SIZE=$(cat old-size.txt)" >> "$GITHUB_OUTPUT"
+          echo "DIFF=$(cat diff.txt)" >> "$GITHUB_OUTPUT"
+          echo "SIGN=$(cat sign.txt)" >> "$GITHUB_OUTPUT"
+          echo "PR_NUMBER=$(cat pr-number.txt)" >> "$GITHUB_OUTPUT"
+
+      - name: 📝 Create size diff comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          recreate: true
+          number: ${{ steps.size-data.outputs.PR_NUMBER }}
+          message: |
+            ### 📊 Package size report
+            | Current size | Target Size | Difference |
+            | ------------- | ------------- | ------------------------ |
+            | ${{ steps.size-data.outputs.NEW_SIZE }} bytes | ${{ steps.size-data.outputs.OLD_SIZE }} bytes | ${{ steps.size-data.outputs.DIFF }} bytes ${{ steps.size-data.outputs.SIGN }} |
