@@ -25,7 +25,6 @@ class AdvancedTextInputMaskDecoratorView: UIView {
   private var maskInputListener: NotifyingAdvancedTexInputMaskListener?
   private var lastDispatchedEvent: [String: String] = [:]
   private var textFieldDelegate: UITextFieldDelegate?
-  private var isInitialMount = true
   private weak var originalTextFieldDelegate: UITextFieldDelegate?
 
   @objc private var primaryMaskFormat: NSString = "" {
