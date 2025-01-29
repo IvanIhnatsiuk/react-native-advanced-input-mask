@@ -23,8 +23,8 @@ const Main = () => {
   const inputRef = React.useRef<TextInput>(null);
 
   const [textState, setTextState] = React.useState({
-    extracted: '',
-    formatted: '',
+    extracted: '0000',
+    formatted: '00-00',
   });
 
   const [focused, setFocused] = React.useState(false);
@@ -59,6 +59,10 @@ const Main = () => {
     reset({ index: 0, routes: [{ name: ScreenNames.RNTextInput }] });
   }, [reset]);
 
+  const navigateToDateScreen = React.useCallback(() => {
+    navigate(ScreenNames.Date);
+  }, [navigate]);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text>extracted value {textState.extracted}</Text>
@@ -66,7 +70,6 @@ const Main = () => {
       <Text>focused {focused ? 'Yes' : 'No'}</Text>
       <MaskedTextInput
         ref={inputRef}
-        defaultValue="0000"
         value={textState.formatted}
         onFocus={onFocus}
         onBlur={onBlur}
@@ -89,6 +92,10 @@ const Main = () => {
       <Button
         title="Navigate to RN text input screen with reset"
         onPress={navigateToRNTextInputWithReset}
+      />
+      <Button
+        title="Navigate to screen with date mask"
+        onPress={navigateToDateScreen}
       />
     </ScrollView>
   );

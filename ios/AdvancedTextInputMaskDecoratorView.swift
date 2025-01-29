@@ -21,11 +21,11 @@ class AdvancedTextInputMaskDecoratorView: UIView {
 
   // MARK: - Private Properties
 
-  private weak var textField: UITextField?
+  private var textField: UITextField?
   private var maskInputListener: NotifyingAdvancedTexInputMaskListener?
   private var lastDispatchedEvent: [String: String] = [:]
   private var textFieldDelegate: UITextFieldDelegate?
-  private var isInitialMount = true
+  private weak var originalTextFieldDelegate: UITextFieldDelegate?
 
   @objc private var primaryMaskFormat: NSString = "" {
     didSet {
@@ -105,8 +105,9 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     }
   }
 
-  @objc private var value: NSString = "" {
+  @objc private var value: NSString? {
     didSet {
+      guard let value = value else { return }
       updateTextWithoutNotification(text: value as String)
     }
   }
@@ -138,7 +139,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
   // MARK: - Utility Methods
 
   @objc private func updateTextWithoutNotification(text: String) {
-    if text == textField?.allText {
+    if text == textField?.attributedText?.string {
       return
     }
 
@@ -150,7 +151,9 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     )
     let result = primaryMask.apply(toText: caretString)
 
-    textField?.allText = result.formattedText.string
+    let attributedText = NSAttributedString(string: result.formattedText.string)
+
+    textField?.attributedText = attributedText
   }
 
   @objc private func maybeUpdateText(text: String) {
@@ -181,7 +184,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
   private func configureTextField() {
     findTextField()
     guard let textField = textField else { return }
-
+    originalTextFieldDelegate = textField.delegate
     textFieldDelegate = AdvancedInputMaskDelegateWrapper(textFieldDelegate: textField.delegate)
     textField.delegate = textFieldDelegate
   }
@@ -213,24 +216,22 @@ class AdvancedTextInputMaskDecoratorView: UIView {
   }
 
   @objc func cleanup() {
+    textField?.delegate = originalTextFieldDelegate
     textField = nil
     maskInputListener?.textFieldDelegate = nil
     maskInputListener = nil
+    originalTextFieldDelegate = nil
+    textFieldDelegate = nil
   }
 
   // MARK: - View Lifecycle
 
-  override func didMoveToWindow() {
-    if textField == nil {
+  override func willMove(toWindow newWindow: UIWindow?) {
+    super.willMove(toWindow: newWindow)
+    if textField == nil, newWindow != nil {
       configureTextField()
       configureMaskInputListener()
-
-      if isInitialMount {
-        // reset the initial text before setting the default value
-        textField?.allText = ""
-        updateTextWithoutNotification(text: defaultValue as String)
-        isInitialMount = false
-      }
+      updateTextWithoutNotification(text: value as? String ?? defaultValue as String)
     }
   }
 }

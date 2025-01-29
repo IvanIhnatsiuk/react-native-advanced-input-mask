@@ -55,10 +55,9 @@ using namespace facebook::react;
 
 - (void)prepareForRecycle
 {
-  [super prepareForRecycle];
   [_view cleanup];
-  _view.delegate = nil;
-  _view = nil;
+
+  [super prepareForRecycle];
 }
 
 #pragma mark - RCTComponentViewProtocol
