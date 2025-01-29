@@ -3,8 +3,7 @@ name: 📝 Create size diff comment
 on:
   workflow_run:
     workflows: ["🧪 Size calculation"]
-    types:
-      - completed
+    types: [completed]
 
 permissions:
   pull-requests: write
