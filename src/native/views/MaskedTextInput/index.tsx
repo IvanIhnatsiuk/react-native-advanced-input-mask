@@ -1,4 +1,4 @@
-import { StyleSheet, TextInput, View, Text } from 'react-native';
+import { StyleSheet, TextInput, Text } from 'react-native';
 import React, { forwardRef, memo, useCallback } from 'react';
 import MaskedTextInputDecoratorView from '../../MaskedTextInputNative';
 import type { MaskedTextInputProps } from '../../../types';
@@ -34,7 +34,6 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
       value,
       renderTailPlaceholder,
       placeholderTextColor,
-      customTailPlaceholder,
       style,
       onChangeText,
       onTailPlaceholderChange,

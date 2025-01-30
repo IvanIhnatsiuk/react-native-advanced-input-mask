@@ -26,6 +26,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
   private var lastDispatchedEvent: [String: String] = [:]
   private var textFieldDelegate: UITextFieldDelegate?
   private weak var originalTextFieldDelegate: UITextFieldDelegate?
+  private var tailPlaceholderView: TailPlaceholderLabelManager?
 
   @objc private var primaryMaskFormat: NSString = "" {
     didSet {
@@ -128,6 +129,8 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     if NSDictionary(dictionary: eventData).isEqual(to: lastDispatchedEvent) {
       return
     }
+      
+    tailPlaceholderView?.updateTailPlaceholder(inputText: formatted, tailPlaceholder: tailPlaceholder)
 
     lastDispatchedEvent = eventData
     if onAdvancedMaskTextChange != nil {
@@ -187,6 +190,8 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     originalTextFieldDelegate = textField.delegate
     textFieldDelegate = AdvancedInputMaskDelegateWrapper(textFieldDelegate: textField.delegate)
     textField.delegate = textFieldDelegate
+    tailPlaceholderView = TailPlaceholderLabelManager(textField: textField)
+    tailPlaceholderView?.mountTailPlaceholderLabel()
   }
 
   private func configureMaskInputListener() {

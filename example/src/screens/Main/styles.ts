@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
   },
   maskedTextInput: {
     width: '100%',
+    textAlign: 'center',
     height: 50,
     color: 'red',
     backgroundColor: 'orange',
