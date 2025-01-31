@@ -8,7 +8,7 @@ on:
       - ".github/workflows/build-ios.yml"
       - "react-native-advanced-input-mask.podspec"
       - "ios/**"
-      - "example/ios/**"
+      - "apps/example/ios/**"
       - "yarn.lock"
       - "example/yarn.lock"
   pull_request:
@@ -18,7 +18,7 @@ on:
       - ".github/workflows/build-ios.yml"
       - "react-native-advanced-input-mask.podspec"
       - "ios/**"
-      - "example/ios/**"
+      - "apps/example/ios/**"
       - "yarn.lock"
       - "example/yarn.lock"
 
@@ -27,7 +27,7 @@ jobs:
     runs-on: macos-latest
     defaults:
       run:
-        working-directory: example/ios
+        working-directory: apps/example/ios
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -57,7 +57,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            example/ios/Pods
+            apps/example/ios/Pods
             ~/Library/Caches/CocoaPods
             ~/.cocoapods
           key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
