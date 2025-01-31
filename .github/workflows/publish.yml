@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
 jobs:
   publish:
+    defaults:
+      run:
+        working-directory: packages/react-native-advanced-input-mask
     runs-on: ubuntu-latest
     permissions:
       contents: read

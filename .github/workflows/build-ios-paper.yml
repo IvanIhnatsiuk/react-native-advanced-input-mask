@@ -6,8 +6,8 @@ on:
       - main
     paths:
       - ".github/workflows/build-ios-paper.yml"
-      - "react-native-advanced-input-mask.podspec"
-      - "ios/**"
+      - "packages/react-native-advanced-input-mask.podspec"
+      - "packages/ios/**"
       - "apps/example/ios/**"
       - "yarn.lock"
       - "apps/example/yarn.lock"
@@ -16,8 +16,8 @@ on:
       - main
     paths:
       - ".github/workflows/build-ios-paper.yml"
-      - "react-native-advanced-input-mask.podspec"
-      - "ios/**"
+      - "packages/react-native-advanced-input-mask.podspec"
+      - "packages/ios/**"
       - "apps/example/ios/**"
       - "yarn.lock"
       - "apps/example/yarn.lock"
@@ -27,7 +27,7 @@ jobs:
     runs-on: macos-latest
     defaults:
       run:
-        working-directory: example/ios
+        working-directory: apps/example/ios
     steps:
       - name: Checkout
         uses: actions/checkout@v4
