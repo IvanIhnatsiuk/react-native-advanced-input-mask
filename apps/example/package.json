@@ -1,0 +1,53 @@
+{
+  "name": "react-native-advanced-input-mask-example",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "build:android": "cd android && ./gradlew assembleDebug",
+    "build:ios": "cd ios && xcodebuild -workspace MaskedTextInputExample.xcworkspace -scheme MaskedTextInputExample -configuration Debug -sdk iphonesimulator CC=clang CPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ GCC_OPTIMIZATION_LEVEL=0 GCC_PRECOMPILE_PREFIX_HEADER=YES ASSETCATALOG_COMPILER_OPTIMIZATION=time DEBUG_INFORMATION_FORMAT=dwarf COMPILER_INDEX_STORE_ENABLE=NO | xcpretty",
+    "build:web": "react-scripts start"
+  },
+  "dependencies": {
+    "@react-navigation/native": "^7.0.14",
+    "@react-navigation/native-stack": "^7.2.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-native": "0.77.0",
+    "react-native-advanced-input-mask": "*",
+    "react-native-safe-area-context": "^5.1.0",
+    "react-native-screens": "^4.5.0",
+    "react-native-web": "^0.19.13"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.7",
+    "@babel/preset-env": "^7.26.7",
+    "@babel/preset-react": "^7.26.3",
+    "@babel/runtime": "^7.25.0",
+    "@react-native-community/cli": "15.0.0",
+    "@react-native-community/cli-platform-android": "15.0.0",
+    "@react-native-community/cli-platform-ios": "15.0.0",
+    "@react-native/babel-preset": "0.77.0",
+    "@react-native/eslint-config": "0.77.0",
+    "@react-native/metro-config": "0.77.0",
+    "@react-native/typescript-config": "0.77.0",
+    "@rnx-kit/metro-config": "^2.0.1",
+    "@types/react-dom": "^19",
+    "@types/react-native-web": "^0",
+    "babel-loader": "^9.2.1",
+    "babel-plugin-module-resolver": "^5.0.0",
+    "babel-plugin-react-native-web": "^0.19.13",
+    "pod-install": "^0.1.0",
+    "react-scripts": "^5.0.1",
+    "ts-loader": "^9.5.2",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

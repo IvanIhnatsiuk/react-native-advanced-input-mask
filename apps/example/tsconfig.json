@@ -1,0 +1,11 @@
+{
+    "extends": "../../tsconfig",
+    "references": [
+        {
+            "path": "../../packages/react-native-advanced-input-mask"
+        }
+    ],
+    "compilerOptions": {
+        "rootDir": "../.."
+    }
+}
