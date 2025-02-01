@@ -47,9 +47,8 @@
   "jest": {
     "preset": "react-native",
     "modulePathIgnorePatterns": [
-      "<rootDir>/example/node_modules",
-      "<rootDir>/WebExample/node_modules",
-      "<rootDir>/lib/"
+      "<rootDir>/apps/example/node_modules",
+      "<rootDir>/package/lib/"
     ]
   },
   "commitlint": {
