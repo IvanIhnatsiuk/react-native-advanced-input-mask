@@ -6,8 +6,8 @@ on:
       - main
     paths:
       - ".github/workflows/build-ios.yml"
-      - "packages/react-native-advanced-input-mask/react-native-advanced-input-mask.podspec"
-      - "packages/react-native-advanced-input-mask/ios/**"
+      - "package/react-native-advanced-input-mask.podspec"
+      - "package/ios/**"
       - "apps/example/ios/**"
       - "yarn.lock"
       - "apps/example/yarn.lock"
@@ -16,8 +16,8 @@ on:
       - main
     paths:
       - ".github/workflows/build-ios.yml"
-      - "packages/react-native-advanced-input-mask/react-native-advanced-input-mask.podspec"
-      - "packages/react-native-advanced-input-mask/ios/**"
+      - "package/react-native-advanced-input-mask.podspec"
+      - "package/ios/**"
       - "apps/example/ios/**"
       - "yarn.lock"
       - "example/yarn.lock"

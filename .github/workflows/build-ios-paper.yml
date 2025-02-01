@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - ".github/workflows/build-ios-paper.yml"
-      - "packages/react-native-advanced-input-mask.podspec"
+      - "package.podspec"
       - "packages/ios/**"
       - "apps/example/ios/**"
       - "yarn.lock"
@@ -16,7 +16,7 @@ on:
       - main
     paths:
       - ".github/workflows/build-ios-paper.yml"
-      - "packages/react-native-advanced-input-mask.podspec"
+      - "package.podspec"
       - "packages/ios/**"
       - "apps/example/ios/**"
       - "yarn.lock"

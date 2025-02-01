@@ -8,8 +8,7 @@
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "clean": "del-cli android/build apps/example/android/build apps/example/android/app/build example/ios/build lib",
     "release": "release-it",
-    "lint-clang": "sh clang-format.sh",
-    "prepare": "yarn workspace react-native-advanced-input-mask build-library"
+    "lint-clang": "sh clang-format.sh"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.0.2",
@@ -38,8 +37,7 @@
   "workspaces": {
     "packages": [
       "apps/example",
-      "apps/WebExample",
-      "packages/react-native-advanced-input-mask"
+      "package"
     ]
   },
   "packageManager": "yarn@4.6.0",

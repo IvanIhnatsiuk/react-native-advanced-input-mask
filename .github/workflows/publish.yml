@@ -14,5 +14,5 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Publish package
-        working-directory: packages/react-native-advanced-input-mask
+        working-directory: package
         run: npm publish --provenance

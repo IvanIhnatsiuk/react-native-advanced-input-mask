@@ -6,13 +6,13 @@ on:
       - main
     paths:
       - ".github/workflows/verify-ios.yml"
-      - "packages/react-native-advanced-input-mask/ios/**"
+      - "package/ios/**"
   pull_request:
     branches:
       - main
     paths:
       - ".github/workflows/verify-ios.yml"
-      - "packages/react-native-advanced-input-mask/ios/**"
+      - "package/ios/**"
 
 jobs:
   swift-lint:
@@ -25,13 +25,13 @@ jobs:
         with:
           args: --strict
         env:
-          WORKING_DIRECTORY: packages/react-native-advanced-input-mask/ios
+          WORKING_DIRECTORY: package/ios
   format:
     runs-on: macOS-14
     name: 📚 Swift Format
     defaults:
       run:
-        working-directory: packages/react-native-advanced-input-mask/ios
+        working-directory: package/ios
     steps:
       - uses: actions/checkout@v4
 

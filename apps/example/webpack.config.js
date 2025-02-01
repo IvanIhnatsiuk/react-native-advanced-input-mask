@@ -2,26 +2,8 @@ const path = require('path');
 
 const appDirectory = path.resolve(__dirname, '.');
 
-const fs = require('fs');
-const pack = require('../../packages/react-native-advanced-input-mask/package.json');
+const pack = require('../../package/package.json');
 const modules = Object.keys(pack.peerDependencies);
-const packages = path.resolve(__dirname, '..', '..', 'packages');
-
-const alias = Object.fromEntries(
-  fs
-    .readdirSync(packages)
-    .filter((name) => !name.startsWith('.'))
-    .map((name) => {
-      const pak = require(`../../packages/${name}/package.json`);
-      console.log(pak.source, pak.name);
-      if (pak.source == null) {
-        return null;
-      }
-
-      return [pak.name, path.resolve(packages, name, pak.source)];
-    })
-    .filter(Boolean)
-);
 
 const babelLoaderConfiguration = {
   test: /\.(js|ts)x?$/,
@@ -50,7 +32,10 @@ const babelLoaderConfiguration = {
                   '.tsx',
                   '.web.tsx',
                 ],
-                alias,
+                alias: {
+                  'react-native-advanced-input-mask':
+                    '../../package/src/index.web',
+                },
               },
             ],
           ],

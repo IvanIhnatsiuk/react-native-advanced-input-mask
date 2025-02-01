@@ -6,14 +6,14 @@ on:
       - main
     paths:
       - ".github/workflows/build-android.yml"
-      - "packages/react-native-advanced-input-mask/android/**"
+      - "package/android/**"
       - "apps/example/android/**"
       - "yarn.lock"
       - "apps/example/yarn.lock"
   pull_request:
     paths:
       - ".github/workflows/build-android.yml"
-      - "packages/react-native-advanced-input-mask/android/**"
+      - "package/android/**"
       - "apps/example/android/**"
       - "yarn.lock"
       - "apps/example/yarn.lock"

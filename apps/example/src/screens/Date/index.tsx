@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { ScrollView } from 'react-native';
 import styles from './styles';
-import { MaskedTextInput } from 'react-native-advanced-input-mask/src/index';
+import { MaskedTextInput } from 'react-native-advanced-input-mask';
 
 const affineFormats = ['[00]{/}[00]{/}[0000]'];
 
