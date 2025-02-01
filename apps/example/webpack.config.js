@@ -17,7 +17,7 @@ const babelLoaderConfiguration = {
       plugins: [['react-native-web', { commonjs: true }]],
       overrides: [
         {
-          exclude: /\/node_modules\//,
+          exclude: /node_modules\/(?!react-native-advanced-input-mask\/src)/,
           plugins: [
             [
               'module-resolver',
@@ -33,8 +33,7 @@ const babelLoaderConfiguration = {
                   '.web.tsx',
                 ],
                 alias: {
-                  'react-native-advanced-input-mask':
-                    '../../package/src/index.web',
+                  'react-native-advanced-input-mask': '../../package/src',
                 },
               },
             ],
@@ -57,6 +56,9 @@ const imageLoaderConfiguration = {
 };
 
 module.exports = ({ platform }, defaults) => ({
+  devServer: {
+    open: true,
+  },
   mode: 'development',
   entry: [path.resolve(appDirectory, 'index.web.js')],
   output: {
@@ -87,6 +89,10 @@ module.exports = ({ platform }, defaults) => ({
         acc[name] = path.join(__dirname, 'node_modules', name);
         return acc;
       }, {}),
+      'react-native-advanced-input-mask': path.resolve(
+        __dirname,
+        '../../package/src'
+      ),
       'react-native': 'react-native-web',
     },
     extensions: ['.web.js', '.js', '.web.ts', '.ts', '.web.tsx', '.tsx'],

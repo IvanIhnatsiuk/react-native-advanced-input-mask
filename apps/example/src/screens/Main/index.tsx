@@ -64,7 +64,10 @@ const Main = () => {
   }, [navigate]);
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
+    >
       <Text>extracted value {textState.extracted}</Text>
       <Text>formatted value {textState.formatted}</Text>
       <Text>focused {focused ? 'Yes' : 'No'}</Text>

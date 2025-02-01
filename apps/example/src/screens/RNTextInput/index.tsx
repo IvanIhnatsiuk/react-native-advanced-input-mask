@@ -1,13 +1,16 @@
 import * as React from 'react';
 
-import { TextInput, View } from 'react-native';
+import { ScrollView, TextInput } from 'react-native';
 import styles from './styles';
 
 const RNTextInput = () => {
   return (
-    <View style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
+    >
       <TextInput style={styles.textInput} />
-    </View>
+    </ScrollView>
   );
 };
 

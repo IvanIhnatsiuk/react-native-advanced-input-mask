@@ -2,6 +2,9 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
+    flexShrink: 0,
+  },
+  contentContainer: {
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center',

@@ -4,13 +4,16 @@ import { ScrollView } from 'react-native';
 import styles from './styles';
 import { MaskedTextInput } from 'react-native-advanced-input-mask';
 
-const affineFormats = ['[00]{/}[00]{/}[0000]'];
+const affineFormats = ['[00]{/}[00]{/}[00]'];
 
 const DateScreen = () => {
   console.log(new Date().toISOString());
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
+    >
       <MaskedTextInput
         defaultValue={new Date().toISOString()}
         style={styles.maskedTextInput}
