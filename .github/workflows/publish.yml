@@ -1,25 +1,18 @@
+name: Publish
+
 on:
-  release:
-    types: [created]
-  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+
 jobs:
   publish:
-    defaults:
-      run:
-        working-directory: packages/react-native-advanced-input-mask
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
     steps:
       - uses: actions/checkout@v4
-      # Setup .npmrc file to publish to npm
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "18.x"
-          registry-url: "https://registry.npmjs.org"
-          cache: yarn
-      - run: yarn install --frozen-lockfile
-      - run: npm publish --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Publish package
+        working-directory: packages/react-native-advanced-input-mask
+        run: npm publish --provenance
