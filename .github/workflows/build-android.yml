@@ -6,17 +6,17 @@ on:
       - main
     paths:
       - ".github/workflows/build-android.yml"
-      - "android/**"
-      - "example/android/**"
+      - "package/android/**"
+      - "apps/example/android/**"
       - "yarn.lock"
-      - "example/yarn.lock"
+      - "apps/example/yarn.lock"
   pull_request:
     paths:
       - ".github/workflows/build-android.yml"
-      - "android/**"
-      - "example/android/**"
+      - "package/android/**"
+      - "apps/example/android/**"
       - "yarn.lock"
-      - "example/yarn.lock"
+      - "apps/example/yarn.lock"
 
 jobs:
   build-android:
@@ -45,4 +45,4 @@ jobs:
               ${{ runner.os }}-gradle-
 
         - name: Build example for Android
-          run: cd example/android && ./gradlew assembleDebug --build-cache && cd ../..
+          run: cd apps/example/android && ./gradlew assembleDebug --build-cache && cd ../..

@@ -1,9 +1,11 @@
 {
   "compilerOptions": {
-    "rootDir": ".",
     "paths": {
-      "react-native-advanced-input-mask": ["./src/index"]
+      "react-native-advanced-input-mask": ["./package/src"]
     },
+    "composite": true,
+    "rootDir": ".",
+    "baseUrl": ".",
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "esModuleInterop": true,
@@ -11,7 +13,7 @@
     "jsx": "react",
     "lib": ["esnext", "dom"],
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "noImplicitUseStrict": false,
@@ -24,5 +26,6 @@
     "strict": true,
     "target": "esnext",
     "verbatimModuleSyntax": true
-  }
+  },
+  "exclude": ["./package/*/lib"]
 }
