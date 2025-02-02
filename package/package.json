@@ -45,7 +45,8 @@
         "registry": "https://registry.npmjs.org/"
     },
     "scripts": {
-        "prepare": "bob build"
+        "prepare": "bob build",
+        "prepack": "cp ../README.md ./README.md && cp ../LICENSE ./LICENSE"
     },
     "keywords": [
         "react-native",
