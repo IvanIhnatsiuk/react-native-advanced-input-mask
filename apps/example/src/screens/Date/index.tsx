@@ -7,8 +7,6 @@ import { MaskedTextInput } from 'react-native-advanced-input-mask';
 const affineFormats = ['[00]{/}[00]{/}[00]'];
 
 const DateScreen = () => {
-  console.log(new Date().toISOString());
-
   return (
     <ScrollView
       style={styles.container}
