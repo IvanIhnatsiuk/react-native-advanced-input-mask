@@ -23,6 +23,6 @@ jobs:
 
       - name: Publish package
         working-directory: package
-        run: npm publish --provenance
+        run: yarn prepack && npm publish --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
