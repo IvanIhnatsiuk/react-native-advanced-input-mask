@@ -29,6 +29,7 @@ class AdvancedTextInputMaskDecoratorView(
   private var maskedTextChangeListener: ReactMaskedTextChangeListener? = null
   private var allowedKeys: String? = null
   private var defaultValue: String? = null
+  private var value: String? = null
   private var isInitialMount = true
 
   private val valueListener =
@@ -44,7 +45,8 @@ class AdvancedTextInputMaskDecoratorView(
   }
 
   private fun applyDefaultValue() {
-    defaultValue?.let { maskedTextChangeListener?.setText(it, false) }
+    val nextDefaultValue = value ?: defaultValue
+    nextDefaultValue?.let { maskedTextChangeListener?.setText(it, false) }
   }
 
   override fun onAttachedToWindow() {
@@ -138,6 +140,7 @@ class AdvancedTextInputMaskDecoratorView(
   }
 
   fun setValue(value: String?) {
+    this.value = value
     if (textField?.text.toString() != value) {
       value?.let { maskedTextChangeListener?.setText(it) }
     }
