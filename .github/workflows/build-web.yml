@@ -1,0 +1,32 @@
+name: 🌐 Build Web
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/build-web.yml"
+      - "package/src/**"
+      - "apps/example/**"
+      - "yarn.lock"
+      - "apps/example/yarn.lock"
+  pull_request:
+    paths:
+      - ".github/workflows/build-web.yml"
+      - "package/src/**"
+      - "apps/example/**"
+      - "yarn.lock"
+      - "apps/example/yarn.lock"
+
+jobs:
+  build-android:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+
+        - name: Setup
+          uses: ./.github/actions/setup
+
+        - name: Build example for Web
+          run: cd apps/example/android && yarn build:web      
