@@ -7,6 +7,11 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingVertical: 20,
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    marginBottom: 8,
   },
 });
 

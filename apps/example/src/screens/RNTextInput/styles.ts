@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -14,6 +13,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 50,
     backgroundColor: 'lightblue',
+    marginBottom: 8,
   },
 });
 
