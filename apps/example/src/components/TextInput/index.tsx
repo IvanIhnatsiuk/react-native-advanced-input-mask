@@ -1,27 +1,17 @@
-import React, { memo, useMemo, type FC } from 'react';
-import {
-  Animated,
-  TextInput as RNTextInput,
-  Text,
-  useAnimatedValue,
-} from 'react-native';
+import React, { memo, type FC } from 'react';
+import { TextInput as RNTextInput, Text } from 'react-native';
 import {
   MaskedTextInput,
   type MaskedTextInputProps,
 } from 'react-native-advanced-input-mask';
-import styles, {
-  DEFAULT_BORDER_COLOR,
-  FOCUSED_BORDER_COLOR,
-  PLACEHOLDER_COLOR,
-} from './styles';
+import styles from './styles';
 import Button from '../Button';
+import BaseTextInput from '../BaseTextInput';
 
 type Props = MaskedTextInputProps & {
   controlled?: boolean;
   initialValue?: string;
 };
-
-const AnimatedTextInputView = Animated.createAnimatedComponent(RNTextInput);
 
 const TextInput: FC<Props> = (props) => {
   const {
@@ -33,8 +23,6 @@ const TextInput: FC<Props> = (props) => {
     style,
     ...rest
   } = props;
-
-  const progress = useAnimatedValue(0);
 
   const inputRef = React.useRef<RNTextInput>(null);
 
@@ -55,28 +43,18 @@ const TextInput: FC<Props> = (props) => {
 
   const handleFocus = React.useCallback(
     (e) => {
-      Animated.timing(progress, {
-        duration: 350,
-        toValue: 1,
-        useNativeDriver: true,
-      }).start();
       setFocused(true);
       onFocus?.(e);
     },
-    [onFocus, progress]
+    [onFocus]
   );
 
   const handleBlur = React.useCallback(
     (e) => {
-      Animated.timing(progress, {
-        duration: 350,
-        toValue: 0,
-        useNativeDriver: true,
-      }).start();
       setFocused(false);
       onBlur?.(e);
     },
-    [onBlur, progress]
+    [onBlur]
   );
 
   const handleClearTextButtonPress = React.useCallback(() => {
@@ -90,20 +68,6 @@ const TextInput: FC<Props> = (props) => {
     inputRef.current?.focus();
   }, []);
 
-  const inputStyle = useMemo(
-    () => [
-      styles.input,
-      style,
-      {
-        borderColor: progress.interpolate({
-          inputRange: [0, 1],
-          outputRange: [DEFAULT_BORDER_COLOR, FOCUSED_BORDER_COLOR],
-        }),
-      },
-    ],
-    [progress, style]
-  );
-
   return (
     <>
       <Text style={styles.text}>extracted value {textState.extracted}</Text>
@@ -112,12 +76,8 @@ const TextInput: FC<Props> = (props) => {
       <MaskedTextInput
         ref={inputRef}
         {...rest}
-        TextInputView={AnimatedTextInputView}
-        placeholderTextColor={progress.interpolate({
-          inputRange: [0, 1],
-          outputRange: [PLACEHOLDER_COLOR, FOCUSED_BORDER_COLOR],
-        })}
-        style={inputStyle}
+        renderTextInputComponent={BaseTextInput}
+        style={style}
         onBlur={handleBlur}
         onChangeText={handleTextChange}
         onFocus={handleFocus}

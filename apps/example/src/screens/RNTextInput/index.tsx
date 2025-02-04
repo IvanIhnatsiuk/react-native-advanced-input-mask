@@ -1,7 +1,8 @@
 import * as React from 'react';
 
-import { ScrollView, TextInput } from 'react-native';
+import { ScrollView } from 'react-native';
 import styles from './styles';
+import BaseTextInput from '../../components/BaseTextInput';
 
 const RNTextInput = () => {
   return (
@@ -9,7 +10,7 @@ const RNTextInput = () => {
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
     >
-      <TextInput style={styles.textInput} />
+      <BaseTextInput style={styles.textInput} />
     </ScrollView>
   );
 };

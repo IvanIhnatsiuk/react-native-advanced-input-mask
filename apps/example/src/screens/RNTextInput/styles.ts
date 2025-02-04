@@ -10,9 +10,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textInput: {
-    width: '100%',
-    height: 50,
-    backgroundColor: 'lightblue',
     marginBottom: 8,
   },
 });

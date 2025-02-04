@@ -1,5 +1,6 @@
 import type { TextInputProps } from 'react-native';
 import type { AFFINITY_CALCULATION_STRATEGY } from './enums';
+import type { ElementType } from 'react';
 
 export type Notation = {
   /**
@@ -90,6 +91,9 @@ export type MaskedTextInputOwnProps = {
    */
   allowSuggestions?: boolean;
   autocompleteOnFocus?: boolean;
+  renderTextInputComponent?:
+    | ElementType
+    | ((props: TextInputProps) => JSX.Element);
 };
 
 export type MaskedTextInputProps = Omit<TextInputProps, 'onChangeText'> &

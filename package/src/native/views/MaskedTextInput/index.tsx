@@ -33,10 +33,12 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
       value,
       onChangeText,
       onTailPlaceholderChange,
+      renderTextInputComponent,
       ...rest
     },
     ref
   ) => {
+    const InputComponent = renderTextInputComponent ?? TextInput;
     const IS_FABRIC = 'nativeFabricUIManager' in global;
 
     const onAdvancedMaskTextChangeCallback = useCallback(
@@ -49,7 +51,7 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
 
     return (
       <>
-        <TextInput {...rest} autoCapitalize={autoCapitalize} ref={ref} />
+        <InputComponent {...rest} autoCapitalize={autoCapitalize} ref={ref} />
         <MaskedTextInputDecoratorView
           affinityCalculationStrategy={affinityCalculationStrategy}
           affinityFormat={affinityFormat}

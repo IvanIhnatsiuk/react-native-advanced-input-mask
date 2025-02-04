@@ -20,10 +20,13 @@ const MaskedTextInput = forwardRef<TextInput | null, MaskedTextInputProps>(
       onChangeText,
       onTailPlaceholderChange,
       onFocus,
+      renderTextInputComponent,
       ...rest
     },
     ref
   ) => {
+    const InputComponent = renderTextInputComponent ?? TextInput;
+
     const inputRef = useRef<TextInput>(null);
 
     const {
@@ -58,7 +61,7 @@ const MaskedTextInput = forwardRef<TextInput | null, MaskedTextInputProps>(
     );
 
     return (
-      <TextInput
+      <InputComponent
         ref={inputRef}
         autoCapitalize={autoCapitalize}
         defaultValue={maskedDefaultValue}

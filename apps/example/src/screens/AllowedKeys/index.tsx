@@ -1,8 +1,9 @@
 import * as React from 'react';
 
-import { ScrollView, TextInput as RNTextInput, Text } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 import styles from './styles';
 import TextInput from '../../components/TextInput';
+import BaseTextInput from '../../components/BaseTextInput';
 
 const CustomNotations = () => {
   const [allowedKeys, setAllowedKeys] = React.useState('');
@@ -13,7 +14,7 @@ const CustomNotations = () => {
       contentContainerStyle={styles.contentContainer}
     >
       <Text>Set allowed keys</Text>
-      <RNTextInput
+      <BaseTextInput
         style={styles.allowedKeysInput}
         onChangeText={setAllowedKeys}
       />

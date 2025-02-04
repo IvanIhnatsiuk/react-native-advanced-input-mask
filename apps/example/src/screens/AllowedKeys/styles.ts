@@ -11,9 +11,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   allowedKeysInput: {
-    width: '100%',
-    height: 50,
-    backgroundColor: 'lightgray',
     marginBottom: 20,
   },
 });
