@@ -2,7 +2,7 @@ import Mask from './helper/Mask';
 import RTLMask from './helper/RTLMask';
 import CaretString from './model/CaretString';
 import { CaretGravityType } from './model/types';
-import type { Notation } from '../types';
+import type { Notation, Transformation } from '../types';
 import type { MaskResult } from './model/types';
 import { AFFINITY_CALCULATION_STRATEGY } from '../enums';
 import { calculateAffinityOfMask } from './helper/affinityCalculationStrategy';
@@ -26,6 +26,7 @@ class MaskedTextChangedListener {
   public rightToLeft: boolean;
   public textField: Field | null = null;
   public allowedKeys: string;
+  public transformation: Transformation[];
 
   private afterText: string = '';
 
@@ -37,7 +38,8 @@ class MaskedTextChangedListener {
     autocomplete: boolean = true,
     autoskip: boolean = false,
     rightToLeft: boolean = false,
-    allowedKeys: string = ''
+    allowedKeys: string = '',
+    transformation: Transformation[] = []
   ) {
     this.primaryFormat = primaryFormat;
     this.affineFormats = affineFormats;
@@ -47,6 +49,7 @@ class MaskedTextChangedListener {
     this.autoskip = autoskip;
     this.rightToLeft = rightToLeft;
     this.allowedKeys = allowedKeys;
+    this.transformation = transformation;
   }
 
   public get primaryMask(): Mask {
@@ -58,9 +61,7 @@ class MaskedTextChangedListener {
       return;
     }
 
-    const newText = this.allowedKeys
-      ? [...text].filter((char) => this.allowedKeys.includes(char)).join('')
-      : text;
+    const newText = this.prepareText(text);
 
     const useAutocomplete = autocomplete ?? this.autocomplete;
     const textAndCaret = new CaretString(newText, newText.length, {
@@ -112,6 +113,25 @@ class MaskedTextChangedListener {
     this.textField = textField;
   };
 
+  /**
+   * Exclude undesired characters and apply `transformation` to the text.
+   */
+  public prepareText = (text: string) => {
+    return (
+      [...text]
+        // filter out characters not in allowedKeys (if allowedKeys is defined)
+        .filter((char) => !this.allowedKeys || this.allowedKeys.includes(char))
+        // replace each character according to our transformation
+        .map((char) => {
+          const match = this.transformation.find(({ set }) =>
+            set.includes(char)
+          );
+          return match ? match.to : char;
+        })
+        .join('')
+    );
+  };
+
   public handleTextChange = (
     event: NativeSyntheticEvent<TextInputChangeEventData>
   ): MaskResult => {
@@ -135,9 +155,7 @@ class MaskedTextChangedListener {
       autoskip: useAutoskip,
       autocomplete: useAutocomplete,
     };
-    const newText = this.allowedKeys
-      ? [...text].filter((char) => this.allowedKeys.includes(char)).join('')
-      : text;
+    const newText = this.prepareText(text);
     const textAndCaret = new CaretString(newText, caretPosition, caretGravity);
     const mask = this.pickMask(textAndCaret);
     const result = mask.apply(textAndCaret);

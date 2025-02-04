@@ -24,7 +24,7 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
       autocompleteOnFocus,
       autoSkip,
       customNotations,
-      customTransformation,
+      transformation,
       allowedKeys,
       defaultValue,
       isRTL,
@@ -58,7 +58,7 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
           autocompleteOnFocus={autocompleteOnFocus}
           autoSkip={autoSkip}
           customNotations={customNotations}
-          customTransformation={customTransformation}
+          transformation={transformation}
           allowedKeys={allowedKeys}
           defaultValue={defaultValue}
           isRTL={isRTL}
