@@ -12,9 +12,9 @@ export type OnAdvancedMaskTextChange = Readonly<{
   tailPlaceholder: string;
 }>;
 
-type CustomTransformation = {
-  transformationChar: string;
-  transformationString: string;
+type Transformation = {
+  set: string;
+  to: string;
 };
 
 type Notation = {
@@ -40,7 +40,7 @@ export interface NativeProps extends ViewProps {
   autocompleteOnFocus?: boolean;
   autoSkip?: boolean;
   customNotations?: ReadonlyArray<Notation>;
-  customTransformation?: Readonly<CustomTransformation>;
+  transformation?: Readonly<Transformation[]>;
   allowedKeys?: string;
   defaultValue?: string;
   isRTL?: boolean;

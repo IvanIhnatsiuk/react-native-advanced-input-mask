@@ -105,12 +105,12 @@ class AdvancedTextInputMaskDecoratorViewManager(
     view.setAutoComplete(autocomplete)
   }
 
-  @ReactProp(name = "customTransformation")
-  override fun setCustomTransformation(
+  @ReactProp(name = "transformation")
+  override fun setTransformation(
     view: AdvancedTextInputMaskDecoratorView,
-    customTransformation: ReadableMap?,
+    transformation: ReadableMap?,
   ) {
-    view.setCustomTransformationMethod(customTransformation)
+    view.setTransformationMethod(transformation)
   }
 
   @ReactProp(name = "allowedKeys")

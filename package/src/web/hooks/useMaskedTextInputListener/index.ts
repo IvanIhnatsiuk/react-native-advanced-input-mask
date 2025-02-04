@@ -15,6 +15,7 @@ const useMaskedTextInputListener = ({
   affinityCalculationStrategy,
   customNotations,
   allowedKeys = '',
+  transformation = [],
   autocomplete = true,
   autoSkip = false,
   isRTL = false,
@@ -41,7 +42,8 @@ const useMaskedTextInputListener = ({
         autocomplete,
         autoSkip,
         isRTL,
-        allowedKeys
+        allowedKeys,
+        transformation
       )
   );
 

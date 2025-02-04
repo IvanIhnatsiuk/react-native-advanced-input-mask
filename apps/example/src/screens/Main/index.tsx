@@ -23,8 +23,8 @@ const Main = () => {
   const inputRef = React.useRef<TextInput>(null);
 
   const [textState, setTextState] = React.useState({
-    extracted: '0000',
-    formatted: '00-00',
+    extracted: '',
+    formatted: '',
   });
 
   const [focused, setFocused] = React.useState(false);
@@ -79,7 +79,20 @@ const Main = () => {
         style={styles.maskedTextInput}
         onChangeText={onChangeText}
         onTailPlaceholderChange={console.log}
-        mask="[00]-[$$]-[00]"
+        mask="[0999999].[09]"
+        // - mom, can we have a neural network at home?
+        // - we already have a neural network at home.
+        // neural network at home:
+        affinityFormat={[
+          '[0].[00]',
+          '[00].[00]',
+          '[000].[00]',
+          '[0000].[00]',
+          '[00000].[00]',
+          '[000000].[00]',
+          '[0000000].[00]',
+        ]}
+        transformation={[{ set: ',', to: '.' }]}
         autocomplete={false}
         allowSuggestions={true}
         autocompleteOnFocus={false}

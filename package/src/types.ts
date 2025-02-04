@@ -16,9 +16,9 @@ export type Notation = {
   isOptional: boolean;
 };
 
-type CustomTransformation = {
-  transformationChar: string;
-  transformationString: string;
+export type Transformation = {
+  set: string;
+  to: string;
 };
 
 export type MaskedTextInputOwnProps = {
@@ -72,10 +72,10 @@ export type MaskedTextInputOwnProps = {
    */
   affinityCalculationStrategy?: AFFINITY_CALCULATION_STRATEGY;
   /**
-   * Custom transformation to be applied to the text input.
-   * Defines how the input text should be transformed.
+   * Transformation to be applied to the text input.
+   * Defines how the inputted characters should be transformed.
    */
-  customTransformation?: CustomTransformation;
+  transformation?: Transformation[];
   /**
    * A string representing all symbols that can be entered in the text input.
    * For example: "0123456789".
