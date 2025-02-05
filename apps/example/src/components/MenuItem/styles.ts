@@ -5,6 +5,13 @@ export default StyleSheet.create({
     padding: 16,
     backgroundColor: '#fff',
     borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 10,
+      height: 10,
+    },
+    shadowRadius: 10,
+    shadowOpacity: 0.1,
     boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
     marginVertical: 8,
     elevation: 5,
