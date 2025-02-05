@@ -112,6 +112,12 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     }
   }
 
+  @objc private var validationRegex: NSString? {
+    didSet {
+      maskInputListener?.validationRegex = validationRegex as? String
+    }
+  }
+
   // MARK: - Event Handlers
 
   private func onAdvancedMaskTextChangedCallback(
@@ -209,7 +215,8 @@ class AdvancedTextInputMaskDecoratorView: UIView {
         )
       },
       allowSuggestions: allowSuggestions,
-      allowedKeys: (allowedKeys ?? "") as String
+      allowedKeys: (allowedKeys ?? "") as String,
+      validationRegex: validationRegex as? String
     )
     maskInputListener?.textFieldDelegate = textFieldDelegate
     textField.delegate = maskInputListener

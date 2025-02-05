@@ -135,6 +135,7 @@ For applications requiring conditional or more complex formatting, this package 
 | `mask`                        | `string`                             | The mask format to be applied to the text input, defining the pattern for formatting. Example: `"[0000] [0000] [0000] [0000]"`.               |
 | `customNotations`             | `Notation[]`                         | Array of custom notations for the mask format. Each notation object includes: `character`, `characterSet`, and `isOptional`.                  |
 | `allowedKeys`                  |`string`                              | A string specifying the characters that are permitted for input.                                                         |
+| `validationRegex`                  |`regex string`                              |  A validation regex that runs before applying the mask.                                                         |
 | `onChangeText`                | `(formatted: string, extracted: string) => void` | Callback function triggered on text change. Receives `formattedValue` (with mask) and `extractedValue` (raw input).                        |
 | `onTailPlaceholderChange`     | `(tailPlaceholder: string) => void`  | Callback function called when the tail placeholder changes, receiving the updated `tailPlaceholder` value.                                    |
 | `affinityFormat`              | `string[]`                           | Array of strings for affinity format, used to determine the best mask format based on the input.                                              |

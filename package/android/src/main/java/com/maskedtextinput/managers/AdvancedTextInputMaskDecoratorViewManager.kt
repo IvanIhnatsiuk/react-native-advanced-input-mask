@@ -141,6 +141,13 @@ class AdvancedTextInputMaskDecoratorViewManager(
   ) {
   }
 
+  override fun setValidationRegex(
+    view: AdvancedTextInputMaskDecoratorView,
+    validationRegex: String?,
+  ) {
+    view.setValidationRegex(validationRegex)
+  }
+
   companion object {
     const val NAME = "AdvancedTextInputMaskDecoratorView"
   }

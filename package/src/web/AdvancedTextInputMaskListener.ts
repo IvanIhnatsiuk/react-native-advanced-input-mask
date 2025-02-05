@@ -26,6 +26,7 @@ class MaskedTextChangedListener {
   public rightToLeft: boolean;
   public textField: Field | null = null;
   public allowedKeys: string;
+  public validationRegex?: string;
 
   private afterText: string = '';
 
@@ -37,7 +38,8 @@ class MaskedTextChangedListener {
     autocomplete: boolean = true,
     autoskip: boolean = false,
     rightToLeft: boolean = false,
-    allowedKeys: string = ''
+    allowedKeys: string = '',
+    validationRegex?: string
   ) {
     this.primaryFormat = primaryFormat;
     this.affineFormats = affineFormats;
@@ -47,6 +49,7 @@ class MaskedTextChangedListener {
     this.autoskip = autoskip;
     this.rightToLeft = rightToLeft;
     this.allowedKeys = allowedKeys;
+    this.validationRegex = validationRegex;
   }
 
   public get primaryMask(): Mask {
@@ -58,9 +61,14 @@ class MaskedTextChangedListener {
       return;
     }
 
-    const newText = this.allowedKeys
-      ? [...text].filter((char) => this.allowedKeys.includes(char)).join('')
-      : text;
+    const newText = this.prepareText(text);
+    console.log(this.validationRegex);
+    if (
+      this.validationRegex &&
+      !new RegExp(this.validationRegex).test(newText)
+    ) {
+      return;
+    }
 
     const useAutocomplete = autocomplete ?? this.autocomplete;
     const textAndCaret = new CaretString(newText, newText.length, {
@@ -135,9 +143,33 @@ class MaskedTextChangedListener {
       autoskip: useAutoskip,
       autocomplete: useAutocomplete,
     };
-    const newText = this.allowedKeys
-      ? [...text].filter((char) => this.allowedKeys.includes(char)).join('')
-      : text;
+    const newText = this.prepareText(text);
+
+    if (
+      this.validationRegex &&
+      !new RegExp(this.validationRegex).test(newText)
+    ) {
+      const textAndCaret = new CaretString(this.afterText, caretPosition, {
+        type: CaretGravityType.Backward,
+        autocomplete: false,
+        autoskip: false,
+      });
+
+      const mask = this.pickMask(textAndCaret);
+      const result = mask.apply(textAndCaret);
+      const currentCaretPosition = textField.selectionEnd;
+
+      textField.value = result.formattedText.string;
+      if (currentCaretPosition && currentCaretPosition > 0) {
+        textField.setSelectionRange(
+          currentCaretPosition - 1,
+          currentCaretPosition - 1
+        );
+      }
+
+      return result;
+    }
+
     const textAndCaret = new CaretString(newText, caretPosition, caretGravity);
     const mask = this.pickMask(textAndCaret);
     const result = mask.apply(textAndCaret);
@@ -151,6 +183,16 @@ class MaskedTextChangedListener {
     this.afterText = result.formattedText.string;
 
     return result;
+  };
+
+  private prepareText = (text: string): string => {
+    return this.allowedKeys
+      ? [...text]
+          .filter(
+            (char) => !this.allowedKeys || this.allowedKeys.includes(char)
+          )
+          .join('')
+      : text;
   };
 
   handleFocus = (

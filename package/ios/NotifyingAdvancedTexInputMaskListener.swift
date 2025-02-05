@@ -11,6 +11,7 @@ import UIKit
 
 class NotifyingAdvancedTexInputMaskListener: MaskedTextInputListener {
   public var allowedKeys = ""
+  public var validationRegex: String?
 
   public init(primaryFormat: String = "",
               autocomplete: Bool = true,
@@ -26,9 +27,11 @@ class NotifyingAdvancedTexInputMaskListener: MaskedTextInputListener {
                  _ complete: Bool,
                  _ tailPlaceholder: String) -> Void)? = nil,
               allowSuggestions: Bool = true,
-              allowedKeys: String = "")
+              allowedKeys: String = "",
+              validationRegex: String?)
   {
     self.allowedKeys = allowedKeys
+    self.validationRegex = validationRegex
     super.init(
       primaryFormat: primaryFormat,
       autocomplete: autocomplete,
@@ -43,6 +46,17 @@ class NotifyingAdvancedTexInputMaskListener: MaskedTextInputListener {
     )
   }
 
+  private func isValid(_ text: String) -> Bool {
+    guard let validationRegex = validationRegex else {
+      return true
+    }
+
+    let regex = try? NSRegularExpression(pattern: validationRegex)
+
+    let range = NSRange(location: 0, length: text.utf16.count)
+    return regex?.firstMatch(in: text, options: [], range: range) != nil
+  }
+
   override func textField(
     _ textField: UITextField,
     shouldChangeCharactersIn range: NSRange,
@@ -51,6 +65,11 @@ class NotifyingAdvancedTexInputMaskListener: MaskedTextInputListener {
     let newText: String = allowedKeys.isEmpty
       ? string
       : String(string.filter { allowedKeys.contains($0) })
+    let nextTextFieldText = ((textField.text ?? "") as NSString).replacingCharacters(in: range, with: newText)
+
+    if !isValid(nextTextFieldText) {
+      return false
+    }
 
     defer {
       NotificationCenter.default.post(name: UITextField.textDidChangeNotification, object: textField)

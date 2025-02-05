@@ -39,7 +39,7 @@ jobs:
         run: brew install swiftformat
 
       - name: Format Swift code
-        run: swiftformat --verbose .
+        run: swiftformat --verbose ./package/ios
 
       - name: Verify that the formatted code hasn't been changed
         run: git diff --exit-code HEAD

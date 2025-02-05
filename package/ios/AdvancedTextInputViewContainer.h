@@ -30,5 +30,6 @@
 - (void)setValue:(NSString *)value;
 - (void)setAffinityFormat:(NSArray<NSString *> *)affinityFormat;
 - (void)setAffinityCalculationStrategy:(NSInteger)affinityCalculationStrategy;
+- (void)setValidationRegex:(NSString *)validationRegex;
 - (void)cleanup;
 @end
