@@ -39,7 +39,6 @@ class ReactMaskedTextChangeListener(
     val newText = allowedKeys?.run { text.filter { it in this } } ?: text
     val validationRegex = this.validationRegex
     if (validationRegex != null && !Regex(validationRegex).matches(text)) {
-      field.setSelection(cursorPosition)
       return
     }
 

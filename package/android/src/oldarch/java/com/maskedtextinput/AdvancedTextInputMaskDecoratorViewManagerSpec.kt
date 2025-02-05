@@ -70,4 +70,9 @@ abstract class AdvancedTextInputMaskDecoratorViewManagerSpec<T : View> : SimpleV
     view: T?,
     value: Boolean,
   )
+
+  abstract fun setValidationRegex(
+    view: T,
+    value: String?,
+  )
 }

@@ -121,6 +121,14 @@ class AdvancedTextInputMaskDecoratorViewManager(
     view.setAllowedKeys(allowedKeys)
   }
 
+  @ReactProp(name = "validationRegex")
+  override fun setValidationRegex(
+    view: AdvancedTextInputMaskDecoratorView,
+    validationRegex: String?,
+  ) {
+    view.setValidationRegex(validationRegex)
+  }
+
   override fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any> {
     val export = super.getExportedCustomDirectEventTypeConstants() ?: newHashMap()
 
@@ -139,13 +147,6 @@ class AdvancedTextInputMaskDecoratorViewManager(
     view: AdvancedTextInputMaskDecoratorView?,
     value: Boolean,
   ) {
-  }
-
-  override fun setValidationRegex(
-    view: AdvancedTextInputMaskDecoratorView,
-    validationRegex: String?,
-  ) {
-    view.setValidationRegex(validationRegex)
   }
 
   companion object {
