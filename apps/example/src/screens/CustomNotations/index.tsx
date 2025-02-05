@@ -4,27 +4,31 @@ import { ScrollView } from 'react-native';
 import styles from './styles';
 import TextInput from '../../components/TextInput';
 
-const affineFormats = ['[00]{/}[00]{/}[00]'];
+const alphaNumericChars =
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-const DateScreen = () => {
-  const defaultValue = React.useMemo(() => new Date().toISOString(), []);
+const customNotations = [
+  {
+    character: '$',
+    characterSet: alphaNumericChars,
+    isOptional: false,
+  },
+];
 
+const CustomNotations = () => {
   return (
     <ScrollView
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
     >
       <TextInput
-        defaultValue={defaultValue}
-        mask="[0000]{/}[00]{/}[00]"
-        affinityFormat={affineFormats}
+        mask="[$$$$$$$$$$$$$]"
         autocomplete={false}
-        allowSuggestions={true}
-        autocompleteOnFocus={false}
         autoSkip={false}
+        customNotations={customNotations}
       />
     </ScrollView>
   );
 };
 
-export default DateScreen;
+export default CustomNotations;

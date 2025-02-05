@@ -5,16 +5,8 @@ const styles = StyleSheet.create({
     flexShrink: 0,
   },
   contentContainer: {
+    paddingVertical: 20,
     flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  maskedTextInput: {
-    width: '100%',
-    height: 50,
-    color: 'red',
-    backgroundColor: 'orange',
   },
 });
 

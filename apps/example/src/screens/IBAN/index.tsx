@@ -2,17 +2,17 @@ import * as React from 'react';
 
 import { ScrollView } from 'react-native';
 import styles from './styles';
-import BaseTextInput from '../../components/BaseTextInput';
+import TextInput from '../../components/TextInput';
 
-const RNTextInput = () => {
+const IBAN = () => {
   return (
     <ScrollView
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
     >
-      <BaseTextInput style={styles.textInput} />
+      <TextInput mask="GB[00] [____] [0000] [0000] [0000] [00]" />
     </ScrollView>
   );
 };
 
-export default RNTextInput;
+export default IBAN;

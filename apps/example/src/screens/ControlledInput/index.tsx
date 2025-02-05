@@ -2,17 +2,17 @@ import * as React from 'react';
 
 import { ScrollView } from 'react-native';
 import styles from './styles';
-import BaseTextInput from '../../components/BaseTextInput';
+import TextInput from '../../components/TextInput';
 
-const RNTextInput = () => {
+const ControlledInput = () => {
   return (
     <ScrollView
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
     >
-      <BaseTextInput style={styles.textInput} />
+      <TextInput controlled mask="[--------------]" />
     </ScrollView>
   );
 };
 
-export default RNTextInput;
+export default ControlledInput;
