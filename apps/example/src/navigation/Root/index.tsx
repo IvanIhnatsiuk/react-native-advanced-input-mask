@@ -8,6 +8,7 @@ import IBAN from '../../screens/IBAN';
 import AllowedKeys from '../../screens/AllowedKeys';
 import CustomNotations from '../../screens/CustomNotations';
 import ControlledInput from '../../screens/ControlledInput';
+import ValidationRegex from '../../screens/ValidationRegEx';
 
 const RootStack = createNativeStackNavigator({
   initialRouteName: ScreenNames.Main,
@@ -58,6 +59,12 @@ const RootStack = createNativeStackNavigator({
         title: 'Controlled Input 🕹',
       },
       screen: ControlledInput,
+    },
+    [ScreenNames.ValidationRegex]: {
+      options: {
+        title: 'Validation Regex 🧪',
+      },
+      screen: ValidationRegex,
     },
   },
 });

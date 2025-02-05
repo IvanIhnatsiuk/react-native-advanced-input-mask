@@ -7,6 +7,7 @@ const enum ScreenNames {
   IBAN = 'IBAN',
   ControlledInput = 'ControlledInput',
   AllowedKeys = 'AllowedKeys',
+  ValidationRegex = 'ValidationRegex',
 }
 
 export default ScreenNames;
