@@ -94,6 +94,12 @@ export type MaskedTextInputOwnProps = {
   renderTextInputComponent?:
     | ElementType
     | ((props: TextInputProps) => JSX.Element);
+  /**
+   * A validation regex that runs before applying the mask.
+   *
+   * ⚠️ Use this only when absolutely necessary. Prefer using `allowedKeys` with `affinityFormat` instead.
+   */
+  validationRegex?: string;
 };
 
 export type MaskedTextInputProps = Omit<TextInputProps, 'onChangeText'> &

@@ -25,7 +25,6 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
       autoSkip,
       customNotations,
       customTransformation,
-      allowedKeys,
       defaultValue,
       isRTL,
       mask,
@@ -34,6 +33,7 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
       onChangeText,
       onTailPlaceholderChange,
       renderTextInputComponent,
+      validationRegex,
       ...rest
     },
     ref
@@ -61,12 +61,12 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
           autoSkip={autoSkip}
           customNotations={customNotations}
           customTransformation={customTransformation}
-          allowedKeys={allowedKeys}
           defaultValue={defaultValue}
           isRTL={isRTL}
           onAdvancedMaskTextChange={onAdvancedMaskTextChangeCallback}
           primaryMaskFormat={mask}
           style={IS_FABRIC ? styles.farAway : styles.displayNone}
+          validationRegex={validationRegex}
           value={value}
         />
       </>

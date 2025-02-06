@@ -124,6 +124,10 @@ using namespace facebook::react;
     [_view setAffinityCalculationStrategy:newViewProps.affinityCalculationStrategy];
   }
 
+  if (newViewProps.validationRegex != oldViewProps.validationRegex) {
+    [_view setValidationRegex:RCTNSStringFromString(newViewProps.validationRegex)];
+  }
+
   [super updateProps:props oldProps:oldProps];
 }
 

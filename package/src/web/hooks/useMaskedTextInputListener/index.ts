@@ -23,6 +23,7 @@ const useMaskedTextInputListener = ({
   onTailPlaceholderChange,
   onFocus,
   defaultValue,
+  validationRegex,
 }: Props) => {
   const prevDispatchedPayload = useRef<{
     extracted: string;
@@ -41,7 +42,8 @@ const useMaskedTextInputListener = ({
         autocomplete,
         autoSkip,
         isRTL,
-        allowedKeys
+        allowedKeys,
+        validationRegex
       )
   );
 
@@ -86,7 +88,12 @@ const useMaskedTextInputListener = ({
     if (listener.rightToLeft !== isRTL) {
       listener.rightToLeft = isRTL;
     }
+
+    if (listener.validationRegex !== validationRegex) {
+      listener.validationRegex = validationRegex;
+    }
   }, [
+    validationRegex,
     affinityFormat,
     customNotations,
     mask,

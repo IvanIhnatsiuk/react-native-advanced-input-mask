@@ -21,6 +21,7 @@ const MaskedTextInput = forwardRef<TextInput | null, MaskedTextInputProps>(
       onTailPlaceholderChange,
       onFocus,
       renderTextInputComponent,
+      validationRegex,
       ...rest
     },
     ref
@@ -47,6 +48,7 @@ const MaskedTextInput = forwardRef<TextInput | null, MaskedTextInputProps>(
       onChangeText,
       onTailPlaceholderChange,
       onFocus,
+      validationRegex,
       defaultValue,
     });
 

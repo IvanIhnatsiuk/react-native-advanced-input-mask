@@ -47,6 +47,7 @@ export interface NativeProps extends ViewProps {
   onAdvancedMaskTextChange?: DirectEventHandler<OnAdvancedMaskTextChange>;
   primaryMaskFormat: string;
   value?: string;
+  validationRegex?: string;
 }
 
 export default codegenNativeComponent<NativeProps>(

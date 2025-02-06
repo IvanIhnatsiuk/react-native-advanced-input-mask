@@ -38,4 +38,10 @@ export const MENU_ITEMS: Omit<MenuItemProps<ScreenNames>, 'onPress'>[] = [
     testId: 'controlled-text-input',
     emoji: '🕹',
   },
+  {
+    title: 'Validation Regex',
+    info: ScreenNames.ValidationRegex,
+    testId: 'validation-regex',
+    emoji: '🧪',
+  },
 ];

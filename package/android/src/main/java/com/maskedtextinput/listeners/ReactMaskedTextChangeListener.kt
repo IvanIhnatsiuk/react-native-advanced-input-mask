@@ -13,11 +13,12 @@ class ReactMaskedTextChangeListener(
   affinityCalculationStrategy: AffinityCalculationStrategy,
   autocomplete: Boolean,
   autoSkip: Boolean,
-  field: ReactEditText,
+  val field: ReactEditText,
   rightToLeft: Boolean,
   valueListener: MaskedTextValueListener,
   var allowedKeys: String?,
   private val focusChangeListener: View.OnFocusChangeListener,
+  var validationRegex: String?,
 ) : MaskedTextChangedListener(
     primaryFormat = primaryFormat,
     affineFormats = affineFormats,
@@ -36,6 +37,11 @@ class ReactMaskedTextChangeListener(
     count: Int,
   ) {
     val newText = allowedKeys?.run { text.filter { it in this } } ?: text
+    val validationRegex = this.validationRegex
+    if (validationRegex != null && !Regex(validationRegex).matches(text)) {
+      return
+    }
+
     super.onTextChanged(newText, cursorPosition, before, count)
   }
 
@@ -59,6 +65,7 @@ class ReactMaskedTextChangeListener(
       rightToLeft: Boolean = false,
       valueListener: MaskedTextValueListener,
       allowedKeys: String?,
+      validationRegex: String?,
     ): ReactMaskedTextChangeListener {
       val listener =
         ReactMaskedTextChangeListener(
@@ -73,6 +80,7 @@ class ReactMaskedTextChangeListener(
           focusChangeListener = field.onFocusChangeListener,
           valueListener = valueListener,
           allowedKeys = allowedKeys,
+          validationRegex = validationRegex,
         )
       field.addTextChangedListener(listener)
       field.onFocusChangeListener = listener
