@@ -3,8 +3,6 @@ package com.maskedtextinput.managers
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
-import com.facebook.react.common.MapBuilder
-import com.facebook.react.common.MapBuilder.newHashMap
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
 import com.maskedtextinput.AdvancedTextInputMaskDecoratorViewManagerSpec
@@ -23,10 +21,10 @@ class AdvancedTextInputMaskDecoratorViewManager(
   @ReactProp(name = "primaryMaskFormat")
   override fun setPrimaryMaskFormat(
     view: AdvancedTextInputMaskDecoratorView,
-    value: String?,
+    mask: String?,
   ) {
-    if (value != null) {
-      view.setMask(value)
+    if (mask != null) {
+      view.setMask(mask)
     }
   }
 
@@ -130,9 +128,9 @@ class AdvancedTextInputMaskDecoratorViewManager(
   }
 
   override fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any> {
-    val export = super.getExportedCustomDirectEventTypeConstants() ?: newHashMap()
+    val export = super.getExportedCustomDirectEventTypeConstants() ?: hashMapOf()
 
-    export[EventNames.CHANGE_TEXT_EVENT] = MapBuilder.of("registrationName", "onAdvancedMaskTextChange")
+    export[EventNames.CHANGE_TEXT_EVENT] = mapOf("registrationName" to "onAdvancedMaskTextChange")
 
     return export
   }
