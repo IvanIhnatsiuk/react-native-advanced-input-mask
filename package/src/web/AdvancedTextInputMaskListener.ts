@@ -62,11 +62,7 @@ class MaskedTextChangedListener {
     }
 
     const newText = this.prepareText(text);
-    console.log(this.validationRegex);
-    if (
-      this.validationRegex &&
-      !new RegExp(this.validationRegex).test(newText)
-    ) {
+    if (!this.isValidText(text)) {
       return;
     }
 
@@ -145,10 +141,7 @@ class MaskedTextChangedListener {
     };
     const newText = this.prepareText(text);
 
-    if (
-      this.validationRegex &&
-      !new RegExp(this.validationRegex).test(newText)
-    ) {
+    if (!this.isValidText(text)) {
       const textAndCaret = new CaretString(this.afterText, caretPosition, {
         type: CaretGravityType.Backward,
         autocomplete: false,
@@ -194,6 +187,9 @@ class MaskedTextChangedListener {
           .join('')
       : text;
   };
+
+  private isValidText = (text: string): boolean =>
+    this.validationRegex ? new RegExp(this.validationRegex).test(text) : true;
 
   handleFocus = (
     event: NativeSyntheticEvent<TextInputFocusEventData>
