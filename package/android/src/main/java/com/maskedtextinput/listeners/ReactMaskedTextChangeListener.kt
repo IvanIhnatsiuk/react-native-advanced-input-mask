@@ -1,5 +1,6 @@
 package com.maskedtextinput.listeners
 
+import android.text.Editable
 import android.view.View
 import com.facebook.react.views.textinput.ReactEditText
 import com.redmadrobot.inputmask.MaskedTextChangedListener
@@ -30,6 +31,9 @@ class ReactMaskedTextChangeListener(
     rightToLeft = rightToLeft,
     valueListener = valueListener,
   ) {
+  private var cursorPosition = 0
+  private var prevText = ""
+
   override fun onTextChanged(
     text: CharSequence,
     cursorPosition: Int,
@@ -37,12 +41,34 @@ class ReactMaskedTextChangeListener(
     count: Int,
   ) {
     val newText = allowedKeys?.run { text.filter { it in this } } ?: text
-    val validationRegex = this.validationRegex
-    if (validationRegex != null && !Regex(validationRegex).matches(text)) {
+    if (!isValidText(text.toString())) {
+      this.cursorPosition = cursorPosition
       return
     }
 
     super.onTextChanged(newText, cursorPosition, before, count)
+  }
+
+  override fun afterTextChanged(edit: Editable?) {
+    val stringText = edit.toString()
+    if (!isValidText(stringText)) {
+      field.setText(prevText)
+      field.setSelection(cursorPosition)
+      return
+    }
+
+    prevText = stringText
+    super.afterTextChanged(edit)
+  }
+
+  private fun isValidText(text: String): Boolean {
+    val validationRegex = this.validationRegex
+
+    return if (validationRegex == null) {
+      true
+    } else {
+      Regex(validationRegex).matches(text)
+    }
   }
 
   override fun onFocusChange(
