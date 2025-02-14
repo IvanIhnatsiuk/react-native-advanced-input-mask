@@ -26,12 +26,11 @@ const Phone = () => {
       <TextInput
         placeholderTextColor="gray"
         onTailPlaceholderChange={console.log}
-        placeholder="+1 ([000]) [000]-[0000]"
+        placeholder="+1 (000) 000-0000"
         mask="+1 ([000]) [000]-[0000]"
-        autocomplete={false}
         allowSuggestions={true}
         autocompleteOnFocus={false}
-        autoSkip={false}
+        autoSkip
       />
       <Button
         style={styles.button}
