@@ -151,8 +151,7 @@ class MaskedTextChangedListener {
         autoskip: false,
       });
 
-      const mask = this.pickMask(textAndCaret);
-      const result = mask.apply(textAndCaret);
+      const result = this.pickMask(textAndCaret).apply(textAndCaret);
       const currentCaretPosition = textField.selectionEnd;
 
       textField.value = result.formattedText.string;
@@ -167,8 +166,7 @@ class MaskedTextChangedListener {
     }
 
     const textAndCaret = new CaretString(newText, caretPosition, caretGravity);
-    const mask = this.pickMask(textAndCaret);
-    const result = mask.apply(textAndCaret);
+    const result = this.pickMask(textAndCaret).apply(textAndCaret);
 
     textField.value = result.formattedText.string;
     textField.setSelectionRange(
@@ -206,7 +204,6 @@ class MaskedTextChangedListener {
         autoskip: false,
       });
       const result = this.pickMask(textAndCaret).apply(textAndCaret);
-
       this.afterText = result.formattedText.string;
       textField.value = this.afterText;
 
