@@ -26,8 +26,8 @@ class MaskedTextChangedListener {
   public rightToLeft: boolean;
   public textField: Field | null = null;
   public allowedKeys: string;
-  public validationRegex?: string;
   public autocompleteOnFocus?: boolean;
+  private validationRegex?: RegExp;
 
   private afterText: string = '';
 
@@ -51,8 +51,8 @@ class MaskedTextChangedListener {
     this.autoskip = autoskip;
     this.rightToLeft = rightToLeft;
     this.allowedKeys = allowedKeys;
-    this.validationRegex = validationRegex;
     this.autocompleteOnFocus = autocompleteOnFocus;
+    this.setValidationRegex(validationRegex);
   }
 
   public get primaryMask(): Mask {
@@ -190,7 +190,7 @@ class MaskedTextChangedListener {
   };
 
   private isValidText = (text: string): boolean =>
-    this.validationRegex ? new RegExp(this.validationRegex).test(text) : true;
+    this.validationRegex ? this.validationRegex.test(text) : true;
 
   handleFocus = (
     event: NativeSyntheticEvent<TextInputFocusEventData>
@@ -252,6 +252,18 @@ class MaskedTextChangedListener {
     }
 
     return masksAndAffinities[0]!.mask;
+  };
+
+  public setValidationRegex = (validationRegex?: string) => {
+    if (validationRegex) {
+      this.validationRegex = new RegExp(validationRegex);
+    } else {
+      this.validationRegex = undefined;
+    }
+  };
+
+  public getValidationRegex = (): string | undefined => {
+    return this.validationRegex?.source;
   };
 
   private maskGetOrCreate = (

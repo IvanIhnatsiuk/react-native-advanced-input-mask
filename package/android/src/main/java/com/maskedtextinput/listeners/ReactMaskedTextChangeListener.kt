@@ -19,8 +19,8 @@ class ReactMaskedTextChangeListener(
   valueListener: MaskedTextValueListener,
   var allowedKeys: String?,
   private val focusChangeListener: View.OnFocusChangeListener,
-  var validationRegex: String?,
   var autocompleteOnFocus: Boolean,
+  var validationRegex: Regex?,
 ) : MaskedTextChangedListener(
     primaryFormat = primaryFormat,
     affineFormats = affineFormats,
@@ -62,15 +62,7 @@ class ReactMaskedTextChangeListener(
     super.afterTextChanged(edit)
   }
 
-  private fun isValidText(text: String): Boolean {
-    val validationRegex = this.validationRegex
-
-    return if (validationRegex == null) {
-      true
-    } else {
-      Regex(validationRegex).matches(text)
-    }
-  }
+  private fun isValidText(text: String): Boolean = this.validationRegex?.matches(text) ?: true
 
   override fun onFocusChange(
     view: View?,
@@ -97,8 +89,8 @@ class ReactMaskedTextChangeListener(
       rightToLeft: Boolean = false,
       valueListener: MaskedTextValueListener,
       allowedKeys: String?,
-      validationRegex: String?,
       autocompleteOnFocus: Boolean = false,
+      validationRegex: Regex?,
     ): ReactMaskedTextChangeListener {
       val listener =
         ReactMaskedTextChangeListener(

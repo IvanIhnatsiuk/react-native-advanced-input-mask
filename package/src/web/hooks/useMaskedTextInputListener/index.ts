@@ -91,8 +91,8 @@ const useMaskedTextInputListener = ({
       listener.rightToLeft = isRTL;
     }
 
-    if (listener.validationRegex !== validationRegex) {
-      listener.validationRegex = validationRegex;
+    if (listener.getValidationRegex() !== validationRegex) {
+      listener.setValidationRegex(validationRegex);
     }
 
     if (listener.autocompleteOnFocus !== autocompleteOnFocus) {

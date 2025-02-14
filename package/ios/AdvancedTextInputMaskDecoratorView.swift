@@ -114,7 +114,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
 
   @objc private var validationRegex: NSString? {
     didSet {
-      maskInputListener?.validationRegex = validationRegex as? String
+      maskInputListener?.validationRegex = getRegExFromString(string: validationRegex as String?)
     }
   }
 
@@ -143,6 +143,12 @@ class AdvancedTextInputMaskDecoratorView: UIView {
   }
 
   // MARK: - Utility Methods
+
+  private func getRegExFromString(string: String?) -> NSRegularExpression? {
+    guard let pattern = string else { return nil }
+
+    return try? NSRegularExpression(pattern: pattern)
+  }
 
   @objc private func updateTextWithoutNotification(text: String) {
     if text == textField?.attributedText?.string {
@@ -216,7 +222,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
       },
       allowSuggestions: allowSuggestions,
       allowedKeys: (allowedKeys ?? "") as String,
-      validationRegex: validationRegex as? String
+      validationRegex: getRegExFromString(string: validationRegex as String?)
     )
     maskInputListener?.textFieldDelegate = textFieldDelegate
     textField.delegate = maskInputListener

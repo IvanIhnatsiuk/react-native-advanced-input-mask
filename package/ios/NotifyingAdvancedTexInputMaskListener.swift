@@ -11,7 +11,7 @@ import UIKit
 
 class NotifyingAdvancedTexInputMaskListener: MaskedTextInputListener {
   public var allowedKeys = ""
-  public var validationRegex: String?
+  public var validationRegex: NSRegularExpression?
 
   public init(primaryFormat: String = "",
               autocomplete: Bool = true,
@@ -28,7 +28,7 @@ class NotifyingAdvancedTexInputMaskListener: MaskedTextInputListener {
                  _ tailPlaceholder: String) -> Void)? = nil,
               allowSuggestions: Bool = true,
               allowedKeys: String = "",
-              validationRegex: String?)
+              validationRegex: NSRegularExpression?)
   {
     self.allowedKeys = allowedKeys
     self.validationRegex = validationRegex
@@ -51,10 +51,9 @@ class NotifyingAdvancedTexInputMaskListener: MaskedTextInputListener {
       return true
     }
 
-    let regex = try? NSRegularExpression(pattern: validationRegex)
-
     let range = NSRange(location: 0, length: text.utf16.count)
-    return regex?.firstMatch(in: text, options: [], range: range) != nil
+
+    return validationRegex.firstMatch(in: text, options: [], range: range) != nil
   }
 
   override func textField(
