@@ -10,6 +10,7 @@ import CaretString from '../../model/CaretString';
 import { CaretGravityType } from '../../model/types';
 
 const useMaskedTextInputListener = ({
+  autocompleteOnFocus,
   mask,
   affinityFormat,
   affinityCalculationStrategy,
@@ -43,7 +44,8 @@ const useMaskedTextInputListener = ({
         autoSkip,
         isRTL,
         allowedKeys,
-        validationRegex
+        validationRegex,
+        autocompleteOnFocus
       )
   );
 
@@ -92,7 +94,12 @@ const useMaskedTextInputListener = ({
     if (listener.validationRegex !== validationRegex) {
       listener.validationRegex = validationRegex;
     }
+
+    if (listener.autocompleteOnFocus !== autocompleteOnFocus) {
+      listener.autocompleteOnFocus = autocompleteOnFocus;
+    }
   }, [
+    autocompleteOnFocus,
     validationRegex,
     affinityFormat,
     customNotations,
