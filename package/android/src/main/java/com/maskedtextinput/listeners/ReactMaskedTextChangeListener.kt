@@ -20,6 +20,7 @@ class ReactMaskedTextChangeListener(
   var allowedKeys: String?,
   private val focusChangeListener: View.OnFocusChangeListener,
   var validationRegex: String?,
+  var autocompleteOnFocus: Boolean,
 ) : MaskedTextChangedListener(
     primaryFormat = primaryFormat,
     affineFormats = affineFormats,
@@ -41,7 +42,7 @@ class ReactMaskedTextChangeListener(
     count: Int,
   ) {
     val newText = allowedKeys?.run { text.filter { it in this } } ?: text
-    if (!isValidText(text.toString())) {
+    if (!isValidText(text.toString()) || prevText == text.toString()) {
       this.cursorPosition = cursorPosition
       return
     }
@@ -75,7 +76,12 @@ class ReactMaskedTextChangeListener(
     view: View?,
     hasFocus: Boolean,
   ) {
-    super.onFocusChange(view, hasFocus)
+    if (autocompleteOnFocus) {
+      val prevAutocomplete = this.autocomplete
+      this.autocomplete = autocompleteOnFocus
+      super.onFocusChange(view, hasFocus)
+      this.autocomplete = prevAutocomplete
+    }
     focusChangeListener.onFocusChange(view, hasFocus)
   }
 
@@ -92,6 +98,7 @@ class ReactMaskedTextChangeListener(
       valueListener: MaskedTextValueListener,
       allowedKeys: String?,
       validationRegex: String?,
+      autocompleteOnFocus: Boolean = false,
     ): ReactMaskedTextChangeListener {
       val listener =
         ReactMaskedTextChangeListener(
@@ -107,6 +114,7 @@ class ReactMaskedTextChangeListener(
           valueListener = valueListener,
           allowedKeys = allowedKeys,
           validationRegex = validationRegex,
+          autocompleteOnFocus = autocompleteOnFocus,
         )
       field.addTextChangedListener(listener)
       field.onFocusChangeListener = listener

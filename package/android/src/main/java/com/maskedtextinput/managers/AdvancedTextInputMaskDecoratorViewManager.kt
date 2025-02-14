@@ -141,10 +141,12 @@ class AdvancedTextInputMaskDecoratorViewManager(
   ) {
   }
 
+  @ReactProp(name = "autocompleteOnFocus")
   override fun setAutocompleteOnFocus(
-    view: AdvancedTextInputMaskDecoratorView?,
+    view: AdvancedTextInputMaskDecoratorView,
     value: Boolean,
   ) {
+    view.setAutocompleteOnFocus(value)
   }
 
   companion object {

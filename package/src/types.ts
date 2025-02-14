@@ -54,7 +54,7 @@ export type MaskedTextInputOwnProps = {
   affinityFormat?: string[];
   /**
    * Whether to enable autocomplete for the text input.
-   * Default is false.
+   * Default is true.
    */
   autocomplete?: boolean;
   /**

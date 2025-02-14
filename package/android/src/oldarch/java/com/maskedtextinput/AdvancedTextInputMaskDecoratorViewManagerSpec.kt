@@ -67,7 +67,7 @@ abstract class AdvancedTextInputMaskDecoratorViewManagerSpec<T : View> : SimpleV
   )
 
   abstract fun setAutocompleteOnFocus(
-    view: T?,
+    view: T,
     value: Boolean,
   )
 

@@ -27,6 +27,7 @@ class MaskedTextChangedListener {
   public textField: Field | null = null;
   public allowedKeys: string;
   public validationRegex?: string;
+  public autocompleteOnFocus?: boolean;
 
   private afterText: string = '';
 
@@ -39,7 +40,8 @@ class MaskedTextChangedListener {
     autoskip: boolean = false,
     rightToLeft: boolean = false,
     allowedKeys: string = '',
-    validationRegex?: string
+    validationRegex?: string,
+    autocompleteOnFocus: boolean = false
   ) {
     this.primaryFormat = primaryFormat;
     this.affineFormats = affineFormats;
@@ -50,6 +52,7 @@ class MaskedTextChangedListener {
     this.rightToLeft = rightToLeft;
     this.allowedKeys = allowedKeys;
     this.validationRegex = validationRegex;
+    this.autocompleteOnFocus = autocompleteOnFocus;
   }
 
   public get primaryMask(): Mask {
@@ -148,8 +151,7 @@ class MaskedTextChangedListener {
         autoskip: false,
       });
 
-      const mask = this.pickMask(textAndCaret);
-      const result = mask.apply(textAndCaret);
+      const result = this.pickMask(textAndCaret).apply(textAndCaret);
       const currentCaretPosition = textField.selectionEnd;
 
       textField.value = result.formattedText.string;
@@ -164,8 +166,7 @@ class MaskedTextChangedListener {
     }
 
     const textAndCaret = new CaretString(newText, caretPosition, caretGravity);
-    const mask = this.pickMask(textAndCaret);
-    const result = mask.apply(textAndCaret);
+    const result = this.pickMask(textAndCaret).apply(textAndCaret);
 
     textField.value = result.formattedText.string;
     textField.setSelectionRange(
@@ -194,16 +195,15 @@ class MaskedTextChangedListener {
   handleFocus = (
     event: NativeSyntheticEvent<TextInputFocusEventData>
   ): void => {
-    if (this.autocomplete) {
+    if (this.autocompleteOnFocus) {
       const textField = event.target as unknown as HTMLInputElement;
       const text = textField.value.length > 0 ? textField.value : '';
       const textAndCaret = new CaretString(text, text.length, {
         type: CaretGravityType.Forward,
-        autocomplete: this.autocomplete,
+        autocomplete: true,
         autoskip: false,
       });
       const result = this.pickMask(textAndCaret).apply(textAndCaret);
-
       this.afterText = result.formattedText.string;
       textField.value = this.afterText;
 
