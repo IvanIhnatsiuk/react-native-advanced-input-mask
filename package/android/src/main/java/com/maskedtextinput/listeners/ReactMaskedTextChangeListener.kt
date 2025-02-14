@@ -42,7 +42,7 @@ class ReactMaskedTextChangeListener(
     count: Int,
   ) {
     val newText = allowedKeys?.run { text.filter { it in this } } ?: text
-    if (!isValidText(text.toString()) || prevText == text.toString()) {
+    if (!isValidText(text.toString())) {
       this.cursorPosition = cursorPosition
       return
     }
