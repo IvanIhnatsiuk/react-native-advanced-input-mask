@@ -142,9 +142,10 @@ class AdvancedTextInputMaskDecoratorViewManager(
   }
 
   override fun setAutocompleteOnFocus(
-    view: AdvancedTextInputMaskDecoratorView?,
+    view: AdvancedTextInputMaskDecoratorView,
     value: Boolean,
   ) {
+    view.setAutocompleteOnFocus(value)
   }
 
   companion object {

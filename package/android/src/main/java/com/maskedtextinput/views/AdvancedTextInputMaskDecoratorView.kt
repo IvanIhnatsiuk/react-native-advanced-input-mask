@@ -32,6 +32,7 @@ class AdvancedTextInputMaskDecoratorView(
   private var value: String? = null
   private var isInitialMount = true
   private var validationRegex: String? = null
+  private var autocompleteOnFocus = false
 
   private val valueListener =
     MaskedTextValueListener { _, extracted, formatted, tailPlaceholder ->
@@ -129,6 +130,11 @@ class AdvancedTextInputMaskDecoratorView(
   fun setAutoComplete(value: Boolean) {
     autocomplete = value
     maskedTextChangeListener?.autocomplete = value
+  }
+
+  fun setAutocompleteOnFocus(value: Boolean) {
+    autocompleteOnFocus = value
+    maskedTextChangeListener?.autocompleteOnFocus = value
   }
 
   fun setIsRtl(rtl: Boolean) {
