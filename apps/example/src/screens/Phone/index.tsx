@@ -29,7 +29,6 @@ const Phone = () => {
         placeholder="+1 (000) 000-0000"
         mask="+1 ([000]) [000]-[0000]"
         allowSuggestions={true}
-        autocompleteOnFocus={false}
         autoSkip
       />
       <Button

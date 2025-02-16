@@ -31,8 +31,8 @@ class AdvancedTextInputMaskDecoratorView(
   private var defaultValue: String? = null
   private var value: String? = null
   private var isInitialMount = true
-  private var validationRegex: String? = null
   private var autocompleteOnFocus = false
+  private var validationRegex: Regex? = null
 
   private val valueListener =
     MaskedTextValueListener { _, extracted, formatted, tailPlaceholder ->
@@ -83,6 +83,7 @@ class AdvancedTextInputMaskDecoratorView(
             affineFormats = affineFormats,
             affinityCalculationStrategy = affinityCalculationStrategy,
             allowedKeys = allowedKeys,
+            autocompleteOnFocus = autocompleteOnFocus,
             validationRegex = validationRegex,
           )
 
@@ -150,7 +151,7 @@ class AdvancedTextInputMaskDecoratorView(
   fun setValue(value: String?) {
     this.value = value
     if (textField?.text.toString() != value) {
-      value?.let { maskedTextChangeListener?.setText(it) }
+      value?.let { maskedTextChangeListener?.setText(it, false) }
     }
   }
 
@@ -168,8 +169,12 @@ class AdvancedTextInputMaskDecoratorView(
   }
 
   fun setValidationRegex(validationRegex: String?) {
-    this.validationRegex = validationRegex
-    maskedTextChangeListener?.validationRegex = validationRegex
+    val regex =
+      validationRegex?.let {
+        Regex(it)
+      }
+    this.validationRegex = regex
+    maskedTextChangeListener?.validationRegex = regex
   }
 
   fun setAllowedKeys(allowedKeys: String?) {
