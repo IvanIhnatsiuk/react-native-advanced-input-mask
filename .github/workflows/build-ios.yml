@@ -72,3 +72,9 @@ jobs:
       - name: Build example for iOS
         run: |
           yarn build:ios
+
+      - name: Upload ios app
+        uses: actions/upload-artifact@v4    
+        with:
+            name: ios-app
+            path: example/ios/build/Build/Products/Release-iphonesimulator/MaskedTextInputExample.app/**    

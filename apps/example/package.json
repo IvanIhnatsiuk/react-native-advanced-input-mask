@@ -8,7 +8,7 @@
     "web": "./node_modules/.bin/webpack-dev-server",
     "start": "react-native start",
     "build:android": "cd android && ./gradlew assembleDebug",
-    "build:ios": "cd ios && xcodebuild -workspace MaskedTextInputExample.xcworkspace -scheme MaskedTextInputExample -configuration Debug -sdk iphonesimulator CC=clang CPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ GCC_OPTIMIZATION_LEVEL=0 GCC_PRECOMPILE_PREFIX_HEADER=YES ASSETCATALOG_COMPILER_OPTIMIZATION=time DEBUG_INFORMATION_FORMAT=dwarf COMPILER_INDEX_STORE_ENABLE=NO | xcpretty",
+    "build:ios": "cd ios && xcodebuild -workspace MaskedTextInputExample.xcworkspace -scheme MaskedTextInputExample -configuration Release -sdk iphonesimulator -derivedDataPath ../ios/build CC=clang CPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ GCC_OPTIMIZATION_LEVEL=0 GCC_PRECOMPILE_PREFIX_HEADER=YES ASSETCATALOG_COMPILER_OPTIMIZATION=time DEBUG_INFORMATION_FORMAT=dwarf COMPILER_INDEX_STORE_ENABLE=NO | xcpretty",
     "build:web": "./node_modules/.bin/webpack"
   },
   "dependencies": {
