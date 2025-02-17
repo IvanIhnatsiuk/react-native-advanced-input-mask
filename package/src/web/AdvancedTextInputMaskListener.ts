@@ -27,6 +27,7 @@ class MaskedTextChangedListener {
   public textField: Field | null = null;
   public allowedKeys: string;
   public autocompleteOnFocus?: boolean;
+  public defaultValue?: string;
   private validationRegex?: RegExp;
 
   private afterText: string = '';
@@ -41,7 +42,8 @@ class MaskedTextChangedListener {
     rightToLeft: boolean = false,
     allowedKeys: string = '',
     validationRegex?: string,
-    autocompleteOnFocus: boolean = false
+    autocompleteOnFocus: boolean = false,
+    defaultValue?: string
   ) {
     this.primaryFormat = primaryFormat;
     this.affineFormats = affineFormats;
@@ -53,6 +55,7 @@ class MaskedTextChangedListener {
     this.allowedKeys = allowedKeys;
     this.autocompleteOnFocus = autocompleteOnFocus;
     this.setValidationRegex(validationRegex);
+    this.setDefaultText(defaultValue);
   }
 
   public get primaryMask(): Mask {
@@ -191,6 +194,20 @@ class MaskedTextChangedListener {
 
   private isValidText = (text: string): boolean =>
     this.validationRegex ? this.validationRegex.test(text) : true;
+
+  private setDefaultText = (defaultValue?: string): void => {
+    this.defaultValue = defaultValue;
+    if (defaultValue) {
+      const textAndCaret = new CaretString(defaultValue, defaultValue.length, {
+        type: CaretGravityType.Forward,
+        autocomplete: false,
+        autoskip: false,
+      });
+      const result: MaskResult =
+        this.pickMask(textAndCaret).apply(textAndCaret);
+      this.afterText = result.formattedText.string;
+    }
+  };
 
   handleFocus = (
     event: NativeSyntheticEvent<TextInputFocusEventData>
