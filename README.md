@@ -33,15 +33,15 @@ Import `react-native-advanced-input-mask` in your component to apply masking to 
 ### Basic Example
 
 ```typescript
-import React, { useState, useCallback } from 'react';
-import { TextInput, View } from 'react-native';
-import { MaskedTextInput } from 'react-native-advanced-input-mask';
+import React, { useState, useCallback } from "react";
+import { TextInput, View } from "react-native";
+import { MaskedTextInput } from "react-native-advanced-input-mask";
 
 const ExampleComponent = () => {
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const onChangeText = useCallback((formatted, extracted) => {
-   setPhoneNumber(formatted)
+    setPhoneNumber(formatted);
   }, []);
 
   return (
@@ -61,15 +61,15 @@ export default ExampleComponent;
 ### UK IBAN:
 
 ```typescript
-import React, { useState, useCallback } from 'react';
-import { TextInput, View } from 'react-native';
-import { MaskedTextInput } from 'react-native-advanced-input-mask';
+import React, { useState, useCallback } from "react";
+import { TextInput, View } from "react-native";
+import { MaskedTextInput } from "react-native-advanced-input-mask";
 
 const ExampleComponent = () => {
-  const [IBAN, setIBAN] = useState('');
+  const [IBAN, setIBAN] = useState("");
 
   const onChangeText = useCallback((formatted, extracted) => {
-   setIBAN(formatted)
+    setIBAN(formatted);
   }, []);
 
   return (
@@ -88,15 +88,15 @@ export default ExampleComponent;
 ### Dates:
 
 ```typescript
-import React, { useState, useCallback } from 'react';
-import { TextInput, View } from 'react-native';
-import { MaskedTextInput } from 'react-native-advanced-input-mask';
+import React, { useState, useCallback } from "react";
+import { TextInput, View } from "react-native";
+import { MaskedTextInput } from "react-native-advanced-input-mask";
 
 const ExampleComponent = () => {
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState("");
 
   const onChangeText = useCallback((formatted, extracted) => {
-   setDate(formatted)
+    setDate(formatted);
   }, []);
 
   return (

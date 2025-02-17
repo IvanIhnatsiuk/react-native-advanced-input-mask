@@ -23,3 +23,5 @@ jobs:
 
       - name: Typecheck files
         run: yarn typecheck
+      - name: Check formatting
+        run: yarn format --check

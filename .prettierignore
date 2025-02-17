@@ -1,6 +1,18 @@
 package/lib/
 **/node_modules/
 
-apps/example/android/build/
-apps/example/android/app/build/
+.yarn/*
+
+package/android/build/*
+
+apps/example/android/build/*
+apps/example/android/app/build/*
+apps/example/android/.idea/*
+apps/example/android/.gradle/*
+apps/example/android/.kotlin/*
 apps/example/ios/build/
+apps/example/ios/Pods/*
+apps/example/android/app/build/*
+apps/example/android/app/.cxx/*
+
+apps/example/vendor/*

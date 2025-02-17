@@ -7,6 +7,8 @@ pre-commit:
     types:
       glob: "*.{js,ts, jsx, tsx}"
       run: npx tsc --noEmit
+    format:
+      run: yarn prettier '**/*' --ignore-unknown --check
 commit-msg:
   parallel: true
   commands:
