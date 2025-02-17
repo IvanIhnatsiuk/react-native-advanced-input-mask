@@ -45,7 +45,8 @@ const useMaskedTextInputListener = ({
         isRTL,
         allowedKeys,
         validationRegex,
-        autocompleteOnFocus
+        autocompleteOnFocus,
+        defaultValue
       )
   );
 
@@ -98,6 +99,10 @@ const useMaskedTextInputListener = ({
     if (listener.autocompleteOnFocus !== autocompleteOnFocus) {
       listener.autocompleteOnFocus = autocompleteOnFocus;
     }
+
+    if (defaultValue !== listener.defaultValue) {
+      listener.setText(defaultValue ?? '', false);
+    }
   }, [
     autocompleteOnFocus,
     validationRegex,
@@ -110,6 +115,7 @@ const useMaskedTextInputListener = ({
     affinityCalculationStrategy,
     allowedKeys,
     listener,
+    defaultValue,
   ]);
 
   const handleOnChange = useCallback(
