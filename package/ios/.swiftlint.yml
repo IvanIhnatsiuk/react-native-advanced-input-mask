@@ -9,7 +9,7 @@ line_length:
 
 type_name:
   min_length: 3
-  max_length: 50  
+  max_length: 50
 
 opening_brace:
   # this is controlled by `swiftformat` and we can not change config of formatter

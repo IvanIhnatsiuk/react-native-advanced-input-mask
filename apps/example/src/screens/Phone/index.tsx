@@ -1,11 +1,11 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { ScrollView } from 'react-native';
-import styles from './styles';
-import { useNavigation } from '@react-navigation/native';
-import { ScreenNames } from '../../navigation';
-import TextInput from '../../components/TextInput';
-import Button from '../../components/Button';
+import { ScrollView } from "react-native";
+import styles from "./styles";
+import { useNavigation } from "@react-navigation/native";
+import { ScreenNames } from "../../navigation";
+import TextInput from "../../components/TextInput";
+import Button from "../../components/Button";
 
 const Phone = () => {
   const { reset, navigate } = useNavigation();

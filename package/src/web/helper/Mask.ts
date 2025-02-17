@@ -1,14 +1,14 @@
-import CaretString from '../model/CaretString';
-import { StateName, type MaskResult, type Next } from '../model/types';
-import type { Notation } from '../../types';
-import State from '../model/state/State';
-import Compiler from './Compiler';
-import EOLState from '../model/state/EOLState';
-import FixedState from '../model/state/FixedState';
-import FreeState from '../model/state/FreeState';
-import OptionalValueState from '../model/state/OptionalValueState';
-import ValueState from '../model/state/ValueState';
-import CaretStringIterator from './CaretStringIterator';
+import CaretString from "../model/CaretString";
+import { StateName, type MaskResult, type Next } from "../model/types";
+import type { Notation } from "../../types";
+import State from "../model/state/State";
+import Compiler from "./Compiler";
+import EOLState from "../model/state/EOLState";
+import FixedState from "../model/state/FixedState";
+import FreeState from "../model/state/FreeState";
+import OptionalValueState from "../model/state/OptionalValueState";
+import ValueState from "../model/state/ValueState";
+import CaretStringIterator from "./CaretStringIterator";
 
 export class Mask {
   private static cache: Map<string, Mask> = new Map();
@@ -41,8 +41,8 @@ export class Mask {
     const iterator = this.makeIterator(text);
 
     let affinity = 0;
-    let extractedValue = '';
-    let modifiedString = '';
+    let extractedValue = "";
+    let modifiedString = "";
     let modifiedCaretPosition = text.caretPosition;
 
     let state: State = this.initialState;
@@ -101,7 +101,7 @@ export class Mask {
     }
 
     let tailState = state;
-    let tail = '';
+    let tail = "";
 
     while (text.caretGravity.autoskip && !autocompletionStack.empty()) {
       const skip: Next = autocompletionStack.pop();
@@ -128,7 +128,7 @@ export class Mask {
       formattedText: new CaretString(
         modifiedString,
         modifiedCaretPosition,
-        text.caretGravity
+        text.caretGravity,
       ),
       extractedValue,
       affinity,
@@ -137,10 +137,10 @@ export class Mask {
       reversed() {
         return {
           formattedText: this.formattedText.reversed(),
-          extractedValue: this.extractedValue.split('').reverse().join(''),
+          extractedValue: this.extractedValue.split("").reverse().join(""),
           affinity: this.affinity,
           complete: this.complete,
-          tailPlaceholder: this.tailPlaceholder.split('').reverse().join(''),
+          tailPlaceholder: this.tailPlaceholder.split("").reverse().join(""),
           reversed: this.reversed,
         };
       },
@@ -153,7 +153,7 @@ export class Mask {
   }
 
   placeholder: () => string = () =>
-    this.appendPlaceholder(this.initialState, '');
+    this.appendPlaceholder(this.initialState, "");
 
   acceptableTextLength(): number {
     let state: State | null = this.initialState;
@@ -228,27 +228,27 @@ export class Mask {
     if (state instanceof FreeState || state instanceof FixedState) {
       return this.appendPlaceholder(
         state.child,
-        placeholder + state.ownCharacter
+        placeholder + state.ownCharacter,
       );
     }
 
     if (state instanceof ValueState || state instanceof OptionalValueState) {
-      if ('name' in state.stateType) {
+      if ("name" in state.stateType) {
         switch (state.stateType.name) {
           case StateName.alphaNumeric:
-            return this.appendPlaceholder(state.child, placeholder + '-');
+            return this.appendPlaceholder(state.child, placeholder + "-");
           case StateName.literal:
-            return this.appendPlaceholder(state.child, placeholder + 'a');
+            return this.appendPlaceholder(state.child, placeholder + "a");
           case StateName.numeric:
-            return this.appendPlaceholder(state.child, placeholder + '0');
-          case 'ellipsis':
+            return this.appendPlaceholder(state.child, placeholder + "0");
+          case "ellipsis":
             return placeholder;
         }
       }
 
       return this.appendPlaceholder(
         state.child,
-        placeholder + state.stateType.character
+        placeholder + state.stateType.character,
       );
     }
     return placeholder;

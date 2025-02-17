@@ -1,10 +1,10 @@
-import type { HostComponent } from 'react-native';
-import type { ViewProps } from 'react-native/Libraries/Components/View/ViewPropTypes';
+import type { HostComponent } from "react-native";
+import type { ViewProps } from "react-native/Libraries/Components/View/ViewPropTypes";
 import type {
   DirectEventHandler,
   Int32,
-} from 'react-native/Libraries/Types/CodegenTypes';
-import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
+} from "react-native/Libraries/Types/CodegenTypes";
+import codegenNativeComponent from "react-native/Libraries/Utilities/codegenNativeComponent";
 
 export type OnAdvancedMaskTextChange = Readonly<{
   extracted: string;
@@ -51,5 +51,5 @@ export interface NativeProps extends ViewProps {
 }
 
 export default codegenNativeComponent<NativeProps>(
-  'AdvancedTextInputMaskDecoratorView'
+  "AdvancedTextInputMaskDecoratorView",
 ) as HostComponent<NativeProps>;

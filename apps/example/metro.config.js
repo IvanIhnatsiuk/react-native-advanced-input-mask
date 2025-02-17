@@ -1,8 +1,8 @@
-const { makeMetroConfig } = require('@rnx-kit/metro-config');
-const path = require('path');
+const { makeMetroConfig } = require("@rnx-kit/metro-config");
+const path = require("path");
 
-const root = path.resolve(__dirname, '../..');
-const pack = require('../../package/package.json');
+const root = path.resolve(__dirname, "../..");
+const pack = require("../../package/package.json");
 const modules = Object.keys(pack.peerDependencies);
 
 const extraConfig = {
@@ -18,7 +18,7 @@ const extraConfig = {
   resolver: {
     unstable_enableSymlinks: true,
     extraNodeModules: modules.reduce((acc, name) => {
-      acc[name] = path.join(__dirname, 'node_modules', name);
+      acc[name] = path.join(__dirname, "node_modules", name);
       return acc;
     }, {}),
   },

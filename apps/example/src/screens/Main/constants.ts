@@ -1,47 +1,47 @@
-import type { Props as MenuItemProps } from '../../components/MenuItem';
-import ScreenNames from '../../navigation/screenNames';
+import type { Props as MenuItemProps } from "../../components/MenuItem";
+import ScreenNames from "../../navigation/screenNames";
 
-export const MENU_ITEMS: Omit<MenuItemProps<ScreenNames>, 'onPress'>[] = [
+export const MENU_ITEMS: Omit<MenuItemProps<ScreenNames>, "onPress">[] = [
   {
-    title: 'Phone Input',
+    title: "Phone Input",
     info: ScreenNames.PhoneInput,
-    testId: 'phone-input',
-    emoji: '📞',
+    testId: "phone-input",
+    emoji: "📞",
   },
   {
-    title: 'Date Input',
+    title: "Date Input",
     info: ScreenNames.Date,
-    testId: 'date-input',
-    emoji: '📅',
+    testId: "date-input",
+    emoji: "📅",
   },
   {
-    title: 'Custom notations',
+    title: "Custom notations",
     info: ScreenNames.CustomNotations,
-    testId: 'custom-notations',
-    emoji: '🧩',
+    testId: "custom-notations",
+    emoji: "🧩",
   },
   {
-    title: 'IBAN Input',
+    title: "IBAN Input",
     info: ScreenNames.IBAN,
-    testId: 'iban-input',
-    emoji: '💳',
+    testId: "iban-input",
+    emoji: "💳",
   },
   {
-    title: 'Allowed keys',
+    title: "Allowed keys",
     info: ScreenNames.AllowedKeys,
-    testId: 'allowed-keys',
-    emoji: '🔑',
+    testId: "allowed-keys",
+    emoji: "🔑",
   },
   {
-    title: 'Controlled Input',
+    title: "Controlled Input",
     info: ScreenNames.ControlledInput,
-    testId: 'controlled-text-input',
-    emoji: '🕹',
+    testId: "controlled-text-input",
+    emoji: "🕹",
   },
   {
-    title: 'Validation Regex',
+    title: "Validation Regex",
     info: ScreenNames.ValidationRegex,
-    testId: 'validation-regex',
-    emoji: '🧪',
+    testId: "validation-regex",
+    emoji: "🧪",
   },
 ];

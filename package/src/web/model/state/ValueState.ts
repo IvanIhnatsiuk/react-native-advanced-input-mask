@@ -1,22 +1,22 @@
-import State from './State';
-import type { Ellipsis, Next, StateType } from '../types';
-import type { Notation } from '../../../types';
-import { getCharacterTypeString } from '../utils';
+import State from "./State";
+import type { Ellipsis, Next, StateType } from "../types";
+import type { Notation } from "../../../types";
+import { getCharacterTypeString } from "../utils";
 
 class ValueState extends State {
   stateType: StateType | Ellipsis | Notation;
 
   constructor(
     child: State | null,
-    valueState: StateType | Ellipsis | Notation
+    valueState: StateType | Ellipsis | Notation,
   ) {
     super(child);
     this.stateType = valueState;
   }
 
   private accepts(character: string): boolean {
-    if ('name' in this.stateType) {
-      if (this.stateType.name === 'ellipsis') {
+    if ("name" in this.stateType) {
+      if (this.stateType.name === "ellipsis") {
         return this.checkEllipsis(this.stateType.inheritedType, character);
       }
 
@@ -27,10 +27,10 @@ class ValueState extends State {
 
   private checkEllipsis(
     stateType: StateType | Ellipsis | Notation,
-    character: string
+    character: string,
   ): boolean {
-    if ('name' in stateType) {
-      if (stateType.name === 'ellipsis') {
+    if ("name" in stateType) {
+      if (stateType.name === "ellipsis") {
         this.checkEllipsis(stateType.inheritedType, character);
       } else {
         return stateType.regex.test(character);
@@ -51,7 +51,7 @@ class ValueState extends State {
       : null;
 
   get isElliptical(): boolean {
-    return 'name' in this.stateType && this.stateType.name === 'ellipsis';
+    return "name" in this.stateType && this.stateType.name === "ellipsis";
   }
 
   nextState: () => State = () => (this.isElliptical ? this : this.child!);
@@ -59,7 +59,7 @@ class ValueState extends State {
   toString: () => string = () => {
     const typeStr = getCharacterTypeString(this.stateType);
 
-    return `${typeStr} -> ${this.child?.toString() ?? 'null'}`;
+    return `${typeStr} -> ${this.child?.toString() ?? "null"}`;
   };
 }
 

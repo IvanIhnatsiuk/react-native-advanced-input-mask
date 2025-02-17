@@ -8,7 +8,8 @@
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "clean": "del-cli android/build apps/example/android/build apps/example/android/app/build example/ios/build lib",
     "release": "release-it",
-    "lint-clang": "sh clang-format.sh"
+    "lint-clang": "sh clang-format.sh",
+    "format": "prettier '**/*' --ignore-unknown --write"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.0.2",
@@ -27,7 +28,7 @@
     "eslint-plugin-ft-flow": "^3.0.11",
     "eslint-plugin-prettier": "^4.2.1",
     "jest": "^28.1.1",
-    "prettier": "^2.0.5",
+    "prettier": "2.8.8",
     "release-it": "^15.0.0",
     "typescript": "^5.0.2"
   },
@@ -71,10 +72,7 @@
         "error",
         {
           "quoteProps": "consistent",
-          "singleQuote": true,
-          "tabWidth": 2,
-          "trailingComma": "es5",
-          "useTabs": false
+          "trailingComma": "all"
         }
       ]
     }
@@ -85,9 +83,6 @@
   ],
   "prettier": {
     "quoteProps": "consistent",
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "es5",
-    "useTabs": false
+    "trailingComma": "all"
   }
 }

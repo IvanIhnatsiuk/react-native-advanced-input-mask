@@ -1,6 +1,6 @@
-import type { TextInputProps } from 'react-native';
-import type { AFFINITY_CALCULATION_STRATEGY } from './enums';
-import type { ElementType } from 'react';
+import type { TextInputProps } from "react-native";
+import type { AFFINITY_CALCULATION_STRATEGY } from "./enums";
+import type { ElementType } from "react";
 
 export type Notation = {
   /**
@@ -102,5 +102,5 @@ export type MaskedTextInputOwnProps = {
   validationRegex?: string;
 };
 
-export type MaskedTextInputProps = Omit<TextInputProps, 'onChangeText'> &
+export type MaskedTextInputProps = Omit<TextInputProps, "onChangeText"> &
   MaskedTextInputOwnProps;

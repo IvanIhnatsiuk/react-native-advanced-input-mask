@@ -51,7 +51,7 @@ jobs:
           echo "CCACHE_SLOPPINESS=clang_index_store,file_stat_matches,include_file_ctime,include_file_mtime,ivfsoverlay,pch_defines,modules,system_headers,time_macros" >> $GITHUB_ENV
           echo "CCACHE_FILECLONE=true" >> $GITHUB_ENV
           echo "CCACHE_DEPEND=true" >> $GITHUB_ENV
-          echo "CCACHE_INODECACHE=true" >> $GITHUB_ENV  
+          echo "CCACHE_INODECACHE=true" >> $GITHUB_ENV
 
       - name: Restore Pods cache
         uses: actions/cache@v4
@@ -67,7 +67,7 @@ jobs:
         run: export USE_CCACHE=1 && USE_FABRIC=0 RCT_NEW_ARCH_ENABLED=0 pod install
 
       - name: Install xcpretty
-        run: gem install xcpretty    
+        run: gem install xcpretty
 
       - name: Build example for iOS
         run: |

@@ -1,5 +1,5 @@
-import { useRef } from 'react';
-import { Animated } from 'react-native';
+import { useRef } from "react";
+import { Animated } from "react-native";
 
 const useAnimatedValue = (initialValue: number): Animated.Value => {
   const ref = useRef<null | Animated.Value>(null);

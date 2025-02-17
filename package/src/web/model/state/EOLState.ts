@@ -1,11 +1,11 @@
-import State from './State';
+import State from "./State";
 
 class EOLState extends State {
   accept: (char: string) => null = () => {
     return null;
   };
 
-  toString: () => string = () => 'EOL';
+  toString: () => string = () => "EOL";
 }
 
 export default EOLState;

@@ -1,13 +1,13 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import MaskedTextChangedListener from '../../AdvancedTextInputMaskListener';
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import MaskedTextChangedListener from "../../AdvancedTextInputMaskListener";
 import type {
   NativeSyntheticEvent,
   TextInputChangeEventData,
   TextInputFocusEventData,
-} from 'react-native';
-import type { Props } from './types';
-import CaretString from '../../model/CaretString';
-import { CaretGravityType } from '../../model/types';
+} from "react-native";
+import type { Props } from "./types";
+import CaretString from "../../model/CaretString";
+import { CaretGravityType } from "../../model/types";
 
 const useMaskedTextInputListener = ({
   autocompleteOnFocus,
@@ -15,7 +15,7 @@ const useMaskedTextInputListener = ({
   affinityFormat,
   affinityCalculationStrategy,
   customNotations,
-  allowedKeys = '',
+  allowedKeys = "",
   autocomplete = true,
   autoSkip = false,
   isRTL = false,
@@ -29,7 +29,7 @@ const useMaskedTextInputListener = ({
   const prevDispatchedPayload = useRef<{
     extracted: string;
     formatted: string;
-  }>({ extracted: '', formatted: '' });
+  }>({ extracted: "", formatted: "" });
 
   const isInitialMount = useRef(true);
 
@@ -46,8 +46,8 @@ const useMaskedTextInputListener = ({
         allowedKeys,
         validationRegex,
         autocompleteOnFocus,
-        defaultValue
-      )
+        defaultValue,
+      ),
   );
 
   useEffect(() => {
@@ -101,7 +101,7 @@ const useMaskedTextInputListener = ({
     }
 
     if (defaultValue !== listener.defaultValue) {
-      listener.setText(defaultValue ?? '', false);
+      listener.setText(defaultValue ?? "", false);
     }
   }, [
     autocompleteOnFocus,
@@ -141,7 +141,7 @@ const useMaskedTextInputListener = ({
         formatted: formattedValue,
       };
     },
-    [listener, onChange, onChangeText, onTailPlaceholderChange]
+    [listener, onChange, onChangeText, onTailPlaceholderChange],
   );
 
   const handleFocus = useCallback(
@@ -149,7 +149,7 @@ const useMaskedTextInputListener = ({
       listener.handleFocus(e);
       onFocus?.(e);
     },
-    [listener, onFocus]
+    [listener, onFocus],
   );
 
   const defaultValueResult = useMemo(
@@ -160,10 +160,10 @@ const useMaskedTextInputListener = ({
               autocomplete: true,
               autoskip: false,
               type: CaretGravityType.Forward,
-            })
+            }),
           ).formattedText.string
         : undefined,
-    [defaultValue, listener.primaryMask]
+    [defaultValue, listener.primaryMask],
   );
 
   return {

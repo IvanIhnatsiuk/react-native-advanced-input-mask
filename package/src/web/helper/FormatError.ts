@@ -1,6 +1,6 @@
 class FormatError extends Error {
   constructor() {
-    super('Format error');
+    super("Format error");
     Object.setPrototypeOf(this, FormatError.prototype);
   }
 }

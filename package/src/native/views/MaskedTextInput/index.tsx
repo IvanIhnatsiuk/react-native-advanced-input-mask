@@ -1,14 +1,14 @@
-import { StyleSheet, TextInput } from 'react-native';
-import React, { forwardRef, memo, useCallback } from 'react';
-import MaskedTextInputDecoratorView from '../../MaskedTextInputNative';
-import type { MaskedTextInputProps } from '../../../types';
+import { StyleSheet, TextInput } from "react-native";
+import React, { forwardRef, memo, useCallback } from "react";
+import MaskedTextInputDecoratorView from "../../MaskedTextInputNative";
+import type { MaskedTextInputProps } from "../../../types";
 
 const styles = StyleSheet.create({
   displayNone: {
-    display: 'none',
+    display: "none",
   },
   farAway: {
-    position: 'absolute',
+    position: "absolute",
     top: 1e8,
     left: 1e8,
   },
@@ -28,7 +28,7 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
       defaultValue,
       isRTL,
       mask,
-      autoCapitalize = 'words',
+      autoCapitalize = "words",
       value,
       onChangeText,
       onTailPlaceholderChange,
@@ -36,17 +36,17 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
       validationRegex,
       ...rest
     },
-    ref
+    ref,
   ) => {
     const InputComponent = renderTextInputComponent ?? TextInput;
-    const IS_FABRIC = 'nativeFabricUIManager' in global;
+    const IS_FABRIC = "nativeFabricUIManager" in global;
 
     const onAdvancedMaskTextChangeCallback = useCallback(
       ({ nativeEvent: { extracted, formatted, tailPlaceholder } }) => {
         onChangeText?.(formatted, extracted);
         onTailPlaceholderChange?.(tailPlaceholder);
       },
-      [onChangeText, onTailPlaceholderChange]
+      [onChangeText, onTailPlaceholderChange],
     );
 
     return (
@@ -71,6 +71,6 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
         />
       </>
     );
-  }
+  },
 );
 export default memo(MaskedTextInput);

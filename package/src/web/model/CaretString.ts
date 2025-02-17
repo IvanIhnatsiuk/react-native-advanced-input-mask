@@ -1,4 +1,4 @@
-import type { CaretGravity } from './types';
+import type { CaretGravity } from "./types";
 
 class CaretString {
   string: string;
@@ -8,7 +8,7 @@ class CaretString {
   constructor(
     string: string,
     caretPosition: number,
-    caretGravity: CaretGravity
+    caretGravity: CaretGravity,
   ) {
     this.string = string;
     this.caretPosition = caretPosition;
@@ -17,9 +17,9 @@ class CaretString {
 
   reversed(): CaretString {
     return new CaretString(
-      this.string.split('').reverse().join(''),
+      this.string.split("").reverse().join(""),
       this.string.length - this.caretPosition,
-      this.caretGravity
+      this.caretGravity,
     );
   }
 }

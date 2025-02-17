@@ -1,11 +1,11 @@
 {
-    "extends": "../../tsconfig",
-    "references": [
-        {
-            "path": "../../package"
-        }
-    ],
-    "compilerOptions": {
-        "rootDir": "../..",
+  "extends": "../../tsconfig",
+  "references": [
+    {
+      "path": "../../package"
     }
+  ],
+  "compilerOptions": {
+    "rootDir": "../.."
+  }
 }

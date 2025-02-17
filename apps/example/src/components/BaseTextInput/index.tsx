@@ -1,8 +1,8 @@
-import { Animated, TextInput, type TextInputProps } from 'react-native';
-import { forwardRef, memo, useCallback, useMemo } from 'react';
-import useAnimatedValue from '../../hooks/react-native/useAnimatedValue';
-import React from 'react';
-import styles, { DEFAULT_BORDER_COLOR, FOCUSED_BORDER_COLOR } from './styles';
+import { Animated, TextInput, type TextInputProps } from "react-native";
+import { forwardRef, memo, useCallback, useMemo } from "react";
+import useAnimatedValue from "../../hooks/react-native/useAnimatedValue";
+import React from "react";
+import styles, { DEFAULT_BORDER_COLOR, FOCUSED_BORDER_COLOR } from "./styles";
 
 const AnimatedTextInputView = Animated.createAnimatedComponent(TextInput);
 
@@ -18,7 +18,7 @@ const BaseTextInput = forwardRef<TextInput, TextInputProps>(
           useNativeDriver: true,
         }).start();
       },
-      [progress]
+      [progress],
     );
 
     const handleFocus = useCallback(
@@ -26,7 +26,7 @@ const BaseTextInput = forwardRef<TextInput, TextInputProps>(
         animateTo(true);
         onFocus?.(e);
       },
-      [onFocus, animateTo]
+      [onFocus, animateTo],
     );
 
     const handleBlur = useCallback(
@@ -34,7 +34,7 @@ const BaseTextInput = forwardRef<TextInput, TextInputProps>(
         animateTo(false);
         onBlur?.(e);
       },
-      [onBlur, animateTo]
+      [onBlur, animateTo],
     );
 
     const inputStyle = useMemo(
@@ -48,7 +48,7 @@ const BaseTextInput = forwardRef<TextInput, TextInputProps>(
           }),
         },
       ],
-      [progress, style]
+      [progress, style],
     );
 
     return (
@@ -60,7 +60,7 @@ const BaseTextInput = forwardRef<TextInput, TextInputProps>(
         style={inputStyle}
       />
     );
-  }
+  },
 );
 
 export default memo(BaseTextInput);

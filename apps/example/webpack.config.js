@@ -1,39 +1,39 @@
-const path = require('path');
+const path = require("path");
 
-const appDirectory = path.resolve(__dirname, '.');
+const appDirectory = path.resolve(__dirname, ".");
 
-const pack = require('../../package/package.json');
+const pack = require("../../package/package.json");
 const modules = Object.keys(pack.peerDependencies);
 
 const babelLoaderConfiguration = {
   test: /\.(js|ts)x?$/,
-  include: [path.resolve(appDirectory, 'index.web.js')],
+  include: [path.resolve(appDirectory, "index.web.js")],
   use: {
-    loader: 'babel-loader',
+    loader: "babel-loader",
     options: {
       configFile: true,
       cacheDirectory: true,
-      presets: ['module:@react-native/babel-preset'],
-      plugins: [['react-native-web', { commonjs: true }]],
+      presets: ["module:@react-native/babel-preset"],
+      plugins: [["react-native-web", { commonjs: true }]],
       overrides: [
         {
           exclude: /node_modules\/(?!react-native-advanced-input-mask\/src)/,
           plugins: [
             [
-              'module-resolver',
+              "module-resolver",
               {
                 extensions: [
-                  'web.tsx',
-                  'web.ts',
-                  'web.js',
-                  '.json',
-                  '.ts',
-                  '.js',
-                  '.tsx',
-                  '.web.tsx',
+                  "web.tsx",
+                  "web.ts",
+                  "web.js",
+                  ".json",
+                  ".ts",
+                  ".js",
+                  ".tsx",
+                  ".web.tsx",
                 ],
                 alias: {
-                  'react-native-advanced-input-mask': '../../package/src',
+                  "react-native-advanced-input-mask": "../../package/src",
                 },
               },
             ],
@@ -47,9 +47,9 @@ const babelLoaderConfiguration = {
 const imageLoaderConfiguration = {
   test: /\.(gif|jpe?g|png|svg)$/,
   use: {
-    loader: 'url-loader',
+    loader: "url-loader",
     options: {
-      name: '[name].[ext]',
+      name: "[name].[ext]",
       esModule: false,
     },
   },
@@ -59,11 +59,11 @@ module.exports = ({ platform }, defaults) => ({
   devServer: {
     open: true,
   },
-  mode: 'development',
-  entry: [path.resolve(appDirectory, 'index.web.js')],
+  mode: "development",
+  entry: [path.resolve(appDirectory, "index.web.js")],
   output: {
-    filename: 'bundle.web.js',
-    path: path.resolve(appDirectory, 'dist'),
+    filename: "bundle.web.js",
+    path: path.resolve(appDirectory, "dist"),
   },
 
   module: {
@@ -71,7 +71,7 @@ module.exports = ({ platform }, defaults) => ({
     rules: [
       {
         test: /\.([cm]?ts|tsx)$/,
-        loader: 'ts-loader',
+        loader: "ts-loader",
         options: {
           transpileOnly: true,
         },
@@ -86,15 +86,15 @@ module.exports = ({ platform }, defaults) => ({
     symlinks: true,
     alias: {
       ...modules.reduce((acc, name) => {
-        acc[name] = path.join(__dirname, 'node_modules', name);
+        acc[name] = path.join(__dirname, "node_modules", name);
         return acc;
       }, {}),
-      'react-native-advanced-input-mask': path.resolve(
+      "react-native-advanced-input-mask": path.resolve(
         __dirname,
-        '../../package/src'
+        "../../package/src",
       ),
-      'react-native': 'react-native-web',
+      "react-native": "react-native-web",
     },
-    extensions: ['.web.js', '.js', '.web.ts', '.ts', '.web.tsx', '.tsx'],
+    extensions: [".web.js", ".js", ".web.ts", ".ts", ".web.tsx", ".tsx"],
   },
 });

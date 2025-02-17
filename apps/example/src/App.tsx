@@ -1,9 +1,9 @@
-import React from 'react';
-import Navigation from './navigation';
+import React from "react";
+import Navigation from "./navigation";
 import {
   initialWindowMetrics,
   SafeAreaProvider,
-} from 'react-native-safe-area-context';
+} from "react-native-safe-area-context";
 
 export default function App() {
   return (
