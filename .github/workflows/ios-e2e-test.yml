@@ -1,26 +1,10 @@
 name: 🛠 iOS e2e tests
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - ".github/workflows/build-ios.yml"
-      - "package/react-native-advanced-input-mask.podspec"
-      - "package/**"
-      - "apps/example/**"
-      - "yarn.lock"
-      - "apps/example/yarn.lock"
-  pull_request:
-    branches:
-      - main
-    paths:
-      - ".github/workflows/build-ios.yml"
-      - "package/react-native-advanced-input-mask.podspec"
-      - "package/**"
-      - "apps/example/**"
-      - "yarn.lock"
-      - "example/yarn.lock"
+  workflow_run:
+    workflows: ["🍏 Build iOS"]
+    types:
+      - completed
 
 jobs:
   e2e-test:
