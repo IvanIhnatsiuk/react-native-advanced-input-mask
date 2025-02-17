@@ -71,7 +71,7 @@ jobs:
 
       - name: Build ios
         run: |
-          cd ios && xcodebuild -workspace MaskedTextInputExample.xcworkspace \
+            xcodebuild -workspace MaskedTextInputExample.xcworkspace \
             -scheme MaskedTextInputExample \
             -destination 'platform=iOS Simulator,name=iPhone 15 Pro' \
             -configuration Release \
