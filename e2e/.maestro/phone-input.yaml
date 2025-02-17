@@ -1,0 +1,12 @@
+appId: "com.maskedtextinputexample"
+---
+- launchApp
+- tapOn:
+    id: "phone-input"
+- tapOn: "+1 (000) 000-0000"
+- inputText: 1234567890
+- assertVisible: "+1 (234) 567-890"
+- tapOn:
+    point: "50%,37%"
+- tapOn: "Clear text"
+- assertVisible: "+1 (000) 000-0000"
