@@ -1,5 +1,5 @@
-import type { Next } from '../types';
-import State from './State';
+import type { Next } from "../types";
+import State from "./State";
 
 class FixedState extends State {
   ownCharacter: string;
@@ -32,7 +32,7 @@ class FixedState extends State {
   });
 
   toString = () =>
-    `{${this.ownCharacter}} -> ${this.child?.toString() ?? 'null'} `;
+    `{${this.ownCharacter}} -> ${this.child?.toString() ?? "null"} `;
 }
 
 export default FixedState;

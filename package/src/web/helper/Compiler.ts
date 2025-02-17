@@ -1,14 +1,14 @@
-import State from '../model/state/State';
-import EOLState from '../model/state/EOLState';
-import FixedState from '../model/state/FixedState';
-import FreeState from '../model/state/FreeState';
-import OptionalValueState from '../model/state/OptionalValueState';
-import ValueState from '../model/state/ValueState';
-import type { StateType } from '../model/types';
-import FormatSanitizer from './FormatSanitizer';
-import type { Notation } from '../../types';
-import { FIXED_STATE_TYPES, OPTIONAL_STATE_TYPES } from '../model/constants';
-import FormatError from './FormatError';
+import State from "../model/state/State";
+import EOLState from "../model/state/EOLState";
+import FixedState from "../model/state/FixedState";
+import FreeState from "../model/state/FreeState";
+import OptionalValueState from "../model/state/OptionalValueState";
+import ValueState from "../model/state/ValueState";
+import type { StateType } from "../model/types";
+import FormatSanitizer from "./FormatSanitizer";
+import type { Notation } from "../../types";
+import { FIXED_STATE_TYPES, OPTIONAL_STATE_TYPES } from "../model/constants";
+import FormatError from "./FormatError";
 
 export default class Compiler {
   private customNotations: Notation[];
@@ -26,7 +26,7 @@ export default class Compiler {
     formatString: string,
     valuable: boolean,
     fixed: boolean,
-    lastCharacter: string | null
+    lastCharacter: string | null,
   ): State {
     if (!formatString) {
       return new EOLState(null);
@@ -35,34 +35,34 @@ export default class Compiler {
     const char = formatString.charAt(0);
 
     switch (char) {
-      case '[':
-        if (lastCharacter !== '\\') {
+      case "[":
+        if (lastCharacter !== "\\") {
           return this.compileInternal(formatString.slice(1), true, false, char);
         }
         break;
-      case '{':
-        if (lastCharacter !== '\\') {
+      case "{":
+        if (lastCharacter !== "\\") {
           return this.compileInternal(formatString.slice(1), false, true, char);
         }
         break;
-      case ']':
-      case '}':
-        if (lastCharacter !== '\\') {
+      case "]":
+      case "}":
+        if (lastCharacter !== "\\") {
           return this.compileInternal(
             formatString.slice(1),
             false,
             false,
-            char
+            char,
           );
         }
         break;
-      case '\\':
-        if (lastCharacter !== '\\') {
+      case "\\":
+        if (lastCharacter !== "\\") {
           return this.compileInternal(
             formatString.slice(1),
             valuable,
             fixed,
-            char
+            char,
           );
         }
         break;
@@ -70,46 +70,46 @@ export default class Compiler {
 
     if (valuable) {
       switch (char) {
-        case '0':
+        case "0":
           return new ValueState(
             this.compileInternal(formatString.substring(1), true, false, char),
-            FIXED_STATE_TYPES.numeric
+            FIXED_STATE_TYPES.numeric,
           );
-        case 'A':
+        case "A":
           return new ValueState(
             this.compileInternal(formatString.substring(1), true, false, char),
-            FIXED_STATE_TYPES.literal
+            FIXED_STATE_TYPES.literal,
           );
-        case '_':
+        case "_":
           return new ValueState(
             this.compileInternal(formatString.substring(1), true, false, char),
-            FIXED_STATE_TYPES.alphaNumeric
+            FIXED_STATE_TYPES.alphaNumeric,
           );
-        case '…':
+        case "…":
           // Ellipses remain elliptical: re-construct inherited type from lastCharacter
           return new ValueState(
             null,
-            this.determineInheritedType(lastCharacter)
+            this.determineInheritedType(lastCharacter),
           );
-        case '9':
+        case "9":
           return new OptionalValueState(
             this.compileInternal(formatString.substring(1), true, false, char),
-            OPTIONAL_STATE_TYPES.numeric
+            OPTIONAL_STATE_TYPES.numeric,
           );
-        case 'a':
+        case "a":
           return new OptionalValueState(
             this.compileInternal(formatString.substring(1), true, false, char),
-            OPTIONAL_STATE_TYPES.literal
+            OPTIONAL_STATE_TYPES.literal,
           );
-        case '-':
+        case "-":
           return new OptionalValueState(
             this.compileInternal(formatString.substring(1), true, false, char),
-            OPTIONAL_STATE_TYPES.alphaNumeric
+            OPTIONAL_STATE_TYPES.alphaNumeric,
           );
         default:
           return this.compileWithCustomNotations(
             char,
-            formatString.substring(1)
+            formatString.substring(1),
           );
       }
     }
@@ -117,31 +117,31 @@ export default class Compiler {
     if (fixed) {
       return new FixedState(
         this.compileInternal(formatString.slice(1), false, true, char),
-        char
+        char,
       );
     }
 
     // Not in valuable or fixed => treat as FreeState
     return new FreeState(
       this.compileInternal(formatString.slice(1), false, false, char),
-      char
+      char,
     );
   }
 
   private determineInheritedType(
-    lastCharacter: string | null
+    lastCharacter: string | null,
   ): StateType | Notation {
     switch (lastCharacter) {
-      case '0':
-      case '9':
+      case "0":
+      case "9":
         return FIXED_STATE_TYPES.numeric;
-      case 'A':
-      case 'a':
+      case "A":
+      case "a":
         return FIXED_STATE_TYPES.literal;
-      case '_':
-      case '-':
-      case '…':
-      case '[':
+      case "_":
+      case "-":
+      case "…":
+      case "[":
         return FIXED_STATE_TYPES.alphaNumeric;
       default:
         return this.determineTypeWithCustomNotations(lastCharacter);
@@ -154,11 +154,11 @@ export default class Compiler {
         return customNotation.isOptional
           ? new OptionalValueState(
               this.compileInternal(remaining, true, false, char),
-              customNotation
+              customNotation,
             )
           : new ValueState(
               this.compileInternal(remaining, true, false, char),
-              customNotation
+              customNotation,
             );
       }
     }
@@ -166,7 +166,7 @@ export default class Compiler {
   }
 
   private determineTypeWithCustomNotations(
-    lastCharacter: string | null
+    lastCharacter: string | null,
   ): Notation {
     if (lastCharacter == null) {
       throw new FormatError();

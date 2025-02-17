@@ -1,0 +1,6 @@
+package/lib/
+**/node_modules/
+
+apps/example/android/build/
+apps/example/android/app/build/
+apps/example/ios/build/

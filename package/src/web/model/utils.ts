@@ -1,12 +1,12 @@
-import type { Notation } from '../../types';
-import type { Ellipsis, StateType } from './types';
+import type { Notation } from "../../types";
+import type { Ellipsis, StateType } from "./types";
 
 export const getCharacterTypeString = (
-  state?: StateType | Notation | Ellipsis
+  state?: StateType | Notation | Ellipsis,
 ): string => {
   if (!state) {
-    return '[?]';
+    return "[?]";
   }
 
-  return 'name' in state ? state.typeString : `[${state.character}]`;
+  return "name" in state ? state.typeString : `[${state.character}]`;
 };

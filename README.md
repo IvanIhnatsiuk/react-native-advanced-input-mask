@@ -130,27 +130,27 @@ For applications requiring conditional or more complex formatting, this package 
 
 ### MaskedTextInput Component - Props
 
-| Prop                          | Type                                 | Description                                                                                                                                    |
-|-------------------------------|--------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
-| `mask`                        | `string`                             | The mask format to be applied to the text input, defining the pattern for formatting. Example: `"[0000] [0000] [0000] [0000]"`.               |
-| `customNotations`             | `Notation[]`                         | Array of custom notations for the mask format. Each notation object includes: `character`, `characterSet`, and `isOptional`.                  |
-| `allowedKeys`                  |`string`                              | A string specifying the characters that are permitted for input.                                                         |
-| `validationRegex`                  |`regex string`                              |  A validation regex that runs before applying the mask.                                                         |
-| `onChangeText`                | `(formatted: string, extracted: string) => void` | Callback function triggered on text change. Receives `formattedValue` (with mask) and `extractedValue` (raw input).                        |
-| `onTailPlaceholderChange`     | `(tailPlaceholder: string) => void`  | Callback function called when the tail placeholder changes, receiving the updated `tailPlaceholder` value.                                    |
-| `affinityFormat`              | `string[]`                           | Array of strings for affinity format, used to determine the best mask format based on the input.                                              |
-| `autocomplete`                | `boolean`                            | Enables or disables autocomplete for the text input. Default is `false`.                                                                      |
-| `autoSkip`                    | `boolean`                            | Automatically skips to the next input field when the current one is filled. Default is `false`.                                               |
-| `isRTL`                       | `boolean`                            | Enables right-to-left (RTL) text direction for the text input. Default is `false`.                                                            |
-| `affinityCalculationStrategy` | `AFFINITY_CALCULATION_STRATEGY`      | Defines the strategy for affinity calculation, determining how the best mask format is selected based on input.                               |
-| `customTransformation`        | `CustomTransformation`               | Custom transformation applied to the text input to define how the input text should be transformed.                                           |
-| `defaultValue`                | `string`                             | The default value for the input field.                                                                                                        |
-| `value`                       | `string`                             | Current value of the input field, allowing controlled input behavior.                                                                         |
-| `allowSuggestions`            | `boolean` (iOS only)                | Enables or disables input suggestions on iOS. Default is `false`.                                                                             |
-| `autocompleteOnFocus`         | `boolean`              | Enables autocomplete when the text input is focused (iOS only).                                                                               |
-| `placeholder`                 | `string`                             | Placeholder text displayed in the input.                                                                                                      |
-| `keyboardType`                | `string`                             | Sets the keyboard type. Useful for numeric masks with `keyboardType="numeric"`.                                                               |
-| `autoFocus`                   | `boolean`                            | If `true`, focuses the input on component load. Default is `false`.                                                                           |
+| Prop                          | Type                                             | Description                                                                                                                     |
+| ----------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| `mask`                        | `string`                                         | The mask format to be applied to the text input, defining the pattern for formatting. Example: `"[0000] [0000] [0000] [0000]"`. |
+| `customNotations`             | `Notation[]`                                     | Array of custom notations for the mask format. Each notation object includes: `character`, `characterSet`, and `isOptional`.    |
+| `allowedKeys`                 | `string`                                         | A string specifying the characters that are permitted for input.                                                                |
+| `validationRegex`             | `regex string`                                   | A validation regex that runs before applying the mask.                                                                          |
+| `onChangeText`                | `(formatted: string, extracted: string) => void` | Callback function triggered on text change. Receives `formattedValue` (with mask) and `extractedValue` (raw input).             |
+| `onTailPlaceholderChange`     | `(tailPlaceholder: string) => void`              | Callback function called when the tail placeholder changes, receiving the updated `tailPlaceholder` value.                      |
+| `affinityFormat`              | `string[]`                                       | Array of strings for affinity format, used to determine the best mask format based on the input.                                |
+| `autocomplete`                | `boolean`                                        | Enables or disables autocomplete for the text input. Default is `false`.                                                        |
+| `autoSkip`                    | `boolean`                                        | Automatically skips to the next input field when the current one is filled. Default is `false`.                                 |
+| `isRTL`                       | `boolean`                                        | Enables right-to-left (RTL) text direction for the text input. Default is `false`.                                              |
+| `affinityCalculationStrategy` | `AFFINITY_CALCULATION_STRATEGY`                  | Defines the strategy for affinity calculation, determining how the best mask format is selected based on input.                 |
+| `customTransformation`        | `CustomTransformation`                           | Custom transformation applied to the text input to define how the input text should be transformed.                             |
+| `defaultValue`                | `string`                                         | The default value for the input field.                                                                                          |
+| `value`                       | `string`                                         | Current value of the input field, allowing controlled input behavior.                                                           |
+| `allowSuggestions`            | `boolean` (iOS only)                             | Enables or disables input suggestions on iOS. Default is `false`.                                                               |
+| `autocompleteOnFocus`         | `boolean`                                        | Enables autocomplete when the text input is focused (iOS only).                                                                 |
+| `placeholder`                 | `string`                                         | Placeholder text displayed in the input.                                                                                        |
+| `keyboardType`                | `string`                                         | Sets the keyboard type. Useful for numeric masks with `keyboardType="numeric"`.                                                 |
+| `autoFocus`                   | `boolean`                                        | If `true`, focuses the input on component load. Default is `false`.                                                             |
 
 ## Cookbook
 
@@ -258,13 +258,13 @@ FR[00] [0000] [0000] [0000] [0000] [0000] [000]
 DE[00] [0000] [0000] [0000] [0000] [00]
 ```
 
-#### Greece	
+#### Greece
 
 ```
 GR[00] [0000] [0000] [0000] [0000] [0000] [000]
 ```
 
-#### Romania	
+#### Romania
 
 ```
 RO[00] [____] [0000] [0000] [0000] [0000]
@@ -305,28 +305,26 @@ GB[00] [____] [0000] [0000] [0000] [00]
 ## Custom notations
 
 ```tsx
-import React, { useState, useCallback } from 'react';
-import { TextInput, View } from 'react-native';
-import { MaskedTextInput } from 'react-native-advanced-input-mask';
-
+import React, { useState, useCallback } from "react";
+import { TextInput, View } from "react-native";
+import { MaskedTextInput } from "react-native-advanced-input-mask";
 
 const alphaNumericChars =
-  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 const charAlphaNumerics = [
   {
-    character: '$',
+    character: "$",
     characterSet: alphaNumericChars,
     isOptional: false,
   },
 ];
 
-
 const ExampleComponent = () => {
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
 
   const onChangeText = useCallback((formatted, extracted) => {
-   setText(formatted)
+    setText(formatted);
   }, []);
 
   return (
@@ -337,7 +335,6 @@ const ExampleComponent = () => {
     />
   );
 };
-
 ```
 
 ## Contributing

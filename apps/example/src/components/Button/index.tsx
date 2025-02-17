@@ -1,12 +1,12 @@
-import React, { memo, useMemo, type FC } from 'react';
+import React, { memo, useMemo, type FC } from "react";
 import {
   Pressable,
   Text,
   type PressableProps,
   type StyleProp,
   type ViewStyle,
-} from 'react-native';
-import styles, { ANDROID_PRESSABLE_RIPPLE } from './styles';
+} from "react-native";
+import styles, { ANDROID_PRESSABLE_RIPPLE } from "./styles";
 
 type Props = PressableProps & {
   title: string;
@@ -16,7 +16,7 @@ type Props = PressableProps & {
 const Button: FC<Props> = ({ title, style, ...rest }) => {
   const containerStyle: StyleProp<ViewStyle> = useMemo(
     () => [styles.buttonContainer, style],
-    [style]
+    [style],
   );
 
   return (

@@ -1,6 +1,6 @@
-import React, { memo, useCallback } from 'react';
-import { Pressable, Text } from 'react-native';
-import styles from './styles';
+import React, { memo, useCallback } from "react";
+import { Pressable, Text } from "react-native";
+import styles from "./styles";
 
 export type Props<T = undefined> = {
   title: string;

@@ -1,10 +1,10 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { ScrollView } from 'react-native';
-import styles from './styles';
-import TextInput from '../../components/TextInput';
+import { ScrollView } from "react-native";
+import styles from "./styles";
+import TextInput from "../../components/TextInput";
 
-const affineFormats = ['[00]{/}[00]{/}[00]'];
+const affineFormats = ["[00]{/}[00]{/}[00]"];
 
 const DateScreen = () => {
   const defaultValue = React.useMemo(() => new Date().toISOString(), []);

@@ -1,5 +1,5 @@
-import State from './State';
-import type { Next } from '../types';
+import State from "./State";
+import type { Next } from "../types";
 
 class FreeState extends State {
   ownCharacter: string;
@@ -33,7 +33,7 @@ class FreeState extends State {
   });
 
   toString: () => string = () =>
-    `${this.ownCharacter} -> ${this.child ? this.child.toString() : 'null'}`;
+    `${this.ownCharacter} -> ${this.child ? this.child.toString() : "null"}`;
 }
 
 export default FreeState;

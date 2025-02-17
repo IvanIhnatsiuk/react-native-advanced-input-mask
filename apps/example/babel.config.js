@@ -3,17 +3,17 @@ module.exports = function (api) {
   api.cache(true);
 
   return {
-    presets: ['module:@react-native/babel-preset'],
+    presets: ["module:@react-native/babel-preset"],
     overrides: [
       {
         exclude: /\/node_modules\//,
         plugins: [
           [
-            'module-resolver',
+            "module-resolver",
             {
-              extensions: ['.tsx', '.ts', '.js', '.json'],
+              extensions: [".tsx", ".ts", ".js", ".json"],
               alias: {
-                'react-native-advanced-input-mask': '../../package/src',
+                "react-native-advanced-input-mask": "../../package/src",
               },
             },
           ],

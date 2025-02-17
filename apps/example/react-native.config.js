@@ -1,12 +1,12 @@
 const project = (() => {
   try {
-    const { configureProjects } = require('react-native-test-app');
+    const { configureProjects } = require("react-native-test-app");
     return configureProjects({
       android: {
-        sourceDir: 'android',
+        sourceDir: "android",
       },
       ios: {
-        sourceDir: 'ios',
+        sourceDir: "ios",
       },
     });
   } catch (_) {

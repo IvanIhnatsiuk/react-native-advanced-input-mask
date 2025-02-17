@@ -1,15 +1,15 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { ScrollView } from 'react-native';
-import styles from './styles';
-import TextInput from '../../components/TextInput';
+import { ScrollView } from "react-native";
+import styles from "./styles";
+import TextInput from "../../components/TextInput";
 
 const alphaNumericChars =
-  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 const customNotations = [
   {
-    character: '$',
+    character: "$",
     characterSet: alphaNumericChars,
     isOptional: false,
   },

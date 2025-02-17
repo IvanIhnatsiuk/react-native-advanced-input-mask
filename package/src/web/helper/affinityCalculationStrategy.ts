@@ -1,6 +1,6 @@
-import { AFFINITY_CALCULATION_STRATEGY } from '../../enums';
-import type CaretString from '../model/CaretString';
-import type { Mask } from './Mask';
+import { AFFINITY_CALCULATION_STRATEGY } from "../../enums";
+import type CaretString from "../model/CaretString";
+import type { Mask } from "./Mask";
 
 /**
  * Calculates an affinity score based on the specified strategy.
@@ -8,7 +8,7 @@ import type { Mask } from './Mask';
 export function calculateAffinityOfMask(
   strategy: AFFINITY_CALCULATION_STRATEGY,
   mask: Mask,
-  text: CaretString
+  text: CaretString,
 ): number {
   switch (strategy) {
     case AFFINITY_CALCULATION_STRATEGY.WHOLE_STRING: {
@@ -43,7 +43,7 @@ export function calculateAffinityOfMask(
  * Finds common prefix between two strings.
  */
 function prefixIntersection(str1: string, str2: string): string {
-  if (!str1 || !str2) return '';
+  if (!str1 || !str2) return "";
   let endIndex = 0;
   while (endIndex < str1.length && endIndex < str2.length) {
     if (str1[endIndex] !== str2[endIndex]) {

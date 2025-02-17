@@ -1,12 +1,12 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { ScrollView, Text } from 'react-native';
-import styles from './styles';
-import TextInput from '../../components/TextInput';
-import BaseTextInput from '../../components/BaseTextInput';
+import { ScrollView, Text } from "react-native";
+import styles from "./styles";
+import TextInput from "../../components/TextInput";
+import BaseTextInput from "../../components/BaseTextInput";
 
 const CustomNotations = () => {
-  const [allowedKeys, setAllowedKeys] = React.useState('');
+  const [allowedKeys, setAllowedKeys] = React.useState("");
 
   return (
     <ScrollView

@@ -1,5 +1,5 @@
-import type CaretString from './CaretString';
-import type State from './state/State';
+import type CaretString from "./CaretString";
+import type State from "./state/State";
 
 export type Next = {
   state: State;
@@ -15,7 +15,7 @@ export type StateType = {
 };
 
 export type Ellipsis = {
-  name: 'ellipsis';
+  name: "ellipsis";
   inheritedType: StateType;
   typeString: string;
 };
@@ -41,7 +41,7 @@ export const enum CaretGravityType {
 }
 
 export const enum StateName {
-  literal = 'literal',
-  numeric = 'numeric',
-  alphaNumeric = 'alphaNumeric',
+  literal = "literal",
+  numeric = "numeric",
+  alphaNumeric = "alphaNumeric",
 }

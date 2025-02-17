@@ -1,3 +1,3 @@
-import { useAnimatedValue } from 'react-native';
+import { useAnimatedValue } from "react-native";
 
 export default useAnimatedValue;

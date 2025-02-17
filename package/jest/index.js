@@ -1,4 +1,4 @@
-import { TextInput } from 'react-native';
+import { TextInput } from "react-native";
 
 export const AFFINITY_CALCULATION_STRATEGY = {
   WHOLE_STRING: 0,

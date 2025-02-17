@@ -1,16 +1,16 @@
-import Mask from './helper/Mask';
-import RTLMask from './helper/RTLMask';
-import CaretString from './model/CaretString';
-import { CaretGravityType } from './model/types';
-import type { Notation } from '../types';
-import type { MaskResult } from './model/types';
-import { AFFINITY_CALCULATION_STRATEGY } from '../enums';
-import { calculateAffinityOfMask } from './helper/affinityCalculationStrategy';
+import Mask from "./helper/Mask";
+import RTLMask from "./helper/RTLMask";
+import CaretString from "./model/CaretString";
+import { CaretGravityType } from "./model/types";
+import type { Notation } from "../types";
+import type { MaskResult } from "./model/types";
+import { AFFINITY_CALCULATION_STRATEGY } from "../enums";
+import { calculateAffinityOfMask } from "./helper/affinityCalculationStrategy";
 import type {
   NativeSyntheticEvent,
   TextInputChangeEventData,
   TextInputFocusEventData,
-} from 'react-native';
+} from "react-native";
 
 type Field = HTMLInputElement;
 
@@ -30,7 +30,7 @@ class MaskedTextChangedListener {
   public defaultValue?: string;
   private validationRegex?: RegExp;
 
-  private afterText: string = '';
+  private afterText: string = "";
 
   constructor(
     primaryFormat: string,
@@ -40,10 +40,10 @@ class MaskedTextChangedListener {
     autocomplete: boolean = true,
     autoskip: boolean = false,
     rightToLeft: boolean = false,
-    allowedKeys: string = '',
+    allowedKeys: string = "",
     validationRegex?: string,
     autocompleteOnFocus: boolean = false,
-    defaultValue?: string
+    defaultValue?: string,
   ) {
     this.primaryFormat = primaryFormat;
     this.affineFormats = affineFormats;
@@ -84,7 +84,7 @@ class MaskedTextChangedListener {
 
     this.textField.setSelectionRange(
       result.formattedText.caretPosition,
-      result.formattedText.caretPosition
+      result.formattedText.caretPosition,
     );
 
     this.afterText = result.formattedText.string;
@@ -123,16 +123,16 @@ class MaskedTextChangedListener {
   };
 
   public handleTextChange = (
-    event: NativeSyntheticEvent<TextInputChangeEventData>
+    event: NativeSyntheticEvent<TextInputChangeEventData>,
   ): MaskResult => {
     const { nativeEvent, target } = event;
     const { inputType, text } =
-      nativeEvent as NativeSyntheticEvent<TextInputChangeEventData>['nativeEvent'] &
+      nativeEvent as NativeSyntheticEvent<TextInputChangeEventData>["nativeEvent"] &
         InputEvent;
     const textField = target as unknown as HTMLInputElement;
     const isDeletion =
-      inputType === 'deleteContentForward' ||
-      inputType === 'deleteContentBackward';
+      inputType === "deleteContentForward" ||
+      inputType === "deleteContentBackward";
 
     const selectionStart = textField.selectionStart || 0;
     const isInside = selectionStart < text.length;
@@ -161,7 +161,7 @@ class MaskedTextChangedListener {
       if (currentCaretPosition && currentCaretPosition > 0) {
         textField.setSelectionRange(
           currentCaretPosition - 1,
-          currentCaretPosition - 1
+          currentCaretPosition - 1,
         );
       }
 
@@ -174,7 +174,7 @@ class MaskedTextChangedListener {
     textField.value = result.formattedText.string;
     textField.setSelectionRange(
       result.formattedText.caretPosition,
-      result.formattedText.caretPosition
+      result.formattedText.caretPosition,
     );
 
     this.afterText = result.formattedText.string;
@@ -186,9 +186,9 @@ class MaskedTextChangedListener {
     return this.allowedKeys
       ? [...text]
           .filter(
-            (char) => !this.allowedKeys || this.allowedKeys.includes(char)
+            (char) => !this.allowedKeys || this.allowedKeys.includes(char),
           )
-          .join('')
+          .join("")
       : text;
   };
 
@@ -210,11 +210,11 @@ class MaskedTextChangedListener {
   };
 
   handleFocus = (
-    event: NativeSyntheticEvent<TextInputFocusEventData>
+    event: NativeSyntheticEvent<TextInputFocusEventData>,
   ): void => {
     if (this.autocompleteOnFocus) {
       const textField = event.target as unknown as HTMLInputElement;
-      const text = textField.value.length > 0 ? textField.value : '';
+      const text = textField.value.length > 0 ? textField.value : "";
       const textAndCaret = new CaretString(text, text.length, {
         type: CaretGravityType.Forward,
         autocomplete: true,
@@ -226,7 +226,7 @@ class MaskedTextChangedListener {
 
       textField.setSelectionRange(
         result.formattedText.caretPosition,
-        result.formattedText.caretPosition
+        result.formattedText.caretPosition,
       );
     }
   };
@@ -285,7 +285,7 @@ class MaskedTextChangedListener {
 
   private maskGetOrCreate = (
     format: string,
-    customNotations: Notation[]
+    customNotations: Notation[],
   ): Mask =>
     this.rightToLeft
       ? RTLMask.getOrCreate(format, customNotations)
@@ -295,7 +295,7 @@ class MaskedTextChangedListener {
     return calculateAffinityOfMask(
       this.affinityCalculationStrategy,
       mask,
-      text
+      text,
     );
   }
 }

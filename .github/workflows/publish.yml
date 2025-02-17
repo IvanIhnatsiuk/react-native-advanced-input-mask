@@ -8,8 +8,8 @@ on:
 jobs:
   publish:
     defaults:
-        run: 
-          working-directory: package
+      run:
+        working-directory: package
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -23,7 +23,7 @@ jobs:
           node-version: "18.x"
           registry-url: "https://registry.npmjs.org"
           cache: yarn
-      - run: yarn install --frozen-lockfile  
+      - run: yarn install --frozen-lockfile
 
       - name: Publish package
         working-directory: package

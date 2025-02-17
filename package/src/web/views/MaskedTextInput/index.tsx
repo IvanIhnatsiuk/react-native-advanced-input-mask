@@ -1,7 +1,7 @@
-import { TextInput } from 'react-native';
-import React, { forwardRef, memo, useImperativeHandle, useRef } from 'react';
-import type { MaskedTextInputProps } from '../../../types';
-import useMaskedTextInputListener from '../../hooks/useMaskedTextInputListener';
+import { TextInput } from "react-native";
+import React, { forwardRef, memo, useImperativeHandle, useRef } from "react";
+import type { MaskedTextInputProps } from "../../../types";
+import useMaskedTextInputListener from "../../hooks/useMaskedTextInputListener";
 
 const MaskedTextInput = forwardRef<TextInput | null, MaskedTextInputProps>(
   (
@@ -13,7 +13,7 @@ const MaskedTextInput = forwardRef<TextInput | null, MaskedTextInputProps>(
       customNotations,
       isRTL = false,
       mask,
-      autoCapitalize = 'words',
+      autoCapitalize = "words",
       allowedKeys,
       defaultValue,
       onChange,
@@ -24,7 +24,7 @@ const MaskedTextInput = forwardRef<TextInput | null, MaskedTextInputProps>(
       validationRegex,
       ...rest
     },
-    ref
+    ref,
   ) => {
     const InputComponent = renderTextInputComponent ?? TextInput;
 
@@ -59,7 +59,7 @@ const MaskedTextInput = forwardRef<TextInput | null, MaskedTextInputProps>(
 
         return inputRef.current;
       },
-      [setTextField, inputRef]
+      [setTextField, inputRef],
     );
 
     return (
@@ -72,6 +72,6 @@ const MaskedTextInput = forwardRef<TextInput | null, MaskedTextInputProps>(
         {...rest}
       />
     );
-  }
+  },
 );
 export default memo(MaskedTextInput);

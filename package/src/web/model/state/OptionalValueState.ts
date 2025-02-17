@@ -1,7 +1,7 @@
-import type { Notation } from '../../../types';
-import type { Next, StateType } from '../types';
-import { getCharacterTypeString } from '../utils';
-import State from './State';
+import type { Notation } from "../../../types";
+import type { Next, StateType } from "../types";
+import { getCharacterTypeString } from "../utils";
+import State from "./State";
 
 class OptionalValueState extends State {
   stateType: StateType | Notation;
@@ -13,7 +13,7 @@ class OptionalValueState extends State {
 
   private accepts(character: string): boolean {
     if (this.stateType) {
-      if ('name' in this.stateType) {
+      if ("name" in this.stateType) {
         return this.stateType.regex.test(character);
       }
 
@@ -36,7 +36,7 @@ class OptionalValueState extends State {
   toString: () => string = () => {
     const typeStr = getCharacterTypeString(this.stateType);
 
-    return `${typeStr} -> ${this.child?.toString() ?? 'null'}`;
+    return `${typeStr} -> ${this.child?.toString() ?? "null"}`;
   };
 }
 

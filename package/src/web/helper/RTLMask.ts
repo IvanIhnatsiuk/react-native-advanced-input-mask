@@ -1,9 +1,9 @@
-import Mask from './Mask';
-import CaretString from '../model/CaretString';
-import RTLCaretStringIterator from './RTLCaretStringIterator';
-import CaretStringIterator from './CaretStringIterator';
-import type { Notation } from '../../types';
-import type { MaskResult } from '../model/types';
+import Mask from "./Mask";
+import CaretString from "../model/CaretString";
+import RTLCaretStringIterator from "./RTLCaretStringIterator";
+import CaretStringIterator from "./CaretStringIterator";
+import type { Notation } from "../../types";
+import type { MaskResult } from "../model/types";
 
 export default class RTLMask extends Mask {
   private static rtlCache: Map<string, RTLMask> = new Map();
@@ -32,20 +32,20 @@ export default class RTLMask extends Mask {
   }
 
   private static reversedFormat(format: string): string {
-    const mapped = format.split('').reduceRight((acc, char) => {
+    const mapped = format.split("").reduceRight((acc, char) => {
       switch (char) {
-        case '[':
-          return acc + ']';
-        case ']':
-          return acc + '[';
-        case '{':
-          return acc + '}';
-        case '}':
-          return acc + '{';
+        case "[":
+          return acc + "]";
+        case "]":
+          return acc + "[";
+        case "{":
+          return acc + "}";
+        case "}":
+          return acc + "{";
         default:
           return acc + char;
       }
-    }, '');
+    }, "");
 
     return mapped;
   }
