@@ -5,10 +5,10 @@ inputs:
     description: "Prefix for cache key"
     required: false
     default: "gradle"
-  pre-build-command:
+  build-command:
     description: "Android build job"
     required: false
-    default: ""
+    default: "yarn build:android"
 
 runs:
   using: "composite"
@@ -33,5 +33,5 @@ runs:
           ${{ runner.os }}-${{ inputs.cache-key-prefix }}-
 
     - name: Build example for Android
-      run: ${{ inputs.android-build-command }} && yarn build:android
+      run: ${{ inputs.android-build-command }}
       shell: bash

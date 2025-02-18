@@ -29,4 +29,4 @@ jobs:
         uses: ./.github/actions/build-android
         with:
           cache-key-prefix: "gradle-paper"
-          pre-build-command: "cd apps/example/android && sed -i -e 's/^newArchEnabled=.*/newArchEnabled=false/' gradle.properties"
+          build-command: "cd apps/example/android && sed -i -e 's/^newArchEnabled=.*/newArchEnabled=false/' gradle.properties && yarn build:android"
