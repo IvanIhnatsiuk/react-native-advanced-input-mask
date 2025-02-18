@@ -1,5 +1,14 @@
 name: "Build iOS"
 description: "Builds the iOS app"
+inputs:
+  cache-key-prefix:
+    description: "Prefix for cache key"
+    required: false
+    default: "example-ios"
+  pod-install-command:
+    description: "Custom pod install command"
+    required: false
+    default: "pod install"
 
 runs:
   using: "composite"
@@ -16,7 +25,7 @@ runs:
       uses: hendrikmuhs/ccache-action@v1.2
       with:
         max-size: 1.5G
-        key: ${{ runner.os }}-ccache-example-ios
+        key: ${{ runner.os }}-ccache-${{ inputs.cache-key-prefix }}
         create-symlink: true
 
     - name: Setup ccache behavior
@@ -34,12 +43,12 @@ runs:
           apps/example/ios/Pods
           ~/Library/Caches/CocoaPods
           ~/.cocoapods
-        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+        key: ${{ runner.os }}-pods-${{ inputs.cache-key-prefix }}-${{ hashFiles('**/Podfile.lock') }}
         restore-keys: |
-          ${{ runner.os }}-pods-
+          ${{ runner.os }}-pods-${{ inputs.cache-key-prefix }}
 
     - name: Install Pods
-      run: export USE_CCACHE=1 && pod install
+      run: export USE_CCACHE=1 && ${{ inputs.pod-install-command }}
       shell: bash
 
     - name: Install xcpretty
