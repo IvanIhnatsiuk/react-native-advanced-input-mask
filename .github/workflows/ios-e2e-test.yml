@@ -39,6 +39,7 @@ jobs:
   e2e-test:
     name: "⚙️ Automated test cases"
     runs-on: macos-latest
+    needs: build-ios
     steps:
       - name: Checkout
         uses: actions/checkout@v4
