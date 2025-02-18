@@ -69,3 +69,4 @@ jobs:
         with:
           path: report.xml
           name: e2e-report-ios
+          retention-days: 1
