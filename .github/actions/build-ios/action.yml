@@ -35,6 +35,7 @@ runs:
         echo "CCACHE_DEPEND=true" >> $GITHUB_ENV
         echo "CCACHE_INODECACHE=true" >> $GITHUB_ENV
       shell: bash
+      working-directory: apps/example/ios
 
     - name: Restore Pods cache
       uses: actions/cache@v4
@@ -46,15 +47,19 @@ runs:
         key: ${{ runner.os }}-pods-${{ inputs.cache-key-prefix }}-${{ hashFiles('**/Podfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-pods-${{ inputs.cache-key-prefix }}
+      working-directory: apps/example/ios
 
     - name: Install Pods
       run: export USE_CCACHE=1 && ${{ inputs.pod-install-command }}
       shell: bash
+      working-directory: apps/example/ios
 
     - name: Install xcpretty
       run: gem install xcpretty
       shell: bash
+      working-directory: apps/example/ios
 
     - name: Build example for iOS
       run: yarn build:ios
       shell: bash
+      working-directory: apps/example/ios
