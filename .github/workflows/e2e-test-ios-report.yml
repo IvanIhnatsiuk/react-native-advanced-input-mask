@@ -3,8 +3,7 @@ name: 📝 Create E2E ios report comment
 on:
   workflow_run:
     workflows: ["🛠 iOS e2e tests"]
-    types:
-      - completed
+    types: [completed]
 
 permissions:
   pull-requests: write
