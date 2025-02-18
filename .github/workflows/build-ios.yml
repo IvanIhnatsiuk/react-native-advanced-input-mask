@@ -29,4 +29,5 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Run iOS Build Action
+        working-directory: apps/example/ios
         uses: ./.github/actions/build-ios
