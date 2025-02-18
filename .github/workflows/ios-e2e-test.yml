@@ -63,7 +63,7 @@ jobs:
       - name: Run E2E tests
         run: |
           export MAESTRO_DRIVER_STARTUP_TIMEOUT=60000
-          maestro test e2e/.maestro/* --format junit e2e-report/
+          maestro test e2e/.maestro/* --format junit
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
