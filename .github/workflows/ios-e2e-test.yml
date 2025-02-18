@@ -58,13 +58,6 @@ jobs:
         run: |
           UDID=$(xcrun simctl list devices | grep "iPhone 15 Pro (" | grep -oE "[0-9A-F-]{36}" | head -n 1)
           open -a Simulator --args -CurrentDeviceUDID $UDID
-          DEVICE_STATE=$(xcrun simctl list devices | grep "$UDID" | grep '(Booted)')
-          if [ -z "$DEVICE_STATE" ]; then
-            echo "Booting up iPhone 15 in Simulator..."
-            xcrun simctl boot "$UDID"
-          else
-            echo "iPhone 15 is already booted."
-          fi
           osascript -e 'tell application "Simulator" to activate'
           xcrun simctl install "$UDID" apps/example/ios/build/Build/Products/Release-iphonesimulator/MaskedTextInputExample.app
       - name: Run E2E tests
