@@ -84,8 +84,7 @@ jobs:
             ~/.android/avd/*
             ~/.android/adb*
           key: avd-cache
-      - name: Check that apk exists
-        run: ls apps/example/android/app/build/outputs/apk/release
+
       - name: Run emulator and tests
         uses: reactivecircus/android-emulator-runner@v2.33.0
         with:
@@ -97,4 +96,4 @@ jobs:
           disk-size: "10G"
           disable-animations: true
           arch: x86_64
-          script: adb install apps/example/android/app/build/outputs/apk/release/app-release.apk && maestro test e2e/.maestro/* --format junit
+          script: pwd && adb install apps/example/android/app/build/outputs/apk/release/app-release.apk && maestro test e2e/.maestro/* --format junit
