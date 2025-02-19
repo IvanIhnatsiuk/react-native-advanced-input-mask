@@ -23,27 +23,27 @@ on:
       - "e2e/**"
 
 jobs:
-  # build-android:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  #     - name: Build example for Android
-  #       uses: ./.github/actions/build-android
-  #       with:
-  #         build-command: yarn build:android -PreactNativeArchitectures=x86_64
+      - name: Build example for Android
+        uses: ./.github/actions/build-android
+        # with:
+        #   build-command: yarn build:android -PreactNativeArchitectures=x86_64
 
-  #     - name: Upload build artifacts
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: android-apk
-  #         path: apps/example/android/app/build/outputs/apk/release/app-release.apk
-  #         if-no-files-found: error
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: apps/example/android/app/build/outputs/apk/release/app-release.apk
+          if-no-files-found: error
   e2e-test:
     name: "⚙️ Automated test cases"
     runs-on: ubuntu-latest
-    # needs: build-android
+    needs: build-android
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -51,16 +51,17 @@ jobs:
       - name: Gradle cache
         uses: gradle/actions/setup-gradle@v3
 
-      # - name: Download apk
-      #   uses: actions/download-artifact@v4
-      #   with:
-      #     name: android-apk
-      #     path: apps/example/android/app/build/outputs/apk/release/app-release.apk
+      - name: Download apk
+        uses: actions/download-artifact@v4
+        with:
+          name: android-apk
+          path: apps/example/android/app/build/outputs/apk/release/app-release.apk
 
       - name: Install Maestro
         run: |
           curl -fsSL "https://get.maestro.mobile.dev" | bash
           export PATH="$PATH":"$HOME/.maestro/bin"
+          maestro
           export MAESTRO_DRIVER_STARTUP_TIMEOUT=600000
 
       - name: Enable KVM group perms
@@ -101,5 +102,5 @@ jobs:
           disk-size: 10G
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: |
-            adb install -r -d -t app-release.apk
+            adb install -r -d -t apps/example/android/app/build/outputs/apk/release/app-release.apk
             maestro test e2e/.maestro/* --format html
