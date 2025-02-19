@@ -84,7 +84,8 @@ jobs:
             ~/.android/avd/*
             ~/.android/adb*
           key: avd-cache
-
+      - name: Check that apk exists
+        run: ls apps/example/android/app/build/outputs/apk/release
       - name: Run emulator and tests
         uses: reactivecircus/android-emulator-runner@v2.33.0
         with:
