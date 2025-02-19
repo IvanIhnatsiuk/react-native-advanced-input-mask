@@ -32,7 +32,7 @@ jobs:
       - name: Build example for Android
         uses: ./.github/actions/build-android
         with:
-          build-command: yarn build:android -PreactNativeArchitectures=x86_64
+          build-command: yarn build:android -PreactNativeArchitectures=arm64-v8a
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
@@ -91,7 +91,7 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
-          arch: x86_64
+          arch: arm64-v8a
           script: echo "Generated AVD snapshot for caching."
 
       - name: Run tests
@@ -100,7 +100,7 @@ jobs:
           api-level: 29
           force-avd-creation: false
           disable-animations: true
-          arch: x86_64
+          arch: arm64-v8a
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: |
             adb install -r -d -t apps/example/android/app/build/outputs/apk/release/app-release.apk
