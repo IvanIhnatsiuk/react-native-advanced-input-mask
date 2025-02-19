@@ -31,11 +31,13 @@ jobs:
 
       - name: Build example for Android
         uses: ./.github/actions/build-android
+        with:
+          build-command: yarn build:android -PreactNativeArchitectures=x86_64
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: android-artifacts
+          name: android-apk
           path: apps/example/android/app/build/outputs/apk/release/app-release.apk
           if-no-files-found: error
   e2e-test:
@@ -56,7 +58,7 @@ jobs:
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
-          name: android-artifacts
+          name: android-apk
           path: apps/example/android/app/build/outputs/apk/release/app-release.apk
 
       - name: Setup JDK 17
