@@ -13,7 +13,7 @@ const ValidationRegex = () => {
         mask="[09999999].[00]"
         defaultValue="22.11"
         allowedKeys="0123456789,."
-        validationRegex="^(?!.*[.,].*[.,])\\d*(?:[.,]\\d{0,2})?$"
+        validationRegex={"^(?!.*[.,].*[.,])\\d*(?:[.,]\\d{0,2})?$"}
         keyboardType="decimal-pad"
       />
     </ScrollView>

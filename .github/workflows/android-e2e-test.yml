@@ -89,7 +89,7 @@ jobs:
         with:
           working-directory: e2e
           api-level: 29
-          target: 35
+          target: 29
           profile: pixel_2
           ram-size: "4096M"
           disk-size: "10G"
