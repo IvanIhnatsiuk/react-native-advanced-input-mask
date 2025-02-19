@@ -57,6 +57,17 @@ jobs:
           name: android-apk
           path: apps/example/android/app/build/outputs/apk/release
 
+      - name: Install Maestro
+        run: |
+          curl -fsSL "https://get.maestro.mobile.dev" | bash
+          export PATH="$PATH":"$HOME/.maestro/bin"
+          export MAESTRO_DRIVER_STARTUP_TIMEOUT=600000
+
+      - name: Verify maestro installation
+        run: |
+          echo "Maestro Version:"
+          maestro -v  # This should work
+
       - name: Enable KVM group perms
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
@@ -84,7 +95,7 @@ jobs:
           arch: x86_64
           script: echo "Generated AVD snapshot for caching."
 
-      - name: Run emulator and tests
+      - name: Run tests
         uses: reactivecircus/android-emulator-runner@v2.33.0
         with:
           api-level: 35
@@ -96,8 +107,4 @@ jobs:
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: |
             adb install -r -d -t apps/example/android/app/build/outputs/apk/release/app-release.apk
-             curl -fsSL "https://get.maestro.mobile.dev" | bash
-            export PATH="$PATH":"$HOME/.maestro/bin"
-            maestro -v
-            export MAESTRO_DRIVER_STARTUP_TIMEOUT=600000
             maestro test e2e/.maestro/* --format html
