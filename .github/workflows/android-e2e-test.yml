@@ -43,7 +43,7 @@ jobs:
   e2e-test:
     name: "⚙️ Automated test cases"
     runs-on: ubuntu-latest
-    needs: build-android
+    # needs: build-android
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -51,11 +51,11 @@ jobs:
       - name: Gradle cache
         uses: gradle/actions/setup-gradle@v3
 
-      - name: Download apk
-        uses: actions/download-artifact@v4
-        with:
-          name: android-apk
-          path: apps/example/android/app/build/outputs/apk/release/app-release.apk
+      # - name: Download apk
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     name: android-apk
+      #     path: apps/example/android/app/build/outputs/apk/release/app-release.apk
 
       - name: Install Maestro
         run: curl -fsSL "https://get.maestro.mobile.dev" | bash && export MAESTRO_DRIVER_STARTUP_TIMEOUT=600000
