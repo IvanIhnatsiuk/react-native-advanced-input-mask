@@ -88,7 +88,6 @@ jobs:
       - name: Run emulator and tests
         uses: reactivecircus/android-emulator-runner@v2.33.0
         with:
-          working-directory: e2e
           api-level: 29
           target: default
           profile: pixel_2
@@ -96,4 +95,4 @@ jobs:
           disk-size: "10G"
           disable-animations: true
           arch: x86_64
-          script: pwd && adb install apps/example/android/app/build/outputs/apk/release/app-release.apk && maestro test e2e/.maestro/* --format junit
+          script: adb install apps/example/android/app/build/outputs/apk/release/app-release.apk && maestro test e2e/.maestro/* --format junit
