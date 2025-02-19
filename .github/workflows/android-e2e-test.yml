@@ -32,7 +32,7 @@ jobs:
       - name: Build example for Android
         uses: ./.github/actions/build-android
         with:
-          build-command: yarn build:android -PreactNativeArchitectures=arm64-v8a
+          build-command: yarn build:android -PreactNativeArchitectures=x86
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
@@ -85,22 +85,28 @@ jobs:
       - name: Create AVD and generate snapshot for caching
         uses: reactivecircus/android-emulator-runner@v2.33.0
         with:
-          api-level: 29
-          ram-size: "4096M"
-          disk-size: "10G"
+          target: aosp_atd
+          api-level: 35
+          ram-size: 4096M
+          disk-size: 10G
+          channel: canary
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
-          arch: arm64-v8a
+          arch: x86
           script: echo "Generated AVD snapshot for caching."
 
       - name: Run tests
         uses: reactivecircus/android-emulator-runner@v2.33.0
         with:
-          api-level: 29
+          target: aosp_atd
+          api-level: 35
           force-avd-creation: false
           disable-animations: true
-          arch: arm64-v8a
+          arch: x86
+          ram-size: 4096M
+          disk-size: 10G
+          channel: canary
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: |
             adb install -r -d -t apps/example/android/app/build/outputs/apk/release/app-release.apk
