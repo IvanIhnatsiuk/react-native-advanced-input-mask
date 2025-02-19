@@ -58,7 +58,7 @@ jobs:
       - name: Gradle cache
         uses: gradle/actions/setup-gradle@v3
 
-      - name: Download build artifacts
+      - name: Download apk
         uses: actions/download-artifact@v4
         with:
           name: android-apk
@@ -102,4 +102,7 @@ jobs:
           disable-animations: true
           arch: x86_64
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          script: adb install apps/example/android/app/build/outputs/apk/release/app-release.apk && maestro test e2e/.maestro/* --format html
+          script: |
+            adb push apps/example/android/app/build/outputs/apk/release/app-release.apk /data/local/tmp/app-release.apk
+            adb shell pm install /data/local/tmp/app-release.apk
+            maestro test e2e/.maestro/* --format html
