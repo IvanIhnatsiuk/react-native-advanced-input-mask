@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - ".github/workflows/build-ios.yml"
+      - "./github/actions/build-ios/**"
       - "package/react-native-advanced-input-mask.podspec"
       - "package/ios/**"
       - "apps/example/ios/**"
@@ -16,6 +17,7 @@ on:
       - main
     paths:
       - ".github/workflows/build-ios.yml"
+      - ".github/actions/build-ios/**"
       - "package/react-native-advanced-input-mask.podspec"
       - "package/ios/**"
       - "apps/example/ios/**"

@@ -32,6 +32,6 @@ runs:
         restore-keys: |
           ${{ runner.os }}-${{ inputs.cache-key-prefix }}-
 
-    - name: Build example for Android
-      run: ${{ inputs.android-build-command }}
+    - name: Build Android apk
+      run: ${{ inputs.build-command }}
       shell: bash

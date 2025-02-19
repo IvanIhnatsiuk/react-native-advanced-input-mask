@@ -1,22 +1,26 @@
-name: 🤖 Build Android paper
+name: 🛠 Android e2e tests
 
 on:
   push:
     branches:
       - main
     paths:
-      - ".github/workflows/build-android-paper.yml"
-      - "package/android/**"
-      - "apps/example/android/**"
+      - ".github/workflows/ios-e2e-test.yml"
+      - "package/src/native/**"
+      - "package/ios/**"
       - "yarn.lock"
       - "apps/example/yarn.lock"
+      - "e2e/**"
   pull_request:
+    branches:
+      - main
     paths:
-      - ".github/workflows/build-android-paper.yml"
-      - "package/android/**"
-      - "example/android/**"
+      - ".github/workflows/ios-e2e-test.yml"
+      - "package/src/native/**"
+      - "package/ios/**"
       - "yarn.lock"
       - "apps/example/yarn.lock"
+      - "e2e/**"
 
 jobs:
   build-android:
@@ -80,7 +84,7 @@ jobs:
       - name: Install Maestro
         run: curl -fsSL "https://get.maestro.mobile.dev" | bash && export MAESTRO_DRIVER_STARTUP_TIMEOUT=600000
 
-      - name: Run emulator
+      - name: Run emulator and tests
         uses: reactivecircus/android-emulator-runner@v2.33.0
         with:
           working-directory: e2e
