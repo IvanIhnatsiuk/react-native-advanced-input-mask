@@ -61,7 +61,7 @@ jobs:
         run: |
           curl -fsSL "https://get.maestro.mobile.dev" | bash
           export PATH="$PATH":"$HOME/.maestro/bin"
-          maestro
+          maestro -v
           export MAESTRO_DRIVER_STARTUP_TIMEOUT=600000
 
       - name: Enable KVM group perms
