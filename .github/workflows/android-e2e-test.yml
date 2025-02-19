@@ -23,23 +23,23 @@ on:
       - "e2e/**"
 
 jobs:
-  build-android:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+  # build-android:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
 
-      - name: Build example for Android
-        uses: ./.github/actions/build-android
-        with:
-          build-command: yarn build:android -PreactNativeArchitectures=x86
+  #     - name: Build example for Android
+  #       uses: ./.github/actions/build-android
+  #       with:
+  #         build-command: yarn build:android -PreactNativeArchitectures=x86_64
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: android-apk
-          path: apps/example/android/app/build/outputs/apk/release/app-release.apk
-          if-no-files-found: error
+  #     - name: Upload build artifacts
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: android-apk
+  #         path: apps/example/android/app/build/outputs/apk/release/app-release.apk
+  #         if-no-files-found: error
   e2e-test:
     name: "⚙️ Automated test cases"
     runs-on: ubuntu-latest
@@ -47,13 +47,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Free Disk Space (Ubuntu)
-        uses: jlumbroso/free-disk-space@main
-        with:
-          # force to remove default tools
-          tool-cache: true
-          # preserve Android
-          android: false
 
       - name: Gradle cache
         uses: gradle/actions/setup-gradle@v3
@@ -85,29 +78,25 @@ jobs:
       - name: Create AVD and generate snapshot for caching
         uses: reactivecircus/android-emulator-runner@v2.33.0
         with:
-          target: aosp_atd
           api-level: 35
           ram-size: 4096M
           disk-size: 10G
-          channel: canary
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
-          arch: x86
+          arch: x86_64
           script: echo "Generated AVD snapshot for caching."
 
       - name: Run tests
         uses: reactivecircus/android-emulator-runner@v2.33.0
         with:
-          target: aosp_atd
           api-level: 35
           force-avd-creation: false
           disable-animations: true
-          arch: x86
+          arch: x86_64
           ram-size: 4096M
           disk-size: 10G
-          channel: canary
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: |
-            adb install -r -d -t apps/example/android/app/build/outputs/apk/release/app-release.apk
+            adb install -r -d -t app-release.apk
             maestro test e2e/.maestro/* --format html
