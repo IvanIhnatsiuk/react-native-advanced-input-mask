@@ -67,6 +67,9 @@ jobs:
           distribution: "microsoft"
           java-version: "17"
 
+      - name: Install Maestro
+        run: curl -fsSL "https://get.maestro.mobile.dev" | bash && export MAESTRO_DRIVER_STARTUP_TIMEOUT=600000
+
       - name: Enable KVM group perms
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
@@ -81,19 +84,15 @@ jobs:
             ~/.android/adb*
           key: avd-cache
 
-      - name: Install Maestro
-        run: curl -fsSL "https://get.maestro.mobile.dev" | bash && export MAESTRO_DRIVER_STARTUP_TIMEOUT=600000
-
       - name: Run emulator and tests
         uses: reactivecircus/android-emulator-runner@v2.33.0
         with:
           working-directory: e2e
-          api-level: 35
+          api-level: 29
           target: default
           profile: pixel_2
           ram-size: "4096M"
           disk-size: "10G"
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           arch: x86_64
           script: adb install apps/example/android/app/build/outputs/apk/release/app-release.apk && maestro test e2e/.maestro/* --format junit
