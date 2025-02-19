@@ -103,6 +103,5 @@ jobs:
           arch: x86_64
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: |
-            adb push apps/example/android/app/build/outputs/apk/release/app-release.apk /data/local/tmp/app-release.apk
-            adb shell pm install /data/local/tmp/app-release.apk
+            adb install -r -d -t path/to/app-release.apk
             maestro test e2e/.maestro/* --format html
