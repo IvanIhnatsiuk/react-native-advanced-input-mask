@@ -60,7 +60,7 @@ jobs:
       - name: Install Maestro
         run: |
           curl -fsSL "https://get.maestro.mobile.dev" | bash
-          export PATH="$PATH":"$HOME/.maestro/bin"
+          export PATH="$PATH:$HOME/.maestro/bin"
           export MAESTRO_DRIVER_STARTUP_TIMEOUT=600000
 
       - name: Verify maestro installation
