@@ -63,11 +63,6 @@ jobs:
           echo "$HOME/.maestro/bin" >> $GITHUB_PATH
           export MAESTRO_DRIVER_STARTUP_TIMEOUT=600000
 
-      - name: Verify maestro installation
-        run: |
-          echo "Maestro Version:"
-          maestro -v  # This should work
-
       - name: Enable KVM group perms
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
@@ -108,3 +103,9 @@ jobs:
           script: |
             adb install -r -d -t apps/example/android/app/build/outputs/apk/release/app-release.apk
             maestro test e2e/.maestro/* --format html
+
+      - name: Upload test report
+        uses: actions/upload-artifact@v4
+        with:
+          path: report.html
+          name: e2e-report-android
