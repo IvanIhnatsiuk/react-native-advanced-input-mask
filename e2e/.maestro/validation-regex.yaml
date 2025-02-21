@@ -5,11 +5,7 @@ appId: "com.maskedtextinputexample"
     id: "validation-regex"
 - tapOn: "22.11"
 - assertVisible: "22.11"
-- tapOn:
-    point: "50%,37%"
-- tapOn: "Clear text"
-- tapOn:
-    id: "validation-regex.input"
+- eraseText: 5
 - inputText: "aa11.11"
 - assertVisible: "formatted value 11.11"
 - assertVisible: "extracted value 1111"
