@@ -1,0 +1,61 @@
+name: "Build iOS"
+description: "Builds the iOS app"
+inputs:
+  cache-key-prefix:
+    description: "Prefix for cache key"
+    required: false
+    default: "example-ios"
+  pod-install-command:
+    description: "Custom pod install command"
+    required: false
+    default: "pod install"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Xcode
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: "15.4"
+
+    - name: Setup
+      uses: ./.github/actions/setup
+
+    - name: Install Ccache
+      uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        max-size: 1.5G
+        key: ${{ runner.os }}-ccache-${{ inputs.cache-key-prefix }}
+        create-symlink: true
+
+    - name: Setup ccache behavior
+      run: |
+        cd apps/example/ios
+        echo "CCACHE_SLOPPINESS=clang_index_store,file_stat_matches,include_file_ctime,include_file_mtime,ivfsoverlay,pch_defines,modules,system_headers,time_macros" >> $GITHUB_ENV
+        echo "CCACHE_FILECLONE=true" >> $GITHUB_ENV
+        echo "CCACHE_DEPEND=true" >> $GITHUB_ENV
+        echo "CCACHE_INODECACHE=true" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Restore Pods cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          apps/example/ios/Pods
+          ~/Library/Caches/CocoaPods
+          ~/.cocoapods
+        key: ${{ runner.os }}-pods-${{ inputs.cache-key-prefix }}-${{ hashFiles('**/Podfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pods-${{ inputs.cache-key-prefix }}
+
+    - name: Install Pods
+      run: cd apps/example/ios && export USE_CCACHE=1 && ${{ inputs.pod-install-command }}
+      shell: bash
+
+    - name: Install xcpretty
+      run: cd apps/example/ios && gem install xcpretty
+      shell: bash
+
+    - name: Build example for iOS
+      run: cd apps/example && yarn build:ios
+      shell: bash

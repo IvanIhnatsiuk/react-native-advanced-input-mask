@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - ".github/workflows/build-android-paper.yml"
+      - ".github/actions/build-android/**"
       - "package/android/**"
       - "apps/example/android/**"
       - "yarn.lock"
@@ -13,6 +14,7 @@ on:
   pull_request:
     paths:
       - ".github/workflows/build-android-paper.yml"
+      - ".github/actions/build-android/**"
       - "package/android/**"
       - "example/android/**"
       - "yarn.lock"
@@ -25,23 +27,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup
-        uses: ./.github/actions/setup
-
-      - name: Setup JDK 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: "microsoft"
-          java-version: "17"
-
-      - name: Restore Gradle cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-paper-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-paper
       - name: Build example for Android
-        run: cd apps/example/android && sed -i -e 's/^newArchEnabled=.*/newArchEnabled=false/' gradle.properties && ./gradlew assembleDebug --build-cache && cd ../..
+        uses: ./.github/actions/build-android
+        with:
+          cache-key-prefix: "gradle-paper"
+          build-command: "cd apps/example/android && sed -i -e 's/^newArchEnabled=.*/newArchEnabled=false/' gradle.properties && yarn build:android"

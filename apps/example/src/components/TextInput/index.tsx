@@ -21,14 +21,15 @@ const TextInput: FC<Props> = (props) => {
     onFocus,
     onBlur,
     style,
+    defaultValue,
     ...rest
   } = props;
 
   const inputRef = React.useRef<RNTextInput>(null);
 
   const [textState, setTextState] = React.useState({
-    extracted: initialValue,
-    formatted: initialValue,
+    extracted: initialValue || defaultValue,
+    formatted: initialValue || defaultValue,
   });
 
   const [focused, setFocused] = React.useState(false);
@@ -76,6 +77,7 @@ const TextInput: FC<Props> = (props) => {
       <MaskedTextInput
         ref={inputRef}
         {...rest}
+        defaultValue={defaultValue}
         renderTextInputComponent={BaseTextInput}
         style={style}
         onBlur={handleBlur}

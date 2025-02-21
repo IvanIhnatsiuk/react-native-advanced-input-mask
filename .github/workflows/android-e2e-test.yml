@@ -1,0 +1,111 @@
+name: 🛠 Android e2e tests
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/ios-e2e-test.yml"
+      - "package/src/native/**"
+      - "package/ios/**"
+      - "yarn.lock"
+      - "apps/example/yarn.lock"
+      - "e2e/**"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/ios-e2e-test.yml"
+      - "package/src/native/**"
+      - "package/ios/**"
+      - "yarn.lock"
+      - "apps/example/yarn.lock"
+      - "e2e/**"
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build example for Android
+        uses: ./.github/actions/build-android
+        with:
+          build-command: yarn build:android -PreactNativeArchitectures=x86_64
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: apps/example/android/app/build/outputs/apk/release
+          if-no-files-found: error
+  e2e-test:
+    name: "⚙️ Automated test cases"
+    runs-on: ubuntu-latest
+    needs: build-android
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Gradle cache
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Download apk
+        uses: actions/download-artifact@v4
+        with:
+          name: android-apk
+          path: apps/example/android/app/build/outputs/apk/release
+
+      - name: Install Maestro
+        run: |
+          curl -fsSL "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
+          export MAESTRO_DRIVER_STARTUP_TIMEOUT=600000
+
+      - name: Enable KVM group perms
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: AVD cache
+        uses: actions/cache@v4
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-cache
+
+      - name: Create AVD and generate snapshot for caching
+        uses: reactivecircus/android-emulator-runner@v2.33.0
+        with:
+          api-level: 35
+          ram-size: 4096M
+          disk-size: 10G
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: false
+          arch: x86_64
+          script: echo "Generated AVD snapshot for caching."
+
+      - name: Run tests
+        uses: reactivecircus/android-emulator-runner@v2.33.0
+        with:
+          api-level: 35
+          force-avd-creation: false
+          disable-animations: true
+          arch: x86_64
+          ram-size: 4096M
+          disk-size: 10G
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          script: |
+            adb install -r -d -t apps/example/android/app/build/outputs/apk/release/app-release.apk
+            maestro test e2e/.maestro/* --format html
+
+      - name: Upload test report
+        uses: actions/upload-artifact@v4
+        with:
+          path: report.html
+          name: e2e-report-android

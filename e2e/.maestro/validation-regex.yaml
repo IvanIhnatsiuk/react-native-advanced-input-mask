@@ -1,0 +1,17 @@
+appId: "com.maskedtextinputexample"
+---
+- launchApp
+- tapOn:
+    id: "validation-regex"
+- tapOn: "22.11"
+- assertVisible: "22.11"
+- eraseText: 5
+- inputText: "aa11.11"
+- assertVisible: "formatted value 11.11"
+- assertVisible: "extracted value 1111"
+- assertVisible: "11.11"
+- eraseText: 5
+- inputText: "123456,.78"
+- assertVisible: "123456.78"
+- assertVisible: "extracted value 12345678"
+- assertVisible: "formatted value 123456.78"
