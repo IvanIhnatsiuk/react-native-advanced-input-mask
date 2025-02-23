@@ -107,6 +107,7 @@ jobs:
             maestro test e2e/.maestro/* --format html ./report --debug-output ./report
 
       - name: Check report directory contents
+        if: always()
         run: ls -R report
 
       - name: Upload test report
