@@ -106,6 +106,9 @@ jobs:
             adb install -r -d -t apps/example/android/app/build/outputs/apk/release/app-release.apk
             maestro test e2e/.maestro/* --format html ./report --debug-output ./report
 
+      - name: Check report directory contents
+        run: ls -R report
+
       - name: Upload test report
         if: always()
         uses: actions/upload-artifact@v4
