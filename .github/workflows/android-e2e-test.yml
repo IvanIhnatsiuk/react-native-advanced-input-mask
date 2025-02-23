@@ -104,7 +104,6 @@ jobs:
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: |
             adb install -r -d -t apps/example/android/app/build/outputs/apk/release/app-release.apk
-            mkdir -p report
             maestro test e2e/.maestro/* --format html ./report --debug-output ./report
 
       - name: Check report directory contents
@@ -115,5 +114,8 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          path: report/*
+          path: |
+            report/*.html
+            report/*.png
+            .maestro/tests/**/*
           name: e2e-report-android
