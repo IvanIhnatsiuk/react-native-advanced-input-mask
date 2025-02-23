@@ -18190,8 +18190,8 @@ __metadata:
     react-dom: "npm:19.0.0"
     react-native: "npm:0.78.0"
     react-native-advanced-input-mask: "npm:*"
-    react-native-safe-area-context: "npm:^5.1.0"
-    react-native-screens: "npm:^4.5.0"
+    react-native-safe-area-context: "npm:^5.2.0"
+    react-native-screens: "npm:^4.9.0"
     react-native-web: "npm:^0.19.13"
     react-scripts: "npm:^5.0.1"
     ts-loader: "npm:^9.5.2"
@@ -18281,26 +18281,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-safe-area-context@npm:^5.1.0":
-  version: 5.1.0
-  resolution: "react-native-safe-area-context@npm:5.1.0"
+"react-native-safe-area-context@npm:^5.2.0":
+  version: 5.2.0
+  resolution: "react-native-safe-area-context@npm:5.2.0"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10/7ff5fd17733b73d3c9fc5f7afa81c9c45389e5bc13ec2101135bdded9d8f435465582e0874de3f517bfb2c4f3fc7300dfdbc51176bc0ca84240184b2a888d74b
+  checksum: 10/0972d6f1e2485b71c148aeabaf9f1bfbc533549c66de7d0ea617f92df0024646324c38dc9062ea0392761b72b0f7b6e605a784c09addce61e105e6737bbde7b0
   languageName: node
   linkType: hard
 
-"react-native-screens@npm:^4.5.0":
-  version: 4.5.0
-  resolution: "react-native-screens@npm:4.5.0"
+"react-native-screens@npm:^4.9.0":
+  version: 4.9.0
+  resolution: "react-native-screens@npm:4.9.0"
   dependencies:
     react-freeze: "npm:^1.0.0"
     warn-once: "npm:^0.1.0"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10/e9f56b52989aab7e58ed6a3930632d00c5ab94365e5a591cfc0187ffa742870b3eadb1d1832ff4cc6a7a3b8b77fce0a022ab781a72866539e830dc43b380ac60
+  checksum: 10/705475d6f99acfcf4c2d8f011b2c453f412f882affef638dd2da33391a0d7401d10fe919d31f04fab8625b3aa3c33c39c3a6e685449bc47449856abafa02caec
   languageName: node
   linkType: hard
 

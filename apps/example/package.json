@@ -18,8 +18,8 @@
     "react-dom": "19.0.0",
     "react-native": "0.78.0",
     "react-native-advanced-input-mask": "*",
-    "react-native-safe-area-context": "^5.1.0",
-    "react-native-screens": "^4.5.0",
+    "react-native-safe-area-context": "^5.2.0",
+    "react-native-screens": "^4.9.0",
     "react-native-web": "^0.19.13"
   },
   "devDependencies": {
