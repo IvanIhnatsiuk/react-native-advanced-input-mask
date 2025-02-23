@@ -105,6 +105,7 @@ jobs:
             maestro test e2e/.maestro/* --format html
 
       - name: Upload test report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           path: report.html
