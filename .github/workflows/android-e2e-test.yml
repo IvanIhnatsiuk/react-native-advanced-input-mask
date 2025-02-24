@@ -23,11 +23,11 @@ on:
       - "e2e/**"
 
 jobs:
-  # build-android:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
   #     - name: Build example for Android
   #       uses: ./.github/actions/build-android
