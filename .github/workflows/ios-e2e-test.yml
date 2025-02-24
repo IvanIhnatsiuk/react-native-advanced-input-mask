@@ -70,7 +70,7 @@ jobs:
       - name: Run E2E tests
         run: |
           export MAESTRO_DRIVER_STARTUP_TIMEOUT=600000
-          maestro test e2e/.maestro/* --format html --debug-output
+          maestro test e2e/.maestro/* --format html
 
       - name: Upload test report
         if: always()

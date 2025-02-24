@@ -104,7 +104,7 @@ jobs:
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: |
             adb install -r -d -t apps/example/android/app/build/outputs/apk/release/app-release.apk
-            maestro test e2e/.maestro/* --format html --debug-output
+            maestro test e2e/.maestro/* --format html
 
       - name: Upload test report
         if: always()
