@@ -107,6 +107,10 @@ jobs:
             mkdir -p ./reports/debug
             maestro test e2e/.maestro/* --format html ./reports/debug --debug-output ./reports/debug
 
+      - name: List Debug Directory Contents
+        if: always()
+        run: ls -R ./reports/debug
+
       - name: Upload test report
         if: always()
         uses: actions/upload-artifact@v4
