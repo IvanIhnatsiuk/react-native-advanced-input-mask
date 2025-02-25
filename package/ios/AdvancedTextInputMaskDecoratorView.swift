@@ -239,9 +239,9 @@ class AdvancedTextInputMaskDecoratorView: UIView {
 
   // MARK: - View Lifecycle
 
-  override func willMove(toWindow newWindow: UIWindow?) {
-    super.willMove(toWindow: newWindow)
-    if textField == nil, newWindow != nil {
+  override func didMoveToWindow() {
+    super.didMoveToWindow()
+    if textField == nil {
       configureTextField()
       configureMaskInputListener()
       updateTextWithoutNotification(text: value as? String ?? defaultValue as String)
