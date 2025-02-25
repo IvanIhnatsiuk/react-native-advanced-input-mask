@@ -150,8 +150,18 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     return try? NSRegularExpression(pattern: pattern)
   }
 
+  private func setText(textField: UITextField, text: NSAttributedString) {
+    #if ADVANCE_INPUT_MASK_NEW_ARCH_ENABLED
+      textField.attributedText = text
+    #else
+      textField.allText = text.string
+    #endif
+  }
+
   @objc private func updateTextWithoutNotification(text: String) {
-    if text == textField?.attributedText?.string {
+    guard let textField = textField else { return }
+
+    if text == textField.attributedText?.string {
       return
     }
 
@@ -165,14 +175,14 @@ class AdvancedTextInputMaskDecoratorView: UIView {
 
     let attributedText = NSAttributedString(string: result.formattedText.string)
 
-    textField?.attributedText = attributedText
+    setText(textField: textField, text: attributedText)
   }
 
   @objc private func maybeUpdateText(text: String) {
     guard let primaryMask = maskInputListener?.primaryMask else { return }
     guard let textField = textField else { return }
 
-    if text == textField.allText {
+    if text == textField.attributedText?.string {
       return
     }
 
@@ -187,7 +197,9 @@ class AdvancedTextInputMaskDecoratorView: UIView {
       return
     }
 
-    textField.allText = result.formattedText.string
+    let attributedText = NSAttributedString(string: result.formattedText.string)
+
+    setText(textField: textField, text: attributedText)
     maskInputListener?.notifyOnMaskedTextChangedListeners(forTextInput: textField, result: result)
   }
 
@@ -239,9 +251,9 @@ class AdvancedTextInputMaskDecoratorView: UIView {
 
   // MARK: - View Lifecycle
 
-  override func willMove(toWindow newWindow: UIWindow?) {
-    super.willMove(toWindow: newWindow)
-    if textField == nil, newWindow != nil {
+  override func didMoveToWindow() {
+    super.didMoveToWindow()
+    if textField == nil {
       configureTextField()
       configureMaskInputListener()
       updateTextWithoutNotification(text: value as? String ?? defaultValue as String)
