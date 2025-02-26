@@ -37,7 +37,7 @@ class MaskedTextChangedListener {
     affineFormats: string[] = [],
     customNotations: Notation[] = [],
     affinityCalculationStrategy: AFFINITY_CALCULATION_STRATEGY = AFFINITY_CALCULATION_STRATEGY.WHOLE_STRING,
-    autocomplete: boolean = true,
+    autocomplete: boolean = false,
     autoskip: boolean = false,
     rightToLeft: boolean = false,
     allowedKeys: string = "",

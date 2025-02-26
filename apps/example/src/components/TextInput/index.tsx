@@ -15,13 +15,14 @@ type Props = MaskedTextInputProps & {
 
 const TextInput: FC<Props> = (props) => {
   const {
-    controlled,
+    controlled = false,
     initialValue,
     onChangeText,
     onFocus,
     onBlur,
     style,
     defaultValue,
+    autocomplete,
     ...rest
   } = props;
 
@@ -77,6 +78,7 @@ const TextInput: FC<Props> = (props) => {
       <MaskedTextInput
         ref={inputRef}
         {...rest}
+        autocomplete={autocomplete ?? !controlled}
         defaultValue={defaultValue}
         renderTextInputComponent={BaseTextInput}
         style={style}
