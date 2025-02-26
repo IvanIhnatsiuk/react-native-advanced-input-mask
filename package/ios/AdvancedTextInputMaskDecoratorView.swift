@@ -34,7 +34,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     }
   }
 
-  @objc private var autocomplete: Bool = true {
+  @objc private var autocomplete: Bool = false {
     didSet {
       maskInputListener?.autocomplete = autocomplete
     }
