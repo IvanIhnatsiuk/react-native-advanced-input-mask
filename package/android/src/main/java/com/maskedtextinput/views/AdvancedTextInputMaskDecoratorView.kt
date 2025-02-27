@@ -78,7 +78,7 @@ class AdvancedTextInputMaskDecoratorView(
             primaryFormat = maskFormat,
             valueListener = valueListener,
             autoSkip = autoSkip,
-            autocomplete = autocomplete,
+            autocomplete = false,
             rightToLeft = isRtl,
             affineFormats = affineFormats,
             affinityCalculationStrategy = affinityCalculationStrategy,
@@ -89,6 +89,7 @@ class AdvancedTextInputMaskDecoratorView(
 
         if (isInitialMount) {
           applyDefaultValue()
+          maskedTextChangeListener?.autocomplete = autocomplete
           isInitialMount = false
         }
       }
