@@ -169,7 +169,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     let caretString = CaretString(
       string: text,
       caretPosition: text.endIndex,
-      caretGravity: CaretString.CaretGravity.forward(autocomplete: autocomplete)
+      caretGravity: CaretString.CaretGravity.forward(autocomplete: false)
     )
     let result = primaryMask.apply(toText: caretString)
 
@@ -189,7 +189,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     let caretString = CaretString(
       string: text,
       caretPosition: text.endIndex,
-      caretGravity: CaretString.CaretGravity.forward(autocomplete: autocomplete)
+      caretGravity: CaretString.CaretGravity.forward(autocomplete: false)
     )
     let result = primaryMask.apply(toText: caretString)
 
@@ -201,6 +201,11 @@ class AdvancedTextInputMaskDecoratorView: UIView {
 
     setText(textField: textField, text: attributedText)
     maskInputListener?.notifyOnMaskedTextChangedListeners(forTextInput: textField, result: result)
+  }
+
+  private func getInitialText() -> String {
+    let value = (value as? String) ?? ""
+    return value.isEmpty ? (defaultValue as String) : value
   }
 
   // MARK: - Configuration Methods
@@ -256,7 +261,8 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     if textField == nil {
       configureTextField()
       configureMaskInputListener()
-      updateTextWithoutNotification(text: value as? String ?? defaultValue as String)
+      let initialText = getInitialText()
+      updateTextWithoutNotification(text: initialText)
     }
   }
 }
