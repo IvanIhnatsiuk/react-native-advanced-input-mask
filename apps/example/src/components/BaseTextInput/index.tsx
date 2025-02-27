@@ -1,4 +1,10 @@
-import { Animated, TextInput, type TextInputProps } from "react-native";
+import {
+  Animated,
+  TextInput,
+  type NativeSyntheticEvent,
+  type TextInputFocusEventData,
+  type TextInputProps,
+} from "react-native";
 import { forwardRef, memo, useCallback, useMemo } from "react";
 import useAnimatedValue from "../../hooks/react-native/useAnimatedValue";
 import React from "react";
@@ -22,7 +28,7 @@ const BaseTextInput = forwardRef<TextInput, TextInputProps>(
     );
 
     const handleFocus = useCallback(
-      (e) => {
+      (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
         animateTo(true);
         onFocus?.(e);
       },
@@ -30,7 +36,7 @@ const BaseTextInput = forwardRef<TextInput, TextInputProps>(
     );
 
     const handleBlur = useCallback(
-      (e) => {
+      (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
         animateTo(false);
         onBlur?.(e);
       },

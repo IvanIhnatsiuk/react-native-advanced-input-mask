@@ -1,6 +1,6 @@
 import type { TextInputProps } from "react-native";
 import type { AFFINITY_CALCULATION_STRATEGY } from "./enums";
-import type { ElementType } from "react";
+import type { ElementType, JSX } from "react";
 
 export type Notation = {
   /**
