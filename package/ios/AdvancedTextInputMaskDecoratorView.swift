@@ -169,7 +169,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     let caretString = CaretString(
       string: text,
       caretPosition: text.endIndex,
-      caretGravity: CaretString.CaretGravity.forward(autocomplete: autocomplete)
+      caretGravity: CaretString.CaretGravity.forward(autocomplete: false)
     )
     let result = primaryMask.apply(toText: caretString)
 
@@ -189,7 +189,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     let caretString = CaretString(
       string: text,
       caretPosition: text.endIndex,
-      caretGravity: CaretString.CaretGravity.forward(autocomplete: autocomplete)
+      caretGravity: CaretString.CaretGravity.forward(autocomplete: false)
     )
     let result = primaryMask.apply(toText: caretString)
 
