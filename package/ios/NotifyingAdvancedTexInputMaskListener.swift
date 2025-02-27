@@ -13,21 +13,21 @@ class NotifyingAdvancedTexInputMaskListener: MaskedTextInputListener {
   public var allowedKeys = ""
   public var validationRegex: NSRegularExpression?
 
-  public init(primaryFormat: String = "",
-              autocomplete: Bool = true,
-              autocompleteOnFocus: Bool = true,
-              autoskip: Bool = false,
-              rightToLeft: Bool = false,
-              affineFormats: [String] = [],
-              affinityCalculationStrategy: AffinityCalculationStrategy = .wholeString,
-              customNotations: [Notation] = [],
+  public init(primaryFormat: String,
+              autocomplete: Bool,
+              autocompleteOnFocus: Bool,
+              autoskip: Bool,
+              rightToLeft: Bool,
+              affineFormats: [String],
+              affinityCalculationStrategy: AffinityCalculationStrategy,
+              customNotations: [Notation],
               onMaskedTextChangedCallback: (
                 (_ textInput: UITextInput,
                  _ value: String,
                  _ complete: Bool,
-                 _ tailPlaceholder: String) -> Void)? = nil,
-              allowSuggestions: Bool = true,
-              allowedKeys: String = "",
+                 _ tailPlaceholder: String) -> Void)?,
+              allowSuggestions: Bool,
+              allowedKeys: String,
               validationRegex: NSRegularExpression?)
   {
     self.allowedKeys = allowedKeys
