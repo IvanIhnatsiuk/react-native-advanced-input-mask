@@ -203,6 +203,11 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     maskInputListener?.notifyOnMaskedTextChangedListeners(forTextInput: textField, result: result)
   }
 
+  private func getInitialText() -> String {
+    let value = (value as? String) ?? ""
+    return value.isEmpty ? (defaultValue as String) : value
+  }
+
   // MARK: - Configuration Methods
 
   private func configureTextField() {
@@ -256,7 +261,8 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     if textField == nil {
       configureTextField()
       configureMaskInputListener()
-      updateTextWithoutNotification(text: value as? String ?? defaultValue as String)
+      let initialText = getInitialText()
+      updateTextWithoutNotification(text: initialText)
     }
   }
 }
