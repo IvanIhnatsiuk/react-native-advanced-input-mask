@@ -80,16 +80,16 @@ class ReactMaskedTextChangeListener(
   companion object {
     fun installOn(
       primaryFormat: String,
-      affineFormats: List<String> = emptyList(),
-      customNotations: List<Notation> = emptyList(),
-      affinityCalculationStrategy: AffinityCalculationStrategy = AffinityCalculationStrategy.WHOLE_STRING,
-      autocomplete: Boolean = true,
-      autoSkip: Boolean = false,
+      affineFormats: List<String>,
+      customNotations: List<Notation>,
+      affinityCalculationStrategy: AffinityCalculationStrategy,
+      autocomplete: Boolean ,
+      autoSkip: Boolean,
       field: ReactEditText,
-      rightToLeft: Boolean = false,
+      rightToLeft: Boolean,
       valueListener: MaskedTextValueListener,
       allowedKeys: String?,
-      autocompleteOnFocus: Boolean = false,
+      autocompleteOnFocus: Boolean,
       validationRegex: Regex?,
     ): ReactMaskedTextChangeListener {
       val listener =
