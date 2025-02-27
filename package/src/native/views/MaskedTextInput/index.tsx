@@ -2,6 +2,7 @@ import { StyleSheet, TextInput } from "react-native";
 import React, { forwardRef, memo, useCallback } from "react";
 import MaskedTextInputDecoratorView from "../../MaskedTextInputNative";
 import type { MaskedTextInputProps } from "../../../types";
+import { IS_FABRIC } from "../../architecture";
 
 const styles = StyleSheet.create({
   displayNone: {
@@ -39,7 +40,6 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
     ref,
   ) => {
     const InputComponent = renderTextInputComponent ?? TextInput;
-    const IS_FABRIC = "nativeFabricUIManager" in global;
 
     const onAdvancedMaskTextChangeCallback = useCallback(
       ({ nativeEvent: { extracted, formatted, tailPlaceholder } }) => {
