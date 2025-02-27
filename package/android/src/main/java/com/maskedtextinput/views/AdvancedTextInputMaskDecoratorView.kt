@@ -23,7 +23,7 @@ class AdvancedTextInputMaskDecoratorView(
   private var affineFormats = emptyList<String>()
   private var customNotations = emptyList<Notation>()
   private var autoSkip = false
-  private var autocomplete = false
+  private var autocomplete = true
   private var isRtl = false
   private var customTransformationMethod: CustomTransformationMethod? = null
   private var maskedTextChangeListener: ReactMaskedTextChangeListener? = null
