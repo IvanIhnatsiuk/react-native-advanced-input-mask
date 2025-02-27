@@ -10,7 +10,11 @@ const ControlledInput = () => {
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
     >
-      <TextInput controlled mask="+1 ([000]) [000]-[0000]" />
+      <TextInput
+        controlled
+        keyboardType="phone-pad"
+        mask="+1 ([000]) [000]-[0000]"
+      />
     </ScrollView>
   );
 };
