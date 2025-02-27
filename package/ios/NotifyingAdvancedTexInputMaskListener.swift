@@ -13,7 +13,7 @@ class NotifyingAdvancedTexInputMaskListener: MaskedTextInputListener {
   public var allowedKeys = ""
   public var validationRegex: NSRegularExpression?
 
-    public init(primaryFormat: String,
+  public init(primaryFormat: String,
               autocomplete: Bool,
               autocompleteOnFocus: Bool,
               autoskip: Bool,

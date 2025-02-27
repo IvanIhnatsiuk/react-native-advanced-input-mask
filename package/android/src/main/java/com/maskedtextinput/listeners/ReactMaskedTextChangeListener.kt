@@ -83,7 +83,7 @@ class ReactMaskedTextChangeListener(
       affineFormats: List<String>,
       customNotations: List<Notation>,
       affinityCalculationStrategy: AffinityCalculationStrategy,
-      autocomplete: Boolean ,
+      autocomplete: Boolean,
       autoSkip: Boolean,
       field: ReactEditText,
       rightToLeft: Boolean,
