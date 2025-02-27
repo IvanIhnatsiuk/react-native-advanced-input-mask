@@ -22,7 +22,6 @@ const TextInput: FC<Props> = (props) => {
     onBlur,
     style,
     defaultValue,
-    autocomplete,
     ...rest
   } = props;
 
@@ -78,7 +77,6 @@ const TextInput: FC<Props> = (props) => {
       <MaskedTextInput
         ref={inputRef}
         {...rest}
-        autocomplete={autocomplete ?? !controlled}
         defaultValue={defaultValue}
         renderTextInputComponent={BaseTextInput}
         style={style}
