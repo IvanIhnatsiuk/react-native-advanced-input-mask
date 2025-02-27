@@ -41,6 +41,8 @@ class ReactMaskedTextChangeListener(
     before: Int,
     count: Int,
   ) {
+    if (prevText == field.text.toString()) return
+
     val newText = allowedKeys?.run { text.filter { it in this } } ?: text
     if (!isValidText(text.toString())) {
       this.cursorPosition = cursorPosition
@@ -51,6 +53,8 @@ class ReactMaskedTextChangeListener(
   }
 
   override fun afterTextChanged(edit: Editable?) {
+    if (prevText == field.text.toString()) return
+
     val stringText = edit.toString()
     if (!isValidText(stringText)) {
       field.setText(prevText)
