@@ -21,6 +21,7 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
       affinityCalculationStrategy,
       affinityFormat,
       allowSuggestions,
+      allowedKeys,
       autocomplete,
       autocompleteOnFocus,
       autoSkip,
@@ -59,6 +60,7 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
       <>
         <InputComponent {...rest} autoCapitalize={autoCapitalize} ref={ref} />
         <MaskedTextInputDecoratorView
+          allowedKeys={allowedKeys}
           affinityCalculationStrategy={affinityCalculationStrategy}
           affinityFormat={affinityFormat}
           allowSuggestions={allowSuggestions}
