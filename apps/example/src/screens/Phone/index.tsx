@@ -24,11 +24,11 @@ const Phone = () => {
       contentContainerStyle={styles.contentContainer}
     >
       <TextInput
-        placeholderTextColor="gray"
         onTailPlaceholderChange={console.log}
         placeholder="+1 (000) 000-0000"
         mask="+1 ([000]) [000]-[0000]"
         allowSuggestions={true}
+        keyboardType="phone-pad"
         autoSkip
       />
       <Button
