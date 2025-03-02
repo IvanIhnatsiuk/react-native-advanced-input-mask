@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import { ScrollView } from "react-native";
 import styles from "./styles";
 import TextInput from "../../components/TextInput";
+import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 
 const alphaNumericChars =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -17,17 +17,18 @@ const customNotations = [
 
 const CustomNotations = () => {
   return (
-    <ScrollView
+    <KeyboardAwareScrollView
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
     >
       <TextInput
+        placeholder="Enter a string"
         mask="[$$$$$$$$$$$$$]"
         autocomplete={false}
         autoSkip={false}
         customNotations={customNotations}
       />
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 };
 

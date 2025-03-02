@@ -1,32 +1,26 @@
 import React, { memo, useMemo, type FC } from "react";
-import {
-  Pressable,
-  Text,
-  type PressableProps,
-  type StyleProp,
-  type ViewStyle,
-} from "react-native";
-import styles, { ANDROID_PRESSABLE_RIPPLE } from "./styles";
+import { Text, View, type StyleProp, type ViewStyle } from "react-native";
+import styles from "./styles";
+import Touchable from "../replicas/touchables";
+import type { TouchableCrossPlatformProps } from "../replicas/touchables/types";
 
-type Props = PressableProps & {
+type Props = TouchableCrossPlatformProps & {
   title: string;
   style?: StyleProp<ViewStyle>;
 };
 
 const Button: FC<Props> = ({ title, style, ...rest }) => {
   const containerStyle: StyleProp<ViewStyle> = useMemo(
-    () => [styles.buttonContainer, style],
+    () => [styles.container, style],
     [style],
   );
 
   return (
-    <Pressable
-      android_ripple={ANDROID_PRESSABLE_RIPPLE}
-      {...rest}
-      style={containerStyle}
-    >
-      <Text style={styles.buttonText}>{title}</Text>
-    </Pressable>
+    <View style={containerStyle}>
+      <Touchable {...rest} style={styles.buttonContainer}>
+        <Text style={styles.buttonText}>{title}</Text>
+      </Touchable>
+    </View>
   );
 };
 

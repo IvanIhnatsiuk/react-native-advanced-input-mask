@@ -2,20 +2,23 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   container: {
-    padding: 16,
+    overflow: "hidden",
     backgroundColor: "#fff",
     borderRadius: 12,
     shadowColor: "#000",
     shadowOffset: {
-      width: 10,
-      height: 10,
+      width: 15,
+      height: 15,
     },
-    shadowRadius: 10,
+    shadowRadius: 15,
     shadowOpacity: 0.1,
     boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
     marginVertical: 8,
-    elevation: 5,
+    elevation: 20,
     marginHorizontal: 16,
+  },
+  contentContainer: {
+    padding: 16,
     justifyContent: "space-between",
     flexDirection: "row",
     alignItems: "center",
@@ -26,6 +29,7 @@ export default StyleSheet.create({
     fontWeight: "600",
   },
   emoji: {
+    color: "black",
     fontSize: 20,
   },
 });

@@ -1,5 +1,5 @@
 const path = require("path");
-
+const webpack = require("webpack");
 const appDirectory = path.resolve(__dirname, ".");
 
 const pack = require("../../package/package.json");
@@ -65,6 +65,14 @@ module.exports = ({ platform }, defaults) => ({
     filename: "bundle.web.js",
     path: path.resolve(appDirectory, "dist"),
   },
+
+  plugins: [
+    new webpack.EnvironmentPlugin({ JEST_WORKER_ID: null }),
+    new webpack.DefinePlugin({ process: { env: {} } }),
+    new webpack.DefinePlugin({
+      __DEV__: process.env.NODE_ENV !== "production",
+    }),
+  ],
 
   module: {
     ...defaults.module,

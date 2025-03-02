@@ -1,11 +1,11 @@
 import * as React from "react";
 
-import { ScrollView } from "react-native";
 import styles from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { ScreenNames } from "../../navigation";
 import TextInput from "../../components/TextInput";
 import Button from "../../components/Button";
+import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 
 const Phone = () => {
   const { reset, navigate } = useNavigation();
@@ -19,7 +19,7 @@ const Phone = () => {
   }, [navigate]);
 
   return (
-    <ScrollView
+    <KeyboardAwareScrollView
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
     >
@@ -41,7 +41,7 @@ const Phone = () => {
         title="Navigate to RN text input screen with reset"
         onPress={navigateToRNTextInputWithReset}
       />
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 };
 
