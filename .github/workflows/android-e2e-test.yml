@@ -85,6 +85,7 @@ jobs:
           ram-size: 4096M
           disk-size: 10G
           force-avd-creation: false
+          profile: pixel_6a
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
           arch: x86_64
@@ -96,6 +97,7 @@ jobs:
           api-level: 35
           force-avd-creation: false
           disable-animations: true
+          profile: pixel_6a
           arch: x86_64
           ram-size: 4096M
           disk-size: 10G
