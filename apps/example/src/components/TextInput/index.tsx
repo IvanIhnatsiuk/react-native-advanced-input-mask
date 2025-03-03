@@ -1,5 +1,10 @@
 import React, { memo, type FC } from "react";
-import { TextInput as RNTextInput, Text } from "react-native";
+import {
+  TextInput as RNTextInput,
+  Text,
+  type NativeSyntheticEvent,
+  type TextInputFocusEventData,
+} from "react-native";
 import {
   MaskedTextInput,
   type MaskedTextInputProps,
@@ -43,7 +48,7 @@ const TextInput: FC<Props> = (props) => {
   );
 
   const handleFocus = React.useCallback(
-    (e) => {
+    (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
       setFocused(true);
       onFocus?.(e);
     },
@@ -51,7 +56,7 @@ const TextInput: FC<Props> = (props) => {
   );
 
   const handleBlur = React.useCallback(
-    (e) => {
+    (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
       setFocused(false);
       onBlur?.(e);
     },

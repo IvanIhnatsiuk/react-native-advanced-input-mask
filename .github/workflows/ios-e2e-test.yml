@@ -61,7 +61,6 @@ jobs:
 
       - name: Install app on simulator
         run: |
-          defaults write com.apple.iphonesimulator ConnectHardwareKeyboard -bool false
           UDID=$(xcrun simctl list devices | grep "iPhone 15 Pro (" | grep -oE "[0-9A-F-]{36}" | head -n 1)
           open -a Simulator --args -CurrentDeviceUDID $UDID
           osascript -e 'tell application "Simulator" to activate'
@@ -70,11 +69,11 @@ jobs:
       - name: Run E2E tests
         run: |
           export MAESTRO_DRIVER_STARTUP_TIMEOUT=600000
-          maestro test e2e/.maestro/* --format html ./report --debug-output ./report
+          maestro test e2e/.maestro/* --format html ./reports/debug --debug-output ./reports/debug
 
       - name: Upload test report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          path: ./report
+          path: ./reports/debug
           name: e2e-report-ios

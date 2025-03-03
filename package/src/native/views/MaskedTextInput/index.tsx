@@ -1,4 +1,4 @@
-import { StyleSheet, TextInput } from "react-native";
+import { StyleSheet, TextInput, type NativeSyntheticEvent } from "react-native";
 import React, { forwardRef, memo, useCallback } from "react";
 import MaskedTextInputDecoratorView from "../../MaskedTextInputNative";
 import type { MaskedTextInputProps } from "../../../types";
@@ -21,6 +21,7 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
       affinityCalculationStrategy,
       affinityFormat,
       allowSuggestions,
+      allowedKeys,
       autocomplete,
       autocompleteOnFocus,
       autoSkip,
@@ -42,7 +43,13 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
     const InputComponent = renderTextInputComponent ?? TextInput;
 
     const onAdvancedMaskTextChangeCallback = useCallback(
-      ({ nativeEvent: { extracted, formatted, tailPlaceholder } }) => {
+      ({
+        nativeEvent: { extracted, formatted, tailPlaceholder },
+      }: NativeSyntheticEvent<{
+        extracted: string;
+        formatted: string;
+        tailPlaceholder: string;
+      }>) => {
         onChangeText?.(formatted, extracted);
         onTailPlaceholderChange?.(tailPlaceholder);
       },
@@ -53,6 +60,7 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
       <>
         <InputComponent {...rest} autoCapitalize={autoCapitalize} ref={ref} />
         <MaskedTextInputDecoratorView
+          allowedKeys={allowedKeys}
           affinityCalculationStrategy={affinityCalculationStrategy}
           affinityFormat={affinityFormat}
           allowSuggestions={allowSuggestions}
