@@ -105,7 +105,7 @@ jobs:
           script: |
             adb install -r -d -t applications/android/release/app-release.apk
             mkdir -p ./reports/debug
-            maestro test e2e/.maestro/* --debug-output ./reports/debug --flatten-debug-output
+            maestro test e2e/.maestro/* --format html ./reports/debug --debug-output ./reports/debug --flatten-debug-output
 
       - name: Upload test report
         if: always()
