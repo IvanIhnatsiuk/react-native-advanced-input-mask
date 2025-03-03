@@ -29,17 +29,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # - name: Build example for Android
-      #   uses: ./.github/actions/build-android
-      #   with:
-      #     build-command: yarn build:android -PreactNativeArchitectures=x86_64
+      - name: Build example for Android
+        uses: ./.github/actions/build-android
+        with:
+          build-command: yarn build:android -PreactNativeArchitectures=x86_64
 
-      # - name: Upload build artifacts
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: android-apk
-      #     path: apps/example/android/app/build/outputs/apk/release
-      #     if-no-files-found: error
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: apps/example/android/app/build/outputs/apk/release
+          if-no-files-found: error
   e2e-test:
     name: "⚙️ Automated test cases"
     runs-on: ubuntu-latest
@@ -51,11 +51,11 @@ jobs:
       - name: Gradle cache
         uses: gradle/actions/setup-gradle@v3
 
-      # - name: Download apk
-      #   uses: actions/download-artifact@v4
-      #   with:
-      #     name: android-apk
-      #     path: apps/example/android/app/build/outputs/apk/release
+      - name: Download apk
+        uses: actions/download-artifact@v4
+        with:
+          name: android-apk
+          path: apps/example/android/app/build/outputs/apk/release
 
       - name: Install Maestro
         run: |
@@ -103,7 +103,7 @@ jobs:
           disk-size: 10G
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: |
-            adb install -r -d -t applications/android/release/app-release.apk
+            adb install -r -d -t apps/example/android/app/build/outputs/apk/release/app-release.apk
             mkdir -p ./reports/debug
             maestro test e2e/.maestro/* --format html ./reports/debug --debug-output ./reports/debug --flatten-debug-output
 
