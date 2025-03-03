@@ -28,13 +28,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Build iOS app
-        uses: ./.github/actions/build-ios
-      - name: Upload iOS app
-        uses: actions/upload-artifact@v4
-        with:
-          name: ios-app
-          path: apps/example/ios/build/Build/Products/Release-iphonesimulator/MaskedTextInputExample.app/**
+      # - name: Build iOS app
+      #   uses: ./.github/actions/build-ios
+      # - name: Upload iOS app
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: ios-app
+      #     path: apps/example/ios/build/Build/Products/Release-iphonesimulator/MaskedTextInputExample.app/**
   e2e-test:
     name: "⚙️ Automated test cases"
     runs-on: macos-latest
@@ -48,11 +48,11 @@ jobs:
         with:
           xcode-version: "15.4"
       - uses: actions/checkout@v4
-      - name: Download ios app
-        uses: actions/download-artifact@v4
-        with:
-          name: ios-app
-          path: apps/example/ios/build/Build/Products/Release-iphonesimulator/MaskedTextInputExample.app/
+      # - name: Download ios app
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     name: ios-app
+      #     path: apps/example/ios/build/Build/Products/Release-iphonesimulator/MaskedTextInputExample.app/
 
       - name: Install Maestro CLI
         run: |
@@ -64,12 +64,12 @@ jobs:
           UDID=$(xcrun simctl list devices | grep "iPhone 15 Pro (" | grep -oE "[0-9A-F-]{36}" | head -n 1)
           open -a Simulator --args -CurrentDeviceUDID $UDID
           osascript -e 'tell application "Simulator" to activate'
-          xcrun simctl install "$UDID" apps/example/ios/build/Build/Products/Release-iphonesimulator/MaskedTextInputExample.app
+          xcrun simctl install "$UDID" applications/ios/MaskedTextInputExample.app
 
       - name: Run E2E tests
         run: |
           export MAESTRO_DRIVER_STARTUP_TIMEOUT=600000
-          maestro test e2e/.maestro/* --format html ./reports/debug --debug-output ./reports/debug
+          maestro test e2e/.maestro/* --debug-output ./reports/debug --flatten-debug-output
 
       - name: Upload test report
         if: always()
