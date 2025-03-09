@@ -1,0 +1,15 @@
+appId: "com.maskedtextinputexample"
+---
+- launchApp
+- tapOn:
+    id: "controlled-text-input"
+- assertVisible: "extracted value 1111"
+- assertVisible: "+1 (111"
+- assertVisible: "formatted value 1111"
+- tapOn: "+1 (111"
+- inputText: 123456789
+- assertVisible: "extracted value 1111234567"
+- assertVisible: "formatted value +1 (111) 123-4567"
+- assertVisible: "+1 (111) 123-4567"
+- tapOn: "Clear text"
+- assertVisible: "+1 (000) 000 0000"
