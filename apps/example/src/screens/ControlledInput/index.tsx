@@ -12,7 +12,7 @@ const ControlledInput = () => {
     >
       <TextInput
         controlled
-        initialValue="1111"
+        initialValue="+1 (111"
         keyboardType="phone-pad"
         placeholder="+1 (000) 000 0000"
         mask="+1 ([000]) [000]-[0000]"
