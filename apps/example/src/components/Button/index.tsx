@@ -1,7 +1,10 @@
-import React, { memo, useMemo, type FC } from "react";
-import { Text, View, type StyleProp, type ViewStyle } from "react-native";
-import styles from "./styles";
+import React, { type FC, memo, useMemo } from "react";
+import { type StyleProp, Text, View, type ViewStyle } from "react-native";
+
 import Touchable from "../replicas/touchables";
+
+import styles from "./styles";
+
 import type { TouchableCrossPlatformProps } from "../replicas/touchables/types";
 
 type Props = TouchableCrossPlatformProps & {

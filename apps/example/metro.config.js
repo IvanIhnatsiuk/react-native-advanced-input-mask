@@ -1,5 +1,6 @@
-const { makeMetroConfig } = require("@rnx-kit/metro-config");
 const path = require("path");
+
+const { makeMetroConfig } = require("@rnx-kit/metro-config");
 
 const root = path.resolve(__dirname, "../..");
 const pack = require("../../package/package.json");
@@ -19,6 +20,7 @@ const extraConfig = {
     unstable_enableSymlinks: true,
     extraNodeModules: modules.reduce((acc, name) => {
       acc[name] = path.join(__dirname, "node_modules", name);
+
       return acc;
     }, {}),
   },

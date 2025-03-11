@@ -1,4 +1,3 @@
-import type { FC } from "react";
 import React, { memo, useMemo } from "react";
 import { StyleSheet } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
@@ -10,6 +9,7 @@ import Reanimated, {
 } from "react-native-reanimated";
 
 import type { TouchableHighlightProps } from "../types";
+import type { FC } from "react";
 
 const noop = () => {};
 
@@ -28,11 +28,11 @@ const TouchableHighlight: FC<TouchableHighlightProps> = ({
       Gesture.Tap()
         .onBegin((event) => {
           console.log(event.numberOfPointers);
-          opacity.value = withTiming(1, { duration: 150 });
+          opacity.set(withTiming(1, { duration: 150 }));
         })
         .onEnd(() => runOnJS(onPress)())
         .onFinalize(() => {
-          opacity.value = withTiming(0, { duration: 450 });
+          opacity.set(withTiming(0, { duration: 450 }));
         })
         .enabled(!disabled),
     [disabled, opacity, onPress],
@@ -40,7 +40,7 @@ const TouchableHighlight: FC<TouchableHighlightProps> = ({
 
   const highlight = useAnimatedStyle(
     () => ({
-      opacity: opacity.value,
+      opacity: opacity.get(),
       backgroundColor: overlayColor,
     }),
     [overlayColor],

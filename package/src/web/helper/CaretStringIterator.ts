@@ -1,5 +1,6 @@
-import CaretString from "../model/CaretString";
 import { CaretGravityType } from "../model/types";
+
+import type CaretString from "../model/CaretString";
 
 class CaretStringIterator {
   protected caretString: CaretString;
@@ -25,6 +26,7 @@ class CaretStringIterator {
 
   next(): string | null {
     const { string } = this.caretString;
+
     if (this.currentIndex >= string.length) {
       return null;
     }

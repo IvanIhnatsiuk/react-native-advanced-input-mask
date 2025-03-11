@@ -1,8 +1,9 @@
 import Mask from "./Mask";
-import CaretString from "../model/CaretString";
 import RTLCaretStringIterator from "./RTLCaretStringIterator";
-import CaretStringIterator from "./CaretStringIterator";
+
+import type CaretStringIterator from "./CaretStringIterator";
 import type { Notation } from "../../types";
+import type CaretString from "../model/CaretString";
 import type { MaskResult } from "../model/types";
 
 export default class RTLMask extends Mask {
@@ -15,11 +16,15 @@ export default class RTLMask extends Mask {
   static getOrCreate(format: string, customNotations: Notation[]): RTLMask {
     const key = RTLMask.reversedFormat(format);
     const cachedMask = RTLMask.rtlCache.get(key);
+
     if (!cachedMask) {
       const newMask = new RTLMask(format, customNotations);
+
       RTLMask.rtlCache.set(key, newMask);
+
       return newMask;
     }
+
     return cachedMask;
   }
 

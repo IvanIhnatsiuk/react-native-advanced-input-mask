@@ -1,5 +1,6 @@
-import type { Props as MenuItemProps } from "../../components/MenuItem";
 import ScreenNames from "../../navigation/screenNames";
+
+import type { Props as MenuItemProps } from "../../components/MenuItem";
 
 export const MENU_ITEMS: Omit<MenuItemProps<ScreenNames>, "onPress">[] = [
   {

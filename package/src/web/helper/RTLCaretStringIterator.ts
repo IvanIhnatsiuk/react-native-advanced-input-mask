@@ -1,5 +1,6 @@
 import CaretStringIterator from "./CaretStringIterator";
-import CaretString from "../model/CaretString";
+
+import type CaretString from "../model/CaretString";
 
 class RTLCaretStringIterator extends CaretStringIterator {
   constructor(caretString: CaretString) {

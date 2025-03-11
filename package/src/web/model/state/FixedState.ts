@@ -1,5 +1,6 @@
-import type { Next } from "../types";
 import State from "./State";
+
+import type { Next } from "../types";
 
 class FixedState extends State {
   ownCharacter: string;

@@ -6,6 +6,7 @@ export default class FormatSanitizer {
     const blocks = this.divideBlocksWithMixedCharacters(
       this.getFormatBlocks(formatString),
     );
+
     return FormatSanitizer.sortFormatBlocks(blocks).join("");
   }
 
@@ -53,8 +54,10 @@ export default class FormatSanitizer {
     for (const block of blocks) {
       if (block.startsWith("[")) {
         let blockBuffer = "";
+
         for (let i = 0; i < block.length; i++) {
           const blockCharacter = block[i];
+
           if (blockCharacter === "[") {
             blockBuffer += blockCharacter;
             continue;
@@ -115,6 +118,7 @@ export default class FormatSanitizer {
 
     for (const block of blocks) {
       let sortedBlock: string;
+
       if (block.startsWith("[")) {
         if (
           block.includes("0") ||

@@ -1,7 +1,9 @@
+import { getCharacterTypeString } from "../utils";
+
+import State from "./State";
+
 import type { Notation } from "../../../types";
 import type { Next, StateType } from "../types";
-import { getCharacterTypeString } from "../utils";
-import State from "./State";
 
 class OptionalValueState extends State {
   stateType: StateType | Notation;

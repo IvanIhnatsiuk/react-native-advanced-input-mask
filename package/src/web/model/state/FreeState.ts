@@ -1,4 +1,5 @@
 import State from "./State";
+
 import type { Next } from "../types";
 
 class FreeState extends State {

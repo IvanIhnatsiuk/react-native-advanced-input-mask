@@ -1,7 +1,9 @@
-import State from "./State";
-import type { Ellipsis, Next, StateType } from "../types";
-import type { Notation } from "../../../types";
 import { getCharacterTypeString } from "../utils";
+
+import State from "./State";
+
+import type { Notation } from "../../../types";
+import type { Ellipsis, Next, StateType } from "../types";
 
 class ValueState extends State {
   stateType: StateType | Ellipsis | Notation;
@@ -22,6 +24,7 @@ class ValueState extends State {
 
       return this.stateType.regex.test(character);
     }
+
     return this.stateType.characterSet.includes(character);
   }
 

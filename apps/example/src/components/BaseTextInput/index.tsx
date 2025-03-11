@@ -1,11 +1,18 @@
+import { forwardRef, memo, useCallback, useMemo } from "react";
+import React from "react";
 import {
-  TextInput,
   type NativeSyntheticEvent,
+  TextInput,
   type TextInputFocusEventData,
   type TextInputProps,
 } from "react-native";
-import { forwardRef, memo, useCallback, useMemo } from "react";
-import React from "react";
+import Reanimated, {
+  interpolateColor,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
+
 import styles, {
   DEFAULT_BACKGROUND_COLOR,
   DEFAULT_BORDER_COLOR,
@@ -13,12 +20,6 @@ import styles, {
   PLACEHOLDER_COLOR,
   PRESSED_BACKGROUND_COLOR,
 } from "./styles";
-import Reanimated, {
-  interpolateColor,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from "react-native-reanimated";
 
 const AnimatedTextInputView = Reanimated.createAnimatedComponent(TextInput);
 
@@ -86,11 +87,11 @@ const BaseTextInput = forwardRef<TextInput, TextInputProps>(
         ref={ref}
         {...rest}
         placeholderTextColor={PLACEHOLDER_COLOR}
-        onPressIn={handlePressIn}
-        onPressOut={handlePressOut}
+        style={inputStyle}
         onBlur={handleBlur}
         onFocus={handleFocus}
-        style={inputStyle}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
       />
     );
   },

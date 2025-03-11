@@ -1,11 +1,12 @@
+import { useNavigation } from "@react-navigation/native";
 import * as React from "react";
+import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
+
+import Button from "../../components/Button";
+import TextInput from "../../components/TextInput";
+import ScreenNames from "../../navigation/screenNames";
 
 import styles from "./styles";
-import { useNavigation } from "@react-navigation/native";
-import { ScreenNames } from "../../navigation";
-import TextInput from "../../components/TextInput";
-import Button from "../../components/Button";
-import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 
 const Phone = () => {
   const { reset, navigate } = useNavigation();
@@ -20,16 +21,16 @@ const Phone = () => {
 
   return (
     <KeyboardAwareScrollView
-      style={styles.container}
       contentContainerStyle={styles.contentContainer}
+      style={styles.container}
     >
       <TextInput
-        onTailPlaceholderChange={console.log}
-        placeholder="+1 (000) 000-0000"
-        mask="+1 ([000]) [000]-[0000]"
+        autoSkip
         allowSuggestions={true}
         keyboardType="phone-pad"
-        autoSkip
+        mask="+1 ([000]) [000]-[0000]"
+        placeholder="+1 (000) 000-0000"
+        onTailPlaceholderChange={console.log}
       />
       <Button
         style={styles.button}
