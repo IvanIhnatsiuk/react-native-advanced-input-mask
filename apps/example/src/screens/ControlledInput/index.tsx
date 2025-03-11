@@ -1,21 +1,22 @@
 import * as React from "react";
+import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
+
+import TextInput from "../../components/TextInput";
 
 import styles from "./styles";
-import TextInput from "../../components/TextInput";
-import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 
 const ControlledInput = () => {
   return (
     <KeyboardAwareScrollView
-      style={styles.container}
       contentContainerStyle={styles.contentContainer}
+      style={styles.container}
     >
       <TextInput
         controlled
         initialValue="+1 (111"
         keyboardType="phone-pad"
-        placeholder="+1 (000) 000 0000"
         mask="+1 ([000]) [000]-[0000]"
+        placeholder="+1 (000) 000 0000"
       />
     </KeyboardAwareScrollView>
   );

@@ -1,17 +1,20 @@
-import React, { memo, type FC } from "react";
+import React, { type FC, memo } from "react";
 import {
-  TextInput as RNTextInput,
-  Text,
   type NativeSyntheticEvent,
+  Text,
   type TextInputFocusEventData,
 } from "react-native";
 import {
   MaskedTextInput,
   type MaskedTextInputProps,
 } from "react-native-advanced-input-mask";
-import styles from "./styles";
-import Button from "../Button";
+
 import BaseTextInput from "../BaseTextInput";
+import Button from "../Button";
+
+import styles from "./styles";
+
+import type { TextInput as RNTextInput } from "react-native";
 
 type Props = MaskedTextInputProps & {
   controlled?: boolean;
@@ -85,10 +88,10 @@ const TextInput: FC<Props> = (props) => {
         defaultValue={defaultValue}
         renderTextInputComponent={BaseTextInput}
         style={style}
+        value={controlled ? textState.formatted : undefined}
         onBlur={handleBlur}
         onChangeText={handleTextChange}
         onFocus={handleFocus}
-        value={controlled ? textState.formatted : undefined}
       />
       <Button
         style={styles.button}

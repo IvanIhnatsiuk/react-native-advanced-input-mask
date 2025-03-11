@@ -1,11 +1,13 @@
+import { AFFINITY_CALCULATION_STRATEGY } from "../enums";
+
+import { calculateAffinityOfMask } from "./helper/affinityCalculationStrategy";
 import Mask from "./helper/Mask";
 import RTLMask from "./helper/RTLMask";
 import CaretString from "./model/CaretString";
 import { CaretGravityType } from "./model/types";
+
 import type { Notation } from "../types";
 import type { MaskResult } from "./model/types";
-import { AFFINITY_CALCULATION_STRATEGY } from "../enums";
-import { calculateAffinityOfMask } from "./helper/affinityCalculationStrategy";
 import type {
   NativeSyntheticEvent,
   TextInputChangeEventData,
@@ -68,6 +70,7 @@ class MaskedTextChangedListener {
     }
 
     const newText = this.prepareText(text);
+
     if (!this.isValidText(text)) {
       return;
     }
@@ -80,6 +83,7 @@ class MaskedTextChangedListener {
     });
 
     const result: MaskResult = this.pickMask(textAndCaret).apply(textAndCaret);
+
     this.textField.value = result.formattedText.string;
 
     this.textField.setSelectionRange(
@@ -158,6 +162,7 @@ class MaskedTextChangedListener {
       const currentCaretPosition = textField.selectionEnd;
 
       textField.value = result.formattedText.string;
+
       if (currentCaretPosition && currentCaretPosition > 0) {
         textField.setSelectionRange(
           currentCaretPosition - 1,
@@ -197,6 +202,7 @@ class MaskedTextChangedListener {
 
   private setDefaultText = (defaultValue?: string): void => {
     this.defaultValue = defaultValue;
+
     if (defaultValue) {
       const textAndCaret = new CaretString(defaultValue, defaultValue.length, {
         type: CaretGravityType.Forward,
@@ -205,6 +211,7 @@ class MaskedTextChangedListener {
       });
       const result: MaskResult =
         this.pickMask(textAndCaret).apply(textAndCaret);
+
       this.afterText = result.formattedText.string;
     }
   };
@@ -221,6 +228,7 @@ class MaskedTextChangedListener {
         autoskip: false,
       });
       const result = this.pickMask(textAndCaret).apply(textAndCaret);
+
       this.afterText = result.formattedText.string;
       textField.value = this.afterText;
 
@@ -242,14 +250,17 @@ class MaskedTextChangedListener {
     for (const format of this.affineFormats) {
       const candidateMask = this.maskGetOrCreate(format, this.customNotations);
       const affinity = this.calculateAffinity(candidateMask, text);
+
       masksAndAffinities.push({ mask: candidateMask, affinity });
     }
 
     masksAndAffinities.sort((a, b) => b.affinity - a.affinity);
 
     let insertIndex = -1;
+
     for (let i = 0; i < masksAndAffinities.length; i++) {
       const affinity = masksAndAffinities[i]?.affinity;
+
       if (affinity && primaryAffinity === affinity) {
         insertIndex = i;
         break;

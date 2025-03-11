@@ -1,7 +1,9 @@
 import React, { memo, useCallback } from "react";
 import { Text, View } from "react-native";
-import styles from "./styles";
+
 import Touchable from "../replicas/touchables";
+
+import styles from "./styles";
 
 export type Props<T = undefined> = {
   title: string;

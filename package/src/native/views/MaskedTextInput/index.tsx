@@ -1,8 +1,10 @@
-import { StyleSheet, TextInput, type NativeSyntheticEvent } from "react-native";
 import React, { forwardRef, memo, useCallback } from "react";
-import MaskedTextInputDecoratorView from "../../MaskedTextInputNative";
-import type { MaskedTextInputProps } from "../../../types";
+import { type NativeSyntheticEvent, StyleSheet, TextInput } from "react-native";
+
 import { IS_FABRIC } from "../../architecture";
+import MaskedTextInputDecoratorView from "../../MaskedTextInputNative";
+
+import type { MaskedTextInputProps } from "../../../types";
 
 const styles = StyleSheet.create({
   displayNone: {
@@ -58,11 +60,11 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
 
     return (
       <>
-        <InputComponent {...rest} autoCapitalize={autoCapitalize} ref={ref} />
+        <InputComponent {...rest} ref={ref} autoCapitalize={autoCapitalize} />
         <MaskedTextInputDecoratorView
-          allowedKeys={allowedKeys}
           affinityCalculationStrategy={affinityCalculationStrategy}
           affinityFormat={affinityFormat}
+          allowedKeys={allowedKeys}
           allowSuggestions={allowSuggestions}
           autocomplete={autocomplete}
           autocompleteOnFocus={autocompleteOnFocus}
@@ -71,14 +73,15 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
           customTransformation={customTransformation}
           defaultValue={defaultValue}
           isRTL={isRTL}
-          onAdvancedMaskTextChange={onAdvancedMaskTextChangeCallback}
           primaryMaskFormat={mask}
           style={IS_FABRIC ? styles.farAway : styles.displayNone}
           validationRegex={validationRegex}
           value={value}
+          onAdvancedMaskTextChange={onAdvancedMaskTextChangeCallback}
         />
       </>
     );
   },
 );
+
 export default memo(MaskedTextInput);

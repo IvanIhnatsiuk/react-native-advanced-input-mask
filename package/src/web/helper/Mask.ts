@@ -1,14 +1,17 @@
 import CaretString from "../model/CaretString";
-import { StateName, type MaskResult, type Next } from "../model/types";
-import type { Notation } from "../../types";
-import State from "../model/state/State";
-import Compiler from "./Compiler";
 import EOLState from "../model/state/EOLState";
 import FixedState from "../model/state/FixedState";
 import FreeState from "../model/state/FreeState";
 import OptionalValueState from "../model/state/OptionalValueState";
 import ValueState from "../model/state/ValueState";
+import { type MaskResult, type Next, StateName } from "../model/types";
+
+import AutocompletionStack from "./AutocompletionStack";
 import CaretStringIterator from "./CaretStringIterator";
+import Compiler from "./Compiler";
+
+import type { Notation } from "../../types";
+import type State from "../model/state/State";
 
 export class Mask {
   private static cache: Map<string, Mask> = new Map();
@@ -20,17 +23,22 @@ export class Mask {
 
   static getOrCreate(format: string, customNotations: Notation[]): Mask {
     const cachedMask = Mask.cache.get(format);
+
     if (!cachedMask) {
       const newMask = new Mask(format, customNotations);
+
       Mask.cache.set(format, newMask);
+
       return newMask;
     }
+
     return cachedMask;
   }
 
   static isValid(format: string, customNotations: Notation[]): boolean {
     try {
       this.getOrCreate(format, customNotations);
+
       return true;
     } catch (e) {
       return false;
@@ -54,11 +62,13 @@ export class Mask {
 
     while (character !== null) {
       const next: Next | null = state.accept(character);
+
       if (next) {
         if (deletionAffectsCaret) {
           autocompletionStack.push(state.autocomplete());
         }
         state = next.state;
+
         if (next.insert) {
           modifiedString += next.insert;
         }
@@ -89,8 +99,12 @@ export class Mask {
 
     while (text.caretGravity.autocomplete && insertionAffectsCaret) {
       const next: Next | null = state.autocomplete();
-      if (!next) break;
+
+      if (!next) {
+        break;
+      }
       state = next.state;
+
       if (next.insert) {
         modifiedString += next.insert;
         modifiedCaretPosition += 1;
@@ -105,6 +119,7 @@ export class Mask {
 
     while (text.caretGravity.autoskip && !autocompletionStack.empty()) {
       const skip: Next = autocompletionStack.pop();
+
       if (modifiedString.length === modifiedCaretPosition) {
         if (skip.insert && skip.insert === modifiedString.slice(-1)) {
           modifiedString = modifiedString.slice(0, -1);
@@ -145,6 +160,7 @@ export class Mask {
         };
       },
     };
+
     return result;
   }
 
@@ -158,6 +174,7 @@ export class Mask {
   acceptableTextLength(): number {
     let state: State | null = this.initialState;
     let length = 0;
+
     while (state && !(state instanceof EOLState)) {
       if (
         state instanceof FixedState ||
@@ -168,12 +185,14 @@ export class Mask {
       }
       state = state.child;
     }
+
     return length;
   }
 
   totalTextLength(): number {
     let state: State | null = this.initialState;
     let length = 0;
+
     while (state && !(state instanceof EOLState)) {
       if (
         state instanceof FixedState ||
@@ -185,24 +204,28 @@ export class Mask {
       }
       state = state.child;
     }
+
     return length;
   }
 
   acceptableValueLength(): number {
     let state: State | null = this.initialState;
     let length = 0;
+
     while (state && !(state instanceof EOLState)) {
       if (state instanceof FixedState || state instanceof ValueState) {
         length += 1;
       }
       state = state.child;
     }
+
     return length;
   }
 
   totalValueLength(): number {
     let state: State | null = this.initialState;
     let length = 0;
+
     while (state && !(state instanceof EOLState)) {
       if (
         state instanceof FixedState ||
@@ -213,6 +236,7 @@ export class Mask {
       }
       state = state.child;
     }
+
     return length;
   }
 
@@ -251,6 +275,7 @@ export class Mask {
         placeholder + state.stateType.character,
       );
     }
+
     return placeholder;
   }
 
@@ -264,25 +289,8 @@ export class Mask {
     if (state instanceof FixedState) {
       return false;
     }
+
     return this.noMandatoryCharactersLeftAfterState(state.nextState());
-  }
-}
-
-class AutocompletionStack extends Array<Next> {
-  push(item: Next | null): number {
-    if (item == null) {
-      this.length = 0;
-      return 0;
-    }
-    return super.push(item);
-  }
-
-  pop(): Next {
-    return super.pop()!;
-  }
-
-  empty(): boolean {
-    return this.length === 0;
   }
 }
 

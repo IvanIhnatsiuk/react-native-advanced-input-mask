@@ -1,5 +1,5 @@
+import type RootStack from "./index";
 import type { StaticParamList } from "@react-navigation/native";
-import RootStack from "./index";
 
 export type RootStackParamList = StaticParamList<typeof RootStack>;
 

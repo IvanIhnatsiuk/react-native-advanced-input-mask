@@ -1,14 +1,15 @@
 import * as React from "react";
+import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
+
+import BaseTextInput from "../../components/BaseTextInput";
 
 import styles from "./styles";
-import BaseTextInput from "../../components/BaseTextInput";
-import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 
 const RNTextInput = () => {
   return (
     <KeyboardAwareScrollView
-      style={styles.container}
       contentContainerStyle={styles.contentContainer}
+      style={styles.container}
     >
       <BaseTextInput style={styles.textInput} />
     </KeyboardAwareScrollView>

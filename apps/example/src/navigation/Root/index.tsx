@@ -1,14 +1,15 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import ScreenNames from "../screenNames";
-import Main from "../../screens/Main";
-import RNTextInput from "../../screens/RNTextInput";
-import DateScreen from "../../screens/Date";
-import Phone from "../../screens/Phone";
-import IBAN from "../../screens/IBAN";
+
 import AllowedKeys from "../../screens/AllowedKeys";
-import CustomNotations from "../../screens/CustomNotations";
 import ControlledInput from "../../screens/ControlledInput";
+import CustomNotations from "../../screens/CustomNotations";
+import DateScreen from "../../screens/Date";
+import IBAN from "../../screens/IBAN";
+import Main from "../../screens/Main";
+import Phone from "../../screens/Phone";
+import RNTextInput from "../../screens/RNTextInput";
 import ValidationRegex from "../../screens/ValidationRegEx";
+import ScreenNames from "../screenNames";
 
 const RootStack = createNativeStackNavigator({
   initialRouteName: ScreenNames.Main,

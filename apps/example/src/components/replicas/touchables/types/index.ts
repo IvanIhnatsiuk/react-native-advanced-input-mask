@@ -8,9 +8,8 @@ import type {
   StyleProp,
   ViewStyle,
 } from "react-native";
-import type { AnimatedStyle } from "react-native-reanimated";
-
 import type { GenericTouchableProps as TouchableProps } from "react-native-gesture-handler/lib/typescript/components/touchables/GenericTouchableProps";
+import type { AnimatedStyle } from "react-native-reanimated";
 
 export type GenericTouchableProps = {
   hitSlop?: Insets;

@@ -1,13 +1,15 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+
 import MaskedTextChangedListener from "../../AdvancedTextInputMaskListener";
+import CaretString from "../../model/CaretString";
+import { CaretGravityType } from "../../model/types";
+
+import type { Props } from "./types";
 import type {
   NativeSyntheticEvent,
   TextInputChangeEventData,
   TextInputFocusEventData,
 } from "react-native";
-import type { Props } from "./types";
-import CaretString from "../../model/CaretString";
-import { CaretGravityType } from "../../model/types";
 
 const useMaskedTextInputListener = ({
   autocompleteOnFocus,
@@ -58,6 +60,7 @@ const useMaskedTextInputListener = ({
     }
 
     if (listener.affineFormats !== affinityFormat && affinityFormat) {
+      // eslint-disable-next-line react-compiler/react-compiler
       listener.affineFormats = affinityFormat;
     }
 

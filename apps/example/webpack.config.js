@@ -1,4 +1,5 @@
 const path = require("path");
+
 const webpack = require("webpack");
 const appDirectory = path.resolve(__dirname, ".");
 
@@ -55,7 +56,7 @@ const imageLoaderConfiguration = {
   },
 };
 
-module.exports = ({ platform }, defaults) => ({
+module.exports = (_, defaults) => ({
   devServer: {
     open: true,
   },
@@ -95,6 +96,7 @@ module.exports = ({ platform }, defaults) => ({
     alias: {
       ...modules.reduce((acc, name) => {
         acc[name] = path.join(__dirname, "node_modules", name);
+
         return acc;
       }, {}),
       "react-native-advanced-input-mask": path.resolve(

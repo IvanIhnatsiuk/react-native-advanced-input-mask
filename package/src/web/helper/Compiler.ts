@@ -1,14 +1,16 @@
-import State from "../model/state/State";
+import { FIXED_STATE_TYPES, OPTIONAL_STATE_TYPES } from "../model/constants";
 import EOLState from "../model/state/EOLState";
 import FixedState from "../model/state/FixedState";
 import FreeState from "../model/state/FreeState";
 import OptionalValueState from "../model/state/OptionalValueState";
 import ValueState from "../model/state/ValueState";
-import type { StateType } from "../model/types";
-import FormatSanitizer from "./FormatSanitizer";
-import type { Notation } from "../../types";
-import { FIXED_STATE_TYPES, OPTIONAL_STATE_TYPES } from "../model/constants";
+
 import FormatError from "./FormatError";
+import FormatSanitizer from "./FormatSanitizer";
+
+import type { Notation } from "../../types";
+import type State from "../model/state/State";
+import type { StateType } from "../model/types";
 
 export default class Compiler {
   private customNotations: Notation[];
@@ -19,6 +21,7 @@ export default class Compiler {
 
   compile(formatString: string): State {
     const sanitizedString = FormatSanitizer.sanitize(formatString);
+
     return this.compileInternal(sanitizedString, false, false, null);
   }
 
@@ -162,20 +165,23 @@ export default class Compiler {
             );
       }
     }
+
     throw new FormatError();
   }
 
   private determineTypeWithCustomNotations(
     lastCharacter: string | null,
   ): Notation {
-    if (lastCharacter == null) {
+    if (lastCharacter === null || lastCharacter === undefined) {
       throw new FormatError();
     }
+
     for (const notation of this.customNotations) {
       if (notation.character === lastCharacter) {
         return notation;
       }
     }
+
     throw new FormatError();
   }
 }

@@ -1,18 +1,19 @@
 import * as React from "react";
-
 import { Text } from "react-native";
-import styles from "./styles";
-import TextInput from "../../components/TextInput";
-import BaseTextInput from "../../components/BaseTextInput";
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
+
+import BaseTextInput from "../../components/BaseTextInput";
+import TextInput from "../../components/TextInput";
+
+import styles from "./styles";
 
 const CustomNotations = () => {
   const [allowedKeys, setAllowedKeys] = React.useState("1234567890");
 
   return (
     <KeyboardAwareScrollView
-      style={styles.container}
       contentContainerStyle={styles.contentContainer}
+      style={styles.container}
     >
       <Text>Set allowed keys</Text>
       <BaseTextInput
@@ -22,9 +23,9 @@ const CustomNotations = () => {
         onChangeText={setAllowedKeys}
       />
       <TextInput
-        placeholder="--------------"
         allowedKeys={allowedKeys}
         mask="[--------------]"
+        placeholder="--------------"
       />
     </KeyboardAwareScrollView>
   );

@@ -1,9 +1,10 @@
+import { memo } from "react";
 import { Platform } from "react-native";
+import { RectButton } from "react-native-gesture-handler";
 
 import TouchableHighlight from "./TouchableHighlight";
-import { RectButton } from "react-native-gesture-handler";
+
 import type { TouchableComponentType } from "./types";
-import { memo } from "react";
 
 const Touchable = Platform.select({
   ios: TouchableHighlight as TouchableComponentType,

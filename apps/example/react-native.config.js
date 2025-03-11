@@ -1,6 +1,7 @@
 const project = (() => {
   try {
     const { configureProjects } = require("react-native-test-app");
+
     return configureProjects({
       android: {
         sourceDir: "android",
