@@ -14,6 +14,7 @@ RCT_EXPORT_VIEW_PROPERTY(allowSuggestions, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(defaultValue, NSString)
 RCT_EXPORT_VIEW_PROPERTY(value, NSString)
 RCT_EXPORT_VIEW_PROPERTY(validationRegex, NSString)
+RCT_EXPORT_VIEW_PROPERTY(affinityFormat, NSArray)
 
 RCT_EXPORT_VIEW_PROPERTY(onAdvancedMaskTextChange, RCTDirectEventBlock);
 @end
