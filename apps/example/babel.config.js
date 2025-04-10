@@ -21,6 +21,12 @@ module.exports = function (api) {
       },
     ],
     plugins: [
+      [
+        "babel-plugin-react-compiler",
+        {
+          target: "19",
+        },
+      ],
       "@babel/plugin-proposal-export-namespace-from",
       "react-native-reanimated/plugin",
     ],
