@@ -29,8 +29,16 @@ class AdvancedTextInputMaskDecoratorView: UIView {
 
   @objc private var primaryMaskFormat: NSString = "" {
     didSet {
-      maskInputListener?.primaryMaskFormat = primaryMaskFormat as String
-      maybeUpdateText(text: textField?.allText ?? "")
+      guard let maskInputListener = maskInputListener else { return }
+      maskInputListener.primaryMaskFormat = primaryMaskFormat as String
+
+      guard let textField = textField else { return }
+      let nextText = textField.allText
+
+      guard let result = getMaskResultForText(text: nextText) else { return }
+      if result.formattedText.string == nextText { return }
+
+      let attributedText = NSAttributedString(string: result.formattedText.string)
     }
   }
 
@@ -158,6 +166,16 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     #endif
   }
 
+  private func getMaskResultForText(text: String) -> Mask.Result? {
+    guard let primaryMask = maskInputListener?.primaryMask else { return nil }
+    let caretString = CaretString(
+      string: text,
+      caretPosition: text.endIndex,
+      caretGravity: CaretString.CaretGravity.forward(autocomplete: false)
+    )
+    return primaryMask.apply(toText: caretString)
+  }
+
   @objc private func updateTextWithoutNotification(text: String) {
     guard let textField = textField else { return }
 
@@ -165,13 +183,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
       return
     }
 
-    guard let primaryMask = maskInputListener?.primaryMask else { return }
-    let caretString = CaretString(
-      string: text,
-      caretPosition: text.endIndex,
-      caretGravity: CaretString.CaretGravity.forward(autocomplete: false)
-    )
-    let result = primaryMask.apply(toText: caretString)
+    guard let result = getMaskResultForText(text: text) else { return }
 
     let attributedText = NSAttributedString(string: result.formattedText.string)
 
@@ -191,7 +203,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
       caretPosition: text.endIndex,
       caretGravity: CaretString.CaretGravity.forward(autocomplete: false)
     )
-    let result = primaryMask.apply(toText: caretString)
+    guard let result = getMaskResultForText(text: text) else { return }
 
     if text == result.formattedText.string {
       return
