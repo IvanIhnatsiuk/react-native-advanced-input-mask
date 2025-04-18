@@ -130,7 +130,7 @@ For applications requiring conditional or more complex formatting, this package 
 
 ### Pipeline
 
-[image](./gifs/flow.svg)
+<img src=">./gifs/flow.svg">
 
 ### MaskedTextInput Component - Props
 
