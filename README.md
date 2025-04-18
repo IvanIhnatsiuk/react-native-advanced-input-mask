@@ -128,6 +128,10 @@ The mask pattern defines how user input is processed and displayed. The characte
 
 For applications requiring conditional or more complex formatting, this package provides additional configuration options.
 
+### Pipeline
+
+[image](./gifs/flow.svg)
+
 ### MaskedTextInput Component - Props
 
 | Prop                          | Type                                             | Description                                                                                                                                                                                             |
