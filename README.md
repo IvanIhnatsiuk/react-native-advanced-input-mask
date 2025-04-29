@@ -130,7 +130,7 @@ For applications requiring conditional or more complex formatting, this package 
 
 ### Pipeline
 
-<img src="./gifs/flow.svg">
+<img src="./gifs/flow.svg" alt="When user input text we remove all characters that are not included in `allowedKeys` property. After that we validate the input against given `validationRegex` property. If validation is successful we apply a mask, otherwise we ignore current change.">
 
 ### MaskedTextInput Component - Props
 
