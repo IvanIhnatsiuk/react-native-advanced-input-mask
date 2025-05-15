@@ -18,6 +18,16 @@ class AdvancedTextInputMaskDecoratorViewManager(
 ) : AdvancedTextInputMaskDecoratorViewManagerSpec<AdvancedTextInputMaskDecoratorView>() {
   override fun getName() = NAME
 
+  override fun setText(
+    view: AdvancedTextInputMaskDecoratorView,
+    text: String?,
+    autocomplete: Boolean,
+  ) {
+    if (text != null) {
+      view.setText(text, autocomplete)
+    }
+  }
+
   override fun createViewInstance(context: ThemedReactContext) = AdvancedTextInputMaskDecoratorView(context)
 
   @ReactProp(name = "primaryMaskFormat")

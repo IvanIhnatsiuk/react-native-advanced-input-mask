@@ -14,7 +14,7 @@ import Button from "../Button";
 
 import styles from "./styles";
 
-import type { TextInput as RNTextInput } from "react-native";
+import type { MaskedTextInputRef } from "package/src/types";
 
 type Props = MaskedTextInputProps & {
   controlled?: boolean;
@@ -33,7 +33,7 @@ const TextInput: FC<Props> = (props) => {
     ...rest
   } = props;
 
-  const inputRef = React.useRef<RNTextInput>(null);
+  const inputRef = React.useRef<MaskedTextInputRef>(null);
 
   const [textState, setTextState] = React.useState({
     extracted: initialValue || defaultValue,
@@ -73,6 +73,10 @@ const TextInput: FC<Props> = (props) => {
     setTextState({ extracted: "", formatted: "" });
   }, [controlled]);
 
+  const handleSetText = React.useCallback(() => {
+    inputRef.current?.setText("999999", false);
+  }, []);
+
   const handleFocusButtonPress = React.useCallback(() => {
     inputRef.current?.focus();
   }, []);
@@ -102,6 +106,11 @@ const TextInput: FC<Props> = (props) => {
         style={styles.button}
         title="Focus text input"
         onPress={handleFocusButtonPress}
+      />
+      <Button
+        style={styles.button}
+        title={"Set text"}
+        onPress={handleSetText}
       />
     </>
   );

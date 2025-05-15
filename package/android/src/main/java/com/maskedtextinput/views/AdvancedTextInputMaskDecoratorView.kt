@@ -194,4 +194,16 @@ class AdvancedTextInputMaskDecoratorView(
     maskedTextChangeListener?.allowedKeys = allowedKeys
     maybeUpdateText()
   }
+
+  fun setText(
+    text: String,
+    autocomplete: Boolean = false,
+  ) {
+    maskedTextChangeListener?.let {
+      val prevAutocomplete = it.autocomplete
+      it.autocomplete = autocomplete
+      it.setText(text, autocomplete)
+      it.autocomplete = prevAutocomplete
+    }
+  }
 }

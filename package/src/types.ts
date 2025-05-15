@@ -102,5 +102,15 @@ export type MaskedTextInputOwnProps = {
   validationRegex?: string;
 };
 
+export type MaskedTextInputRef = {
+  setText: (text: string, autocomplete?: boolean) => void;
+  clear: () => void;
+  blur: () => void;
+  isFocused: () => boolean;
+  focus: () => void;
+  setNativeProps: (props: object) => void;
+  setSelection: (start: number, end: number) => void;
+};
+
 export type MaskedTextInputProps = Omit<TextInputProps, "onChangeText"> &
   MaskedTextInputOwnProps;

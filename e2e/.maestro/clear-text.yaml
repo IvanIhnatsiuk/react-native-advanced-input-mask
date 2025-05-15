@@ -1,0 +1,15 @@
+appId: "com.maskedtextinputexample"
+---
+- launchApp
+- tapOn:
+    id: "phone-input"
+- tapOn: "+1 (000) 000-0000"
+- inputText: 1
+- assertVisible: "formatted value +1 ("
+- tapOn:
+    point: "50%,37%"
+- tapOn: "Clear text"
+- assertVisible: "+1 (000) 000-0000"
+- tapOn: "+1 (000) 000-0000"
+- inputText: 1
+- assertVisible: "formatted value +1 ("

@@ -32,4 +32,5 @@
 - (void)setAffinityCalculationStrategy:(NSInteger)affinityCalculationStrategy;
 - (void)setValidationRegex:(NSString *)validationRegex;
 - (void)cleanup;
+- (void)setMaskedText:(NSString *_Nonnull)text autocomplete:(BOOL)autocomplete;
 @end

@@ -75,4 +75,31 @@ abstract class AdvancedTextInputMaskDecoratorViewManagerSpec<T : View> : SimpleV
     view: T,
     validationRegex: String?,
   )
+
+  abstract fun setText(
+    view: T,
+    text: String?,
+    autocomplete: Boolean,
+  )
+
+  override fun receiveCommand(
+    root: T,
+    commandId: String?,
+    args: ReadableArray?,
+  ) {
+    super.receiveCommand(root, commandId, args)
+    when (commandId) {
+      SET_TEXT -> {
+        val text = args?.getString(0)
+        val autocomplete = args?.getBoolean(1)
+        if (text != null && autocomplete != null) {
+          this.setText(root, text, autocomplete)
+        }
+      }
+    }
+  }
+
+  companion object {
+    const val SET_TEXT = "setText"
+  }
 }

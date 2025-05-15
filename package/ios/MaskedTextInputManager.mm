@@ -17,4 +17,10 @@ RCT_EXPORT_VIEW_PROPERTY(validationRegex, NSString)
 RCT_EXPORT_VIEW_PROPERTY(affinityFormat, NSArray)
 
 RCT_EXPORT_VIEW_PROPERTY(onAdvancedMaskTextChange, RCTDirectEventBlock);
+
+RCT_EXTERN_METHOD(setText
+                  : (nonnull NSNumber *)reactTag text
+                  : (nonnull NSString *)text autocomplete
+                  : (nonnull BOOL)autocomplete);
+
 @end
