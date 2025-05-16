@@ -1,3 +1,4 @@
+import codegenNativeCommands from "react-native/Libraries/Utilities/codegenNativeCommands";
 import codegenNativeComponent from "react-native/Libraries/Utilities/codegenNativeComponent";
 
 import type { HostComponent } from "react-native";
@@ -50,6 +51,18 @@ export interface NativeProps extends ViewProps {
   value?: string;
   validationRegex?: string;
 }
+
+export interface NativeCommands {
+  setText: (
+    viewRef: React.ElementRef<HostComponent<NativeProps>>,
+    text: string,
+    autocomplete: boolean,
+  ) => void;
+}
+
+export const Commands: NativeCommands = codegenNativeCommands<NativeCommands>({
+  supportedCommands: ["setText"],
+});
 
 export default codegenNativeComponent<NativeProps>(
   "AdvancedTextInputMaskDecoratorView",

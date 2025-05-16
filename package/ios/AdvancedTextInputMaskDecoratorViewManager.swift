@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 @objc(AdvancedTextInputMaskDecoratorViewManager)
 class AdvancedTextInputMaskDecoratorViewManager: RCTViewManager {
@@ -14,6 +15,20 @@ class AdvancedTextInputMaskDecoratorViewManager: RCTViewManager {
   }
 
   override public static func requiresMainQueueSetup() -> Bool {
-    false
+    true
+  }
+
+  @objc(setText:text:autocomplete:)
+  public func setText(_ reactTag: NSNumber, text: NSString, autocomplete: Bool) {
+    bridge.uiManager.addUIBlock { _, viewRegistry in
+      guard let view = viewRegistry?[reactTag] as? AdvancedTextInputMaskDecoratorView else {
+        if RCT_DEBUG == 1 {
+          print("Invalid view returned from registry, expecting ContainerView")
+        }
+        return
+      }
+
+      view.setMaskedText(text: text, autocomplete: autocomplete)
+    }
   }
 }

@@ -150,6 +150,16 @@ using namespace facebook::react;
       ->onAdvancedMaskTextChange(event);
 }
 
+- (void)handleCommand:(const NSString *)commandName args:(const NSArray *)args
+{
+  RCTAdvancedTextInputMaskDecoratorViewHandleCommand(self, commandName, args);
+}
+
+- (void)setText:(NSString *)text autocomplete:(BOOL)autocomplete
+{
+  [_view setMaskedText:text autocomplete:autocomplete];
+}
+
 @end
 
 Class<RCTComponentViewProtocol> AdvancedTextInputMaskDecoratorViewCls(void)

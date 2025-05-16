@@ -39,6 +39,8 @@ class AdvancedTextInputMaskDecoratorView: UIView {
       if result.formattedText.string == nextText { return }
 
       let attributedText = NSAttributedString(string: result.formattedText.string)
+
+      setText(textField: textField, text: attributedText)
     }
   }
 
@@ -166,12 +168,12 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     #endif
   }
 
-  private func getMaskResultForText(text: String) -> Mask.Result? {
+  private func getMaskResultForText(text: String, autocomplete: Bool = false) -> Mask.Result? {
     guard let primaryMask = maskInputListener?.primaryMask else { return nil }
     let caretString = CaretString(
       string: text,
       caretPosition: text.endIndex,
-      caretGravity: CaretString.CaretGravity.forward(autocomplete: false)
+      caretGravity: CaretString.CaretGravity.forward(autocomplete: autocomplete)
     )
     return primaryMask.apply(toText: caretString)
   }
@@ -190,19 +192,14 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     setText(textField: textField, text: attributedText)
   }
 
-  @objc private func maybeUpdateText(text: String) {
-    guard let primaryMask = maskInputListener?.primaryMask else { return }
+  @objc func maybeUpdateText(text: String, autocomplete _: Bool = false) {
+    guard (maskInputListener?.primaryMask) != nil else { return }
     guard let textField = textField else { return }
 
     if text == textField.attributedText?.string {
       return
     }
 
-    let caretString = CaretString(
-      string: text,
-      caretPosition: text.endIndex,
-      caretGravity: CaretString.CaretGravity.forward(autocomplete: false)
-    )
     guard let result = getMaskResultForText(text: text) else { return }
 
     if text == result.formattedText.string {
@@ -264,6 +261,17 @@ class AdvancedTextInputMaskDecoratorView: UIView {
     maskInputListener = nil
     originalTextFieldDelegate = nil
     textFieldDelegate = nil
+  }
+
+  @objc(setMaskedText:autocomplete:)
+  func setMaskedText(text: NSString, autocomplete: Bool) {
+    guard let result = getMaskResultForText(text: text as String, autocomplete: autocomplete) else { return }
+
+    let attributedText = NSAttributedString(string: result.formattedText.string)
+    guard let textField = textField else { return }
+
+    setText(textField: textField, text: attributedText)
+    maskInputListener?.notifyOnMaskedTextChangedListeners(forTextInput: textField, result: result)
   }
 
   // MARK: - View Lifecycle

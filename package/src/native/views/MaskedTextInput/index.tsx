@@ -1,10 +1,23 @@
-import React, { forwardRef, memo, useCallback } from "react";
-import { type NativeSyntheticEvent, StyleSheet, TextInput } from "react-native";
+import React, {
+  forwardRef,
+  memo,
+  useCallback,
+  useImperativeHandle,
+  useRef,
+} from "react";
+import { StyleSheet, TextInput } from "react-native";
 
 import { IS_FABRIC } from "../../architecture";
-import MaskedTextInputDecoratorView from "../../MaskedTextInputNative";
+import AdvancedTextInputMaskDecoratorViewNativeComponent from "../../specs/AdvancedTextInputMaskDecoratorViewNativeComponent";
+import { Commands } from "../../specs/AdvancedTextInputMaskDecoratorViewNativeComponent";
 
-import type { MaskedTextInputProps } from "../../../types";
+import type { MaskedTextInputProps, MaskedTextInputRef } from "../../../types";
+import type {
+  NativeCommands,
+  NativeProps,
+} from "../../specs/AdvancedTextInputMaskDecoratorViewNativeComponent";
+import type { Component } from "react";
+import type { NativeSyntheticEvent } from "react-native";
 
 const styles = StyleSheet.create({
   displayNone: {
@@ -17,7 +30,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
+const MaskedTextInput = forwardRef<MaskedTextInputRef, MaskedTextInputProps>(
   (
     {
       affinityCalculationStrategy,
@@ -42,7 +55,45 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
     },
     ref,
   ) => {
+    const inputRef = useRef<TextInput>(null);
+    const maskedViewDecoratorRef = useRef<
+      Component<NativeProps, object> & NativeCommands
+    >(null);
     const InputComponent = renderTextInputComponent ?? TextInput;
+
+    useImperativeHandle(ref, () => {
+      return {
+        isFocused: () => !!inputRef.current?.isFocused(),
+        blur: () => {
+          inputRef.current?.blur();
+        },
+        focus: () => {
+          inputRef.current?.focus();
+        },
+        setNativeProps: (props: object) => {
+          inputRef.current?.setNativeProps(props);
+        },
+        clear: () => {
+          if (maskedViewDecoratorRef.current) {
+            // @ts-expect-error the type is correct
+            Commands.setText(maskedViewDecoratorRef.current, "", false);
+          }
+        },
+        setSelection: (start: number, end: number) => {
+          inputRef.current?.setSelection(start, end);
+        },
+        setText: (text: string, autoComplete?: boolean) => {
+          if (maskedViewDecoratorRef.current) {
+            Commands.setText(
+              // @ts-expect-error the type is correct
+              maskedViewDecoratorRef.current,
+              text,
+              !!autoComplete,
+            );
+          }
+        },
+      };
+    });
 
     const onAdvancedMaskTextChangeCallback = useCallback(
       ({
@@ -60,8 +111,14 @@ const MaskedTextInput = forwardRef<TextInput, MaskedTextInputProps>(
 
     return (
       <>
-        <InputComponent {...rest} ref={ref} autoCapitalize={autoCapitalize} />
-        <MaskedTextInputDecoratorView
+        <InputComponent
+          {...rest}
+          ref={inputRef}
+          autoCapitalize={autoCapitalize}
+        />
+        <AdvancedTextInputMaskDecoratorViewNativeComponent
+          // @ts-expect-error the type is correct
+          ref={maskedViewDecoratorRef}
           affinityCalculationStrategy={affinityCalculationStrategy}
           affinityFormat={affinityFormat}
           allowedKeys={allowedKeys}
