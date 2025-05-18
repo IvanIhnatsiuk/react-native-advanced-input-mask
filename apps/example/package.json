@@ -20,12 +20,12 @@
     "react-dom": "19.0.0",
     "react-native": "0.79.2",
     "react-native-advanced-input-mask": "*",
-    "react-native-edge-to-edge": "^1.4.3",
-    "react-native-gesture-handler": "^2.24.0",
-    "react-native-keyboard-controller": "^1.16.6",
-    "react-native-reanimated": "^3.17.0",
-    "react-native-safe-area-context": "^5.2.0",
-    "react-native-screens": "^4.9.1",
+    "react-native-edge-to-edge": "^1.6.0",
+    "react-native-gesture-handler": "^2.25.0",
+    "react-native-keyboard-controller": "^1.17.2",
+    "react-native-reanimated": "^3.17.5",
+    "react-native-safe-area-context": "^5.4.0",
+    "react-native-screens": "^4.10.0",
     "react-native-web": "0.20.0"
   },
   "devDependencies": {
