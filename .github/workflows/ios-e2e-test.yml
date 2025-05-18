@@ -46,7 +46,7 @@ jobs:
       - name: Setup Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: "16.3"
+          xcode-version: "16.2"
       - uses: actions/checkout@v4
       - name: Download ios app
         uses: actions/download-artifact@v4
