@@ -8,7 +8,7 @@
     "web": "./node_modules/.bin/webpack-dev-server",
     "start": "react-native start",
     "build:android": "cd android && ./gradlew assembleRelease --build-cache",
-    "build:ios": "cd ios && xcodebuild -workspace MaskedTextInputExample.xcworkspace -scheme MaskedTextInputExample -configuration Release -destination 'platform=iOS Simulator,name=iPhone 15 Pro' -sdk iphonesimulator -derivedDataPath build -UseModernBuildSystem=YES CC=clang CPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ | xcpretty",
+    "build:ios": "cd ios && xcodebuild -workspace MaskedTextInputExample.xcworkspace -scheme MaskedTextInputExample -configuration Release -destination 'platform=iOS Simulator,name=iPhone 16 Pro' -sdk iphonesimulator -derivedDataPath build -UseModernBuildSystem=YES CC=clang CPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ | xcpretty",
     "build:web": "./node_modules/.bin/webpack"
   },
   "dependencies": {
