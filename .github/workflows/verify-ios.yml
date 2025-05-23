@@ -27,7 +27,7 @@ jobs:
         env:
           WORKING_DIRECTORY: package/ios
   format:
-    runs-on: macos-15
+    runs-on: macOS-15
     name: 📚 Swift Format
     defaults:
       run:
