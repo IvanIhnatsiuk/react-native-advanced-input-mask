@@ -61,7 +61,7 @@ jobs:
 
       - name: Install app on simulator
         run: |
-          UDID=$(xcrun simctl list devices | grep "iPhone 16 Pro (" | grep -oE "[0-9A-F-]{36}" | head -n 1)
+          UDID=$(xcrun simctl list devices | grep -m 1 "iPhone 16 Pro (" | awk -F "[()]" '{print $2}')
           open -a Simulator --args -CurrentDeviceUDID $UDID
           osascript -e 'tell application "Simulator" to activate'
           xcrun simctl install "$UDID" apps/example/ios/build/Build/Products/Release-iphonesimulator/MaskedTextInputExample.app
