@@ -124,6 +124,11 @@ class MaskedTextChangedListener {
 
   public setTextField = (textField: Field): void => {
     this.textField = textField;
+    Object.assign(textField, {
+      setText: (text: string, autocomplete?: boolean) =>
+        this.setText(text, autocomplete),
+      clear: () => this.setText("", false),
+    });
   };
 
   public handleTextChange = (

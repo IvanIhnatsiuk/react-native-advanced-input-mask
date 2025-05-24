@@ -79,6 +79,12 @@ module.exports = (_, defaults) => ({
     ...defaults.module,
     rules: [
       {
+        test: /\.m?js$/,
+        resolve: {
+          fullySpecified: false,
+        },
+      },
+      {
         test: /\.([cm]?ts|tsx)$/,
         loader: "ts-loader",
         options: {
@@ -105,6 +111,14 @@ module.exports = (_, defaults) => ({
       ),
       "react-native": "react-native-web",
     },
-    extensions: [".web.js", ".js", ".web.ts", ".ts", ".web.tsx", ".tsx"],
+    extensions: [
+      ".web.js",
+      ".js",
+      ".web.ts",
+      ".ts",
+      ".web.tsx",
+      ".tsx",
+      ".jsx",
+    ],
   },
 });
