@@ -23,7 +23,6 @@ class AdvancedTextInputMaskDecoratorView: UIView {
 
   private var textField: UITextField?
   private var maskInputListener: NotifyingAdvancedTexInputMaskListener?
-  private var lastDispatchedEvent: [String: String] = [:]
   private var textFieldDelegate: UITextFieldDelegate?
   private weak var originalTextFieldDelegate: UITextFieldDelegate?
 
@@ -141,14 +140,7 @@ class AdvancedTextInputMaskDecoratorView: UIView {
       "tailPlaceholder": tailPlaceholder,
     ]
 
-    if NSDictionary(dictionary: eventData).isEqual(to: lastDispatchedEvent) {
-      return
-    }
-
-    lastDispatchedEvent = eventData
-    if onAdvancedMaskTextChange != nil {
-      onAdvancedMaskTextChange!(eventData)
-    }
+    onAdvancedMaskTextChange?(eventData)
     delegate?.onAdvancedMaskTextChange(eventData: eventData as NSDictionary)
   }
 
