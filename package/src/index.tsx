@@ -1,9 +1,9 @@
 import { AFFINITY_CALCULATION_STRATEGY } from "./enums";
 import MaskedTextInput from "./native/views/MaskedTextInput";
 
-import type { MaskedTextInputProps } from "./types";
+import type { MaskedTextInputProps, MaskedTextInputRef } from "./types";
 
-export type { MaskedTextInputProps };
+export type { MaskedTextInputProps, MaskedTextInputRef };
 
 export { AFFINITY_CALCULATION_STRATEGY };
 
