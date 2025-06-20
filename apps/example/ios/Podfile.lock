@@ -2331,7 +2331,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - RNReanimated (3.17.0):
+  - RNReanimated (3.18.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -2358,11 +2358,11 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - RNReanimated/reanimated (= 3.17.0)
-    - RNReanimated/worklets (= 3.17.0)
+    - RNReanimated/reanimated (= 3.18.0)
+    - RNReanimated/worklets (= 3.18.0)
     - SocketRocket
     - Yoga
-  - RNReanimated/reanimated (3.17.0):
+  - RNReanimated/reanimated (3.18.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -2389,10 +2389,10 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - RNReanimated/reanimated/apple (= 3.17.0)
+    - RNReanimated/reanimated/apple (= 3.18.0)
     - SocketRocket
     - Yoga
-  - RNReanimated/reanimated/apple (3.17.0):
+  - RNReanimated/reanimated/apple (3.18.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -2421,7 +2421,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - RNReanimated/worklets (3.17.0):
+  - RNReanimated/worklets (3.18.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -2448,10 +2448,10 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - RNReanimated/worklets/apple (= 3.17.0)
+    - RNReanimated/worklets/apple (= 3.18.0)
     - SocketRocket
     - Yoga
-  - RNReanimated/worklets/apple (3.17.0):
+  - RNReanimated/worklets/apple (3.18.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -2867,7 +2867,7 @@ SPEC CHECKSUMS:
   ReactCodegen: 5d41e1df061200130dd326e55cdfdf94b0289c6e
   ReactCommon: b028d09a66e60ebd83ca59d8cc9a1216360db147
   RNGestureHandler: eeb622199ef1fb3a076243131095df1c797072f0
-  RNReanimated: 38f5ac3dbd8bdf59020caf3c3fd334adc82a9769
+  RNReanimated: bc1ddb7a5352648bcf0d592256069833bf935a46
   RNScreens: ee2abe7e0c548eed14e92742e81ed991165c56aa
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   Yoga: 395b5d614cd7cbbfd76b05d01bd67230a6ad004e
