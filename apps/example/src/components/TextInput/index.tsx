@@ -43,8 +43,13 @@ const TextInput: FC<Props> = (props) => {
   const [focused, setFocused] = React.useState(false);
 
   const handleTextChange = React.useCallback(
-    (formatted: string, extracted: string) => {
-      onChangeText?.(formatted, extracted);
+    (
+      formatted: string,
+      extracted: string,
+      tailPlaceholder: string,
+      complete: boolean,
+    ) => {
+      onChangeText?.(formatted, extracted, tailPlaceholder, complete);
       setTextState({ extracted, formatted });
     },
     [onChangeText],

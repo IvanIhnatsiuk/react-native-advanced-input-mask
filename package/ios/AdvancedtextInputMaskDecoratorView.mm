@@ -137,14 +137,16 @@ using namespace facebook::react;
     return;
   }
 
-  NSString *formatted = eventData[(id) @"formatted"];
-  NSString *extracted = eventData[(id) @"extracted"];
-  NSString *tailPlaceholder = eventData[(id) @"tailPlaceholder"];
+  NSString *formatted = eventData[@"formatted"];
+  NSString *extracted = eventData[@"extracted"];
+  NSString *tailPlaceholder = eventData[@"tailPlaceholder"];
+  BOOL complete = eventData[@"complete"];
 
   AdvancedTextInputMaskDecoratorViewEventEmitter::OnAdvancedMaskTextChange event = {
       .formatted = std::string([formatted UTF8String]),
       .extracted = std::string([extracted UTF8String]),
-      .tailPlaceholder = std::string([tailPlaceholder UTF8String])};
+      .tailPlaceholder = std::string([tailPlaceholder UTF8String]),
+      .complete = complete};
 
   std::dynamic_pointer_cast<const AdvancedTextInputMaskDecoratorViewEventEmitter>(_eventEmitter)
       ->onAdvancedMaskTextChange(event);
