@@ -35,10 +35,10 @@ class AdvancedTextInputMaskDecoratorView(
   private var validationRegex: Regex? = null
 
   private val valueListener =
-    MaskedTextValueListener { _, extracted, formatted, tailPlaceholder ->
+    MaskedTextValueListener { complete, extracted, formatted, tailPlaceholder ->
       val surfaceId = UIManagerHelper.getSurfaceId(context as ReactContext)
       UIManagerHelper.getEventDispatcherForReactTag(context, id)?.dispatchEvent(
-        ChangeTextEvent(surfaceId, id, extracted, formatted, tailPlaceholder),
+        ChangeTextEvent(surfaceId, id, extracted, formatted, tailPlaceholder, complete),
       )
     }
 

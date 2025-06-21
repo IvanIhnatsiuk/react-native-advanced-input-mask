@@ -123,7 +123,7 @@ const useMaskedTextInputListener = ({
 
   const handleOnChange = useCallback(
     (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
-      const { tailPlaceholder, formattedText, extractedValue } =
+      const { tailPlaceholder, formattedText, extractedValue, complete } =
         listener.handleTextChange(e);
 
       const formattedValue = formattedText.string;
@@ -136,7 +136,7 @@ const useMaskedTextInputListener = ({
       }
 
       onChange?.(e);
-      onChangeText?.(formattedValue, extractedValue);
+      onChangeText?.(formattedValue, extractedValue, tailPlaceholder, complete);
       onTailPlaceholderChange?.(tailPlaceholder);
 
       prevDispatchedPayload.current = {

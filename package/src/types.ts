@@ -40,8 +40,15 @@ export type MaskedTextInputOwnProps = {
    * Callback function to be called when the text changes.
    * @param formattedValue The formatted value.
    * @param extractedValue The extracted value.
+   * @param tailPlaceholder tail placeholder value.
+   * @param complete a boolean flag indicating that the extracted value is complete
    */
-  onChangeText?: (formattedValue: string, extractedValue: string) => void;
+  onChangeText?: (
+    formattedValue: string,
+    extractedValue: string,
+    tailPlaceholder: string,
+    complete: boolean,
+  ) => void;
   /**
    * Callback function to be called when tail placeholder changes.
    * @param tailPlaceholder The tail placeholder.
