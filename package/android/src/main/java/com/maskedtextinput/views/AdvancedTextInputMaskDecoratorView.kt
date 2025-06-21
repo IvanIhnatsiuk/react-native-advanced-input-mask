@@ -98,7 +98,9 @@ class AdvancedTextInputMaskDecoratorView(
 
   override fun onDetachedFromWindow() {
     super.onDetachedFromWindow()
-    textField?.removeTextChangedListener(maskedTextChangeListener)
+    maskedTextChangeListener?.let {
+      textField?.removeTextChangedListener(it)
+    }
     textField = null
     maskedTextChangeListener = null
   }
