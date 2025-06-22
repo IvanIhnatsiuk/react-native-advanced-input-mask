@@ -14,8 +14,8 @@ const babelLoaderConfiguration = {
     options: {
       configFile: true,
       cacheDirectory: true,
-      presets: ["module:@react-native/babel-preset"],
-      plugins: [["react-native-web", { commonjs: true }]],
+      presets: ["@babel/preset-react"],
+      plugins: [["@babel/plugin-proposal-class-properties", { loose: true }]],
       overrides: [
         {
           exclude: /node_modules\/(?!react-native-advanced-input-mask\/src)/,
