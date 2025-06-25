@@ -1333,7 +1333,7 @@ PODS:
     - React-jsiexecutor
     - React-RCTFBReactNativeSpec
     - ReactCommon/turbomodule/core
-  - react-native-advanced-input-mask (1.4.1):
+  - react-native-advanced-input-mask (1.4.2):
     - DoubleConversion
     - ForkInputMask (~> 7.3.2)
     - glog
@@ -2286,7 +2286,7 @@ SPEC CHECKSUMS:
   React-logger: 8edfcedc100544791cd82692ca5a574240a16219
   React-Mapbuffer: c3f4b608e4a59dd2f6a416ef4d47a14400194468
   React-microtasksnativemodule: 054f34e9b82f02bd40f09cebd4083828b5b2beb6
-  react-native-advanced-input-mask: 593d42c9648dc25a5f902ceb4a893d7701dc7e7d
+  react-native-advanced-input-mask: 82c5a6e8a67e9144573a9451c13859c37f3430f5
   react-native-keyboard-controller: 56db363cb5313c7a8c29e4144c02f9b8a2fc96da
   react-native-safe-area-context: 562163222d999b79a51577eda2ea8ad2c32b4d06
   React-NativeModulesApple: 2c4377e139522c3d73f5df582e4f051a838ff25e
