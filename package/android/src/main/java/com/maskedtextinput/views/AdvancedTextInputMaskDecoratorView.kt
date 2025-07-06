@@ -54,19 +54,19 @@ class AdvancedTextInputMaskDecoratorView(
   override fun onAttachedToWindow() {
     super.onAttachedToWindow()
 
-    var previousSibling: View? = null
+    var nextSibling: View? = null
     val parent = this.parent
     if (parent is ViewGroup) {
-      for (i in 1 until parent.childCount) {
+      for (i in 0 until parent.childCount) {
         if (parent.getChildAt(i) == this) {
-          previousSibling = parent.getChildAt(i - 1)
+          nextSibling = parent.getChildAt(i + 1)
           break
         }
       }
     }
 
-    if (previousSibling is ReactEditText) {
-      textField = previousSibling
+    if (nextSibling is ReactEditText) {
+      textField = nextSibling
       textField?.let {
         if (customTransformationMethod != null) {
           it.transformationMethod = customTransformationMethod
