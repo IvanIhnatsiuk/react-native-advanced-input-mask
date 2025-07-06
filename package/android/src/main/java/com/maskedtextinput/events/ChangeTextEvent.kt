@@ -10,6 +10,7 @@ class ChangeTextEvent(
   private val extractedText: String,
   private val formattedText: String,
   private val tailPlaceholder: String,
+  private val complete: Boolean,
 ) : Event<ChangeTextEvent>(surfaceId, viewTag) {
   override fun getEventName(): String = EventNames.CHANGE_TEXT_EVENT
 
@@ -20,5 +21,6 @@ class ChangeTextEvent(
       putString("extracted", extractedText)
       putString("formatted", formattedText)
       putString("tailPlaceholder", tailPlaceholder)
+      putBoolean("complete", complete)
     }
 }

@@ -12,6 +12,7 @@ export type OnAdvancedMaskTextChange = Readonly<{
   extracted: string;
   formatted: string;
   tailPlaceholder: string;
+  complete: boolean;
 }>;
 
 type CustomTransformation = {

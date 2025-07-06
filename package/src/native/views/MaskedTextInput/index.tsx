@@ -97,13 +97,14 @@ const MaskedTextInput = forwardRef<MaskedTextInputRef, MaskedTextInputProps>(
 
     const onAdvancedMaskTextChangeCallback = useCallback(
       ({
-        nativeEvent: { extracted, formatted, tailPlaceholder },
+        nativeEvent: { extracted, formatted, tailPlaceholder, complete },
       }: NativeSyntheticEvent<{
         extracted: string;
         formatted: string;
         tailPlaceholder: string;
+        complete: boolean;
       }>) => {
-        onChangeText?.(formatted, extracted);
+        onChangeText?.(formatted, extracted, tailPlaceholder, complete);
         onTailPlaceholderChange?.(tailPlaceholder);
       },
       [onChangeText, onTailPlaceholderChange],
