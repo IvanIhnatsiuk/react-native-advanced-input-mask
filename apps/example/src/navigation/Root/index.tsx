@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import AllowedKeys from "../../screens/AllowedKeys";
+import ConditionalRendering from "../../screens/ConditionalRendering";
 import ControlledInput from "../../screens/ControlledInput";
 import CustomNotations from "../../screens/CustomNotations";
 import DateScreen from "../../screens/Date";
@@ -11,7 +12,23 @@ import RNTextInput from "../../screens/RNTextInput";
 import ValidationRegex from "../../screens/ValidationRegEx";
 import ScreenNames from "../screenNames";
 
-const RootStack = createNativeStackNavigator({
+export type ExampleScreenParams = { title: string };
+
+type ParamsList = {
+  [ScreenNames.Main]: undefined;
+  [ScreenNames.RNTextInput]: undefined;
+  [ScreenNames.Date]: ExampleScreenParams;
+  [ScreenNames.PhoneInput]: ExampleScreenParams;
+  [ScreenNames.IBAN]: ExampleScreenParams;
+  [ScreenNames.AllowedKeys]: ExampleScreenParams;
+  [ScreenNames.CustomNotations]: ExampleScreenParams;
+  [ScreenNames.ControlledInput]: ExampleScreenParams;
+  [ScreenNames.ValidationRegex]: ExampleScreenParams;
+  [ScreenNames.KeyboardControllerWithAutoFocus]: ExampleScreenParams;
+  [ScreenNames.ConditionalRendering]: ExampleScreenParams;
+};
+
+const RootStack = createNativeStackNavigator<ParamsList>({
   initialRouteName: ScreenNames.Main,
   screenOptions: {
     contentStyle: {
@@ -26,46 +43,40 @@ const RootStack = createNativeStackNavigator({
       screen: RNTextInput,
     },
     [ScreenNames.Date]: {
-      options: {
-        title: "Date Input 📅",
-      },
+      options: ({ route }) => ({ title: route.params.title }),
       screen: DateScreen,
     },
     [ScreenNames.PhoneInput]: {
-      options: {
-        title: "Phone Input 📞",
-      },
+      options: ({ route }) => ({ title: route.params.title }),
       screen: Phone,
     },
     [ScreenNames.IBAN]: {
-      options: {
-        title: "IBAN Input 💳",
-      },
+      options: ({ route }) => ({ title: route.params.title }),
       screen: IBAN,
     },
     [ScreenNames.AllowedKeys]: {
-      options: {
-        title: "Allowed keys 🔑",
-      },
+      options: ({ route }) => ({ title: route.params.title }),
       screen: AllowedKeys,
     },
     [ScreenNames.CustomNotations]: {
-      options: {
-        title: "Custom notations 🧩",
-      },
+      options: ({ route }) => ({ title: route.params.title }),
       screen: CustomNotations,
     },
     [ScreenNames.ControlledInput]: {
-      options: {
-        title: "Controlled Input 🕹",
-      },
+      options: ({ route }) => ({ title: route.params.title }),
       screen: ControlledInput,
     },
     [ScreenNames.ValidationRegex]: {
-      options: {
-        title: "Validation Regex 🧪",
-      },
+      options: ({ route }) => ({ title: route.params.title }),
       screen: ValidationRegex,
+    },
+    [ScreenNames.ConditionalRendering]: {
+      options: ({ route }) => ({ title: route.params.title }),
+      screen: ConditionalRendering,
+    },
+    [ScreenNames.KeyboardControllerWithAutoFocus]: {
+      options: ({ route }) => ({ title: route.params.title }),
+      screen: () => null,
     },
   },
 });

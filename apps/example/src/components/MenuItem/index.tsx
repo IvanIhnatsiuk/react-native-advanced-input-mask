@@ -1,24 +1,30 @@
-import React, { memo, useCallback } from "react";
+import React, { useCallback } from "react";
 import { Text, View } from "react-native";
 
 import Touchable from "../replicas/touchables";
 
 import styles from "./styles";
 
-export type Props<T = undefined> = {
+export type PressParams<T> = {
+  info: T;
   title: string;
-  onPress: (info?: T) => void;
-  info?: T;
+  emoji: string;
+};
+
+export type Props<T> = {
+  title: string;
+  info: T;
   testId: string;
   emoji: string;
+  onPress: (params: PressParams<T>) => void;
 };
 
 const MenuItem = <T,>(props: Props<T>) => {
   const { title, onPress, info, testId, emoji } = props;
 
   const handlePress = useCallback(() => {
-    onPress(info);
-  }, [info, onPress]);
+    onPress({ info, title, emoji });
+  }, [emoji, info, onPress, title]);
 
   return (
     <View style={styles.container}>
@@ -34,4 +40,4 @@ const MenuItem = <T,>(props: Props<T>) => {
   );
 };
 
-export default memo(MenuItem);
+export default MenuItem;

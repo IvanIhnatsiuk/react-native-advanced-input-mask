@@ -8,6 +8,8 @@ const enum ScreenNames {
   ControlledInput = "ControlledInput",
   AllowedKeys = "AllowedKeys",
   ValidationRegex = "ValidationRegex",
+  ConditionalRendering = "ConditionalRendering",
+  KeyboardControllerWithAutoFocus = "KeyboardControllerWithAutoFocus",
 }
 
 export default ScreenNames;
