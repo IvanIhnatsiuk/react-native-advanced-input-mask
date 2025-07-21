@@ -112,6 +112,11 @@ const MaskedTextInput = forwardRef<MaskedTextInputRef, MaskedTextInputProps>(
 
     return (
       <>
+        <InputComponent
+          {...rest}
+          ref={inputRef}
+          autoCapitalize={autoCapitalize}
+        />
         <AdvancedTextInputMaskDecoratorViewNativeComponent
           // @ts-expect-error the type is correct
           ref={maskedViewDecoratorRef}
@@ -131,11 +136,6 @@ const MaskedTextInput = forwardRef<MaskedTextInputRef, MaskedTextInputProps>(
           validationRegex={validationRegex}
           value={value}
           onAdvancedMaskTextChange={onAdvancedMaskTextChangeCallback}
-        />
-        <InputComponent
-          {...rest}
-          ref={inputRef}
-          autoCapitalize={autoCapitalize}
         />
       </>
     );

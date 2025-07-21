@@ -14,12 +14,12 @@ class AdvancedTextInputMaskDecoratorViewManager: RCTViewManager {
     AdvancedTextInputMaskDecoratorView()
   }
 
-  override public static func requiresMainQueueSetup() -> Bool {
+  override static func requiresMainQueueSetup() -> Bool {
     true
   }
 
   @objc(setText:text:autocomplete:)
-  public func setText(_ reactTag: NSNumber, text: NSString, autocomplete: Bool) {
+  func setText(_ reactTag: NSNumber, text: NSString, autocomplete: Bool) {
     bridge.uiManager.addUIBlock { _, viewRegistry in
       guard let view = viewRegistry?[reactTag] as? AdvancedTextInputMaskDecoratorView else {
         if RCT_DEBUG == 1 {

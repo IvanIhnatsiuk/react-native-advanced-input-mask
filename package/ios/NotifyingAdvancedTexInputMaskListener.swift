@@ -10,25 +10,25 @@ import Foundation
 import UIKit
 
 class NotifyingAdvancedTexInputMaskListener: MaskedTextInputListener {
-  public var allowedKeys = ""
-  public var validationRegex: NSRegularExpression?
+  var allowedKeys = ""
+  var validationRegex: NSRegularExpression?
 
-  public init(primaryFormat: String,
-              autocomplete: Bool,
-              autocompleteOnFocus: Bool,
-              autoskip: Bool,
-              rightToLeft: Bool,
-              affineFormats: [String],
-              affinityCalculationStrategy: AffinityCalculationStrategy,
-              customNotations: [Notation],
-              onMaskedTextChangedCallback: (
-                (_ textInput: UITextInput,
-                 _ value: String,
-                 _ complete: Bool,
-                 _ tailPlaceholder: String) -> Void)?,
-              allowSuggestions: Bool,
-              allowedKeys: String,
-              validationRegex: NSRegularExpression?)
+  init(primaryFormat: String,
+       autocomplete: Bool,
+       autocompleteOnFocus: Bool,
+       autoskip: Bool,
+       rightToLeft: Bool,
+       affineFormats: [String],
+       affinityCalculationStrategy: AffinityCalculationStrategy,
+       customNotations: [Notation],
+       onMaskedTextChangedCallback: (
+         (_ textInput: UITextInput,
+          _ value: String,
+          _ complete: Bool,
+          _ tailPlaceholder: String) -> Void)?,
+       allowSuggestions: Bool,
+       allowedKeys: String,
+       validationRegex: NSRegularExpression?)
   {
     self.allowedKeys = allowedKeys
     self.validationRegex = validationRegex

@@ -5,9 +5,10 @@ on:
     branches:
       - main
     paths:
-      - ".github/workflows/build-ios-paper.yml"
-      - "package.podspec"
-      - "packages/ios/**"
+      - ".github/workflows/build-ios.yml"
+      - "./github/actions/build-ios/**"
+      - "package/react-native-advanced-input-mask.podspec"
+      - "package/ios/**"
       - "apps/example/ios/**"
       - "yarn.lock"
       - "apps/example/yarn.lock"
@@ -15,12 +16,13 @@ on:
     branches:
       - main
     paths:
-      - ".github/workflows/build-ios-paper.yml"
-      - "package.podspec"
-      - "packages/ios/**"
+      - ".github/workflows/build-ios.yml"
+      - ".github/actions/build-ios/**"
+      - "package/react-native-advanced-input-mask.podspec"
+      - "package/ios/**"
       - "apps/example/ios/**"
       - "yarn.lock"
-      - "apps/example/yarn.lock"
+      - "example/yarn.lock"
 
 jobs:
   build-ios-paper:
