@@ -132,14 +132,12 @@ class AdvancedTextInputMaskDecoratorView: UIView {
   private func onAdvancedMaskTextChangedCallback(
     extracted: String,
     formatted: String,
-    tailPlaceholder: String,
-    complete: Bool
+    tailPlaceholder: String
   ) {
-    let eventData: [String: Any] = [
+    let eventData: [String: String] = [
       "extracted": extracted,
       "formatted": formatted,
       "tailPlaceholder": tailPlaceholder,
-      "complete": complete,
     ]
 
     onAdvancedMaskTextChange?(eventData)
@@ -233,12 +231,11 @@ class AdvancedTextInputMaskDecoratorView: UIView {
       affineFormats: affinityFormat,
       affinityCalculationStrategy: AffinityCalculationStrategy.forNumber(number: affinityCalculationStrategy),
       customNotations: (customNotations as? [[String: Any]])?.compactMap { $0.toNotation() } ?? [],
-      onMaskedTextChangedCallback: { [weak self] input, value, complete, tailPlaceholder in
+      onMaskedTextChangedCallback: { [weak self] input, value, _, tailPlaceholder in
         self?.onAdvancedMaskTextChangedCallback(
           extracted: value,
           formatted: input.allText,
-          tailPlaceholder: tailPlaceholder,
-          complete: complete
+          tailPlaceholder: tailPlaceholder
         )
       },
       allowSuggestions: allowSuggestions,
@@ -298,19 +295,15 @@ extension AdvancedTextInputMaskDecoratorView {
   private func findTextField() {
     #if ADVANCE_INPUT_MASK_NEW_ARCH_ENABLED
       if let parent = superview?.superview {
-        for elementIndex in 0 ..< parent.subviews.count where parent.subviews[elementIndex] == superview {
-          let nextIndex = elementIndex + 1
-          guard nextIndex < parent.subviews.count else { break }
-          textField = findFirstTextField(in: parent.subviews[nextIndex])
+        for elementIndex in 1 ..< parent.subviews.count where parent.subviews[elementIndex] == superview {
+          textField = findFirstTextField(in: parent.subviews[elementIndex - 1])
           break
         }
       }
     #else
       if let parent = superview {
-        for elementIndex in 0 ..< parent.subviews.count where parent.subviews[elementIndex] == self {
-          let nextIndex = elementIndex + 1
-          guard nextIndex < parent.subviews.count else { break }
-          textField = findFirstTextField(in: parent.subviews[nextIndex])
+        for elementIndex in 1 ..< parent.subviews.count where parent.subviews[elementIndex] == self {
+          textField = findFirstTextField(in: parent.subviews[elementIndex - 1])
           break
         }
       }
