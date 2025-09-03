@@ -33,9 +33,12 @@ class AdvancedTextInputMaskDecoratorView(
   private var isInitialMount = true
   private var autocompleteOnFocus = false
   private var validationRegex: Regex? = null
+  private var isSettingFromJS = false
 
   private val valueListener =
     MaskedTextValueListener { complete, extracted, formatted, tailPlaceholder ->
+      if (isSettingFromJS) return@MaskedTextValueListener
+
       val surfaceId = UIManagerHelper.getSurfaceId(context as ReactContext)
       UIManagerHelper.getEventDispatcherForReactTag(context, id)?.dispatchEvent(
         ChangeTextEvent(surfaceId, id, extracted, formatted, tailPlaceholder, complete),
@@ -163,7 +166,9 @@ class AdvancedTextInputMaskDecoratorView(
   fun setValue(value: String?) {
     this.value = value
     if (textField?.text.toString() != value) {
+      isSettingFromJS = true
       value?.let { maskedTextChangeListener?.setText(it, false) }
+      isSettingFromJS = false
     }
   }
 
