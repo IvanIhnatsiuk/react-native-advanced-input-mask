@@ -29,9 +29,9 @@ const useMaskedTextInputListener = ({
   validationRegex,
 }: Props) => {
   const prevDispatchedPayload = useRef<{
-    extracted: string;
-    formatted: string;
-  }>({ extracted: "", formatted: "" });
+    extracted: string | null;
+    formatted: string | null;
+  }>({ extracted: null, formatted: null });
 
   const isInitialMount = useRef(true);
 
