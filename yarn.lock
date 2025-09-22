@@ -6402,10 +6402,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-react-native-web@npm:0.20.0":
-  version: 0.20.0
-  resolution: "babel-plugin-react-native-web@npm:0.20.0"
-  checksum: 10/9fcb8ef176f3c904ee202f6718874e5848c30be49373e2670f4916ee230a5bf89d78d6e07e5db2684ed029bdc5010cccee69a6812b8b93fae71a3808cec21ffe
+"babel-plugin-react-native-web@npm:0.21.1":
+  version: 0.21.1
+  resolution: "babel-plugin-react-native-web@npm:0.21.1"
+  checksum: 10/2f52362760466f63068be3bd2da7f9ab187e65093480aade04c8b611974ee68039306b0b011dbd7fa026e9d2472216a631cdc2c8af8ab4768b1300d4532797e6
   languageName: node
   linkType: hard
 
@@ -17659,14 +17659,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:19.0.0":
-  version: 19.0.0
-  resolution: "react-dom@npm:19.0.0"
+"react-dom@npm:19.0.0, react-dom@npm:19.1.0":
+  version: 19.1.0
+  resolution: "react-dom@npm:19.1.0"
   dependencies:
-    scheduler: "npm:^0.25.0"
+    scheduler: "npm:^0.26.0"
   peerDependencies:
-    react: ^19.0.0
-  checksum: 10/aa64a2f1991042f516260e8b0eca0ae777b6c8f1aa2b5ae096e80bbb6ac9b005aef2bca697969841d34f7e1819556263476bdfea36c35092e8d9aefde3de2d9a
+    react: ^19.1.0
+  checksum: 10/c5b58605862c7b0bb044416b01c73647bb8e89717fb5d7a2c279b11815fb7b49b619fe685c404e59f55eb52c66831236cc565c25ee1c2d042739f4a2cc538aa2
   languageName: node
   linkType: hard
 
@@ -17739,10 +17739,10 @@ __metadata:
     babel-loader: "npm:^9.2.1"
     babel-plugin-module-resolver: "npm:^5.0.0"
     babel-plugin-react-compiler: "npm:19.1.0-rc.2"
-    babel-plugin-react-native-web: "npm:0.20.0"
+    babel-plugin-react-native-web: "npm:0.21.1"
     pod-install: "npm:^0.1.0"
-    react: "npm:19.0.0"
-    react-dom: "npm:19.0.0"
+    react: "npm:19.1.0"
+    react-dom: "npm:19.1.0"
     react-native: "npm:0.81.4"
     react-native-advanced-input-mask: "npm:*"
     react-native-edge-to-edge: "npm:^1.7.0"
@@ -18178,10 +18178,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:19.0.0":
-  version: 19.0.0
-  resolution: "react@npm:19.0.0"
-  checksum: 10/2490969c503f644703c88990d20e4011fa6119ddeca451e9de48f6d7ab058d670d2852a5fcd3aa3cd90a923ab2815d532637bd4a814add402ae5c0d4f129ee71
+"react@npm:19.0.0, react@npm:19.1.0":
+  version: 19.1.0
+  resolution: "react@npm:19.1.0"
+  checksum: 10/d0180689826fd9de87e839c365f6f361c561daea397d61d724687cae88f432a307d1c0f53a0ee95ddbe3352c10dac41d7ff1ad85530fb24951b27a39e5398db4
   languageName: node
   linkType: hard
 
@@ -18921,17 +18921,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:0.26.0":
+"scheduler@npm:0.26.0, scheduler@npm:^0.26.0":
   version: 0.26.0
   resolution: "scheduler@npm:0.26.0"
   checksum: 10/1ecf2e5d7de1a7a132796834afe14a2d589ba7e437615bd8c06f3e0786a3ac3434655e67aac8755d9b14e05754c177e49c064261de2673aaa3c926bc98caa002
-  languageName: node
-  linkType: hard
-
-"scheduler@npm:^0.25.0":
-  version: 0.25.0
-  resolution: "scheduler@npm:0.25.0"
-  checksum: 10/e661e38503ab29a153429a99203fefa764f28b35c079719eb5efdd2c1c1086522f6653d8ffce388209682c23891a6d1d32fa6badf53c35fb5b9cd0c55ace42de
   languageName: node
   linkType: hard
 
