@@ -7,39 +7,29 @@ const pack = require("../../package/package.json");
 const modules = Object.keys(pack.peerDependencies);
 
 const babelLoaderConfiguration = {
-  test: /\.(js|ts)x?$/,
-  include: [path.resolve(appDirectory, "index.web.js")],
+  test: /\.(js|jsx|ts|tsx)$/,
+  include: [
+    path.resolve(appDirectory, "index.web.js"),
+    path.resolve(appDirectory, "src"),
+    path.resolve(__dirname, "../../package/src"),
+    path.resolve(__dirname, "node_modules/react-native-gesture-handler"),
+    path.resolve(__dirname, "node_modules/react-native-reanimated"),
+  ],
   use: {
     loader: "babel-loader",
     options: {
       configFile: true,
       cacheDirectory: true,
-      presets: ["module:@react-native/babel-preset"],
-      plugins: [["react-native-web", { commonjs: true }]],
-      overrides: [
-        {
-          exclude: /node_modules\/(?!react-native-advanced-input-mask\/src)/,
-          plugins: [
-            [
-              "module-resolver",
-              {
-                extensions: [
-                  "web.tsx",
-                  "web.ts",
-                  "web.js",
-                  ".json",
-                  ".ts",
-                  ".js",
-                  ".tsx",
-                  ".web.tsx",
-                ],
-                alias: {
-                  "react-native-advanced-input-mask": "../../package/src",
-                },
-              },
-            ],
-          ],
-        },
+      presets: [
+        ["@babel/preset-env", { loose: true }],
+        "@babel/preset-react",
+        "@babel/preset-typescript",
+      ],
+      plugins: [
+        ["@babel/plugin-transform-class-properties", { loose: true }],
+        ["@babel/plugin-transform-private-methods", { loose: true }],
+        ["@babel/plugin-transform-private-property-in-object", { loose: true }],
+        "@babel/plugin-transform-flow-strip-types",
       ],
     },
   },
@@ -69,10 +59,19 @@ module.exports = (_, defaults) => ({
 
   plugins: [
     new webpack.EnvironmentPlugin({ JEST_WORKER_ID: null }),
-    new webpack.DefinePlugin({ process: { env: {} } }),
+    new webpack.DefinePlugin({
+      process: {
+        env: {},
+        platform: JSON.stringify("web"),
+      },
+    }),
     new webpack.DefinePlugin({
       __DEV__: process.env.NODE_ENV !== "production",
     }),
+    new webpack.ContextReplacementPlugin(
+      /react-native-worklets[/\\]lib/,
+      path.resolve(__dirname, "src"),
+    ),
   ],
 
   module: {
@@ -84,15 +83,14 @@ module.exports = (_, defaults) => ({
           fullySpecified: false,
         },
       },
-      {
-        test: /\.([cm]?ts|tsx)$/,
-        loader: "ts-loader",
-        options: {
-          transpileOnly: true,
-        },
-      },
       babelLoaderConfiguration,
       imageLoaderConfiguration,
+      {
+        test: /\.(js|ts|tsx)$/,
+        use: "babel-loader",
+        exclude:
+          /node_modules\/(?!react-native-|@react-native|react-native-advanced-input-mask)/,
+      },
     ],
   },
 
@@ -110,15 +108,24 @@ module.exports = (_, defaults) => ({
         "../../package/src",
       ),
       "react-native": "react-native-web",
+      "react-native-reanimated": path.resolve(
+        __dirname,
+        "node_modules/react-native-reanimated",
+      ),
+      "react-native-gesture-handler": path.resolve(
+        __dirname,
+        "node_modules/react-native-gesture-handler",
+      ),
     },
     extensions: [
       ".web.js",
-      ".js",
-      ".web.ts",
-      ".ts",
       ".web.tsx",
-      ".tsx",
+      ".web.ts",
+      ".js",
       ".jsx",
+      ".json",
+      ".ts",
+      ".tsx",
     ],
   },
 });

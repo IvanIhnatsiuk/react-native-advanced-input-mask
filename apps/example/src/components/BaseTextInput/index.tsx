@@ -1,9 +1,9 @@
 import { forwardRef, memo, useCallback, useMemo } from "react";
 import React from "react";
 import {
-  type NativeSyntheticEvent,
+  type BlurEvent,
+  type FocusEvent,
   TextInput,
-  type TextInputFocusEventData,
   type TextInputProps,
 } from "react-native";
 import Reanimated, {
@@ -36,7 +36,7 @@ const BaseTextInput = forwardRef<TextInput, TextInputProps>(
     );
 
     const handleFocus = useCallback(
-      (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+      (e: FocusEvent) => {
         animateTo(true);
         onFocus?.(e);
       },
@@ -44,7 +44,7 @@ const BaseTextInput = forwardRef<TextInput, TextInputProps>(
     );
 
     const handleBlur = useCallback(
-      (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+      (e: BlurEvent) => {
         animateTo(false);
         onBlur?.(e);
       },
