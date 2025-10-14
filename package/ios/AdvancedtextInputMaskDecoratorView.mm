@@ -121,7 +121,7 @@ using namespace facebook::react;
   }
 
   if (newViewProps.affinityCalculationStrategy != oldViewProps.affinityCalculationStrategy) {
-    [_view setAffinityCalculationStrategy:newViewProps.affinityCalculationStrategy];
+    [_view setAffinityCalculationStrategy:@(newViewProps.affinityCalculationStrategy)];
   }
 
   if (newViewProps.validationRegex != oldViewProps.validationRegex) {
