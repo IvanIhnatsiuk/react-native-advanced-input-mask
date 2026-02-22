@@ -1,9 +1,5 @@
 import React, { type FC, memo } from "react";
-import {
-  type NativeSyntheticEvent,
-  Text,
-  type TextInputFocusEventData,
-} from "react-native";
+import { type BlurEvent, type FocusEvent, Text } from "react-native";
 import {
   MaskedTextInput,
   type MaskedTextInputProps,
@@ -14,7 +10,7 @@ import Button from "../Button";
 
 import styles from "./styles";
 
-import type { MaskedTextInputRef } from "package/src/types";
+import type { MaskedTextInputRef } from "react-native-advanced-input-mask";
 
 type Props = MaskedTextInputProps & {
   controlled?: boolean;
@@ -56,7 +52,7 @@ const TextInput: FC<Props> = (props) => {
   );
 
   const handleFocus = React.useCallback(
-    (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    (e: FocusEvent) => {
       setFocused(true);
       onFocus?.(e);
     },
@@ -64,7 +60,7 @@ const TextInput: FC<Props> = (props) => {
   );
 
   const handleBlur = React.useCallback(
-    (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    (e: BlurEvent) => {
       setFocused(false);
       onBlur?.(e);
     },

@@ -105,7 +105,7 @@ module.exports = (_, defaults) => ({
       }, {}),
       "react-native-advanced-input-mask": path.resolve(
         __dirname,
-        "../../package/src",
+        "../../packages/react-native-advanced-input-mask/src",
       ),
       "react-native": "react-native-web",
       "react-native-reanimated": path.resolve(
