@@ -1,5 +1,5 @@
 import React, { type FC, memo } from "react";
-import { type BlurEvent, type FocusEvent, Text } from "react-native";
+import { Text, type TextInputFocusEvent } from "react-native";
 import {
   MaskedTextInput,
   type MaskedTextInputProps,
@@ -52,7 +52,7 @@ const TextInput: FC<Props> = (props) => {
   );
 
   const handleFocus = React.useCallback(
-    (e: FocusEvent) => {
+    (e: TextInputFocusEvent) => {
       setFocused(true);
       onFocus?.(e);
     },
@@ -60,7 +60,7 @@ const TextInput: FC<Props> = (props) => {
   );
 
   const handleBlur = React.useCallback(
-    (e: BlurEvent) => {
+    (e: TextInputFocusEvent) => {
       setFocused(false);
       onBlur?.(e);
     },
