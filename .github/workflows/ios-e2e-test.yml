@@ -6,8 +6,8 @@ on:
       - main
     paths:
       - ".github/workflows/ios-e2e-test.yml"
-      - "package/src/native/**"
-      - "package/ios/**"
+      - "packages/react-native-advanced-input-mask/src/native/**"
+      - "packages/react-native-advanced-input-mask/ios/**"
       - "yarn.lock"
       - "apps/example/yarn.lock"
       - "e2e/**"
@@ -16,8 +16,8 @@ on:
       - main
     paths:
       - ".github/workflows/ios-e2e-test.yml"
-      - "package/src/native/**"
-      - "package/ios/**"
+      - "packages/react-native-advanced-input-mask/src/native/**"
+      - "packages/react-native-advanced-input-mask/ios/**"
       - "yarn.lock"
       - "apps/example/yarn.lock"
       - "e2e/**"

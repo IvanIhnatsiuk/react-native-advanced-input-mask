@@ -6,14 +6,14 @@ on:
       - main
     paths:
       - ".github/workflows/build-web.yml"
-      - "package/src/**"
+      - "packages/**"
       - "apps/example/**"
       - "yarn.lock"
       - "apps/example/yarn.lock"
   pull_request:
     paths:
       - ".github/workflows/build-web.yml"
-      - "package/src/**"
+      - "packages/**"
       - "apps/example/**"
       - "yarn.lock"
       - "apps/example/yarn.lock"
