@@ -25,13 +25,13 @@ jobs:
         with:
           args: --strict
         env:
-          WORKING_DIRECTORY: package/ios
+          WORKING_DIRECTORY: packages/react-native-advanced-input-mask/ios
   format:
     runs-on: macOS-15
     name: 📚 Swift Format
     defaults:
       run:
-        working-directory: package/ios
+        working-directory: packages/react-native-advanced-input-mask/ios
     steps:
       - uses: actions/checkout@v4
 
