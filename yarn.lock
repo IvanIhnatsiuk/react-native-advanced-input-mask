@@ -17800,9 +17800,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"react-native-advanced-input-mask@npm:*, react-native-advanced-input-mask@workspace:package":
+"react-native-advanced-input-mask@npm:*, react-native-advanced-input-mask@workspace:packages/react-native-advanced-input-mask":
   version: 0.0.0-use.local
-  resolution: "react-native-advanced-input-mask@workspace:package"
+  resolution: "react-native-advanced-input-mask@workspace:packages/react-native-advanced-input-mask"
   dependencies:
     "@babel/core": "npm:^7.26.7"
     "@react-native/eslint-config": "npm:0.79.0"
