@@ -57,7 +57,7 @@ jobs:
       - name: Install Maestro CLI
         run: |
           brew tap mobile-dev-inc/tap
-          brew install maestro
+          brew install mobile-dev-inc/tap/maestro
 
       - name: Install app on simulator
         run: |
