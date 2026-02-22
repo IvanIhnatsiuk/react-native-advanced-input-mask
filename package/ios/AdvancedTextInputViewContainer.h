@@ -29,7 +29,7 @@
 - (void)setDefaultValue:(NSString *)defaultValue;
 - (void)setValue:(NSString *)value;
 - (void)setAffinityFormat:(NSArray<NSString *> *)affinityFormat;
-- (void)setAffinityCalculationStrategy:(NSInteger)affinityCalculationStrategy;
+- (void)setAffinityCalculationStrategy:(NSNumber *)affinityCalculationStrategy;
 - (void)setValidationRegex:(NSString *)validationRegex;
 - (void)cleanup;
 - (void)setMaskedText:(NSString *_Nonnull)text autocomplete:(BOOL)autocomplete;
