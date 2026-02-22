@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: package
+        working-directory: packages/react-native-advanced-input-mask
     steps:
       - name: Checkout
         uses: actions/checkout@v4

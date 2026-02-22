@@ -3,7 +3,7 @@ const path = require("path");
 const webpack = require("webpack");
 const appDirectory = path.resolve(__dirname, ".");
 
-const pack = require("../../package/package.json");
+const pack = require("../../packages/react-native-advanced-input-mask/package.json");
 const modules = Object.keys(pack.peerDependencies);
 
 const babelLoaderConfiguration = {
@@ -11,7 +11,10 @@ const babelLoaderConfiguration = {
   include: [
     path.resolve(appDirectory, "index.web.js"),
     path.resolve(appDirectory, "src"),
-    path.resolve(__dirname, "../../package/src"),
+    path.resolve(
+      __dirname,
+      "../../packages/react-native-advanced-input-mask/src",
+    ),
     path.resolve(__dirname, "node_modules/react-native-gesture-handler"),
     path.resolve(__dirname, "node_modules/react-native-reanimated"),
   ],
