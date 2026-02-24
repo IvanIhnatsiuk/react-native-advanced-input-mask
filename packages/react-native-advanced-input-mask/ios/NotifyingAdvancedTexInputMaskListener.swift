@@ -25,7 +25,8 @@ class NotifyingAdvancedTexInputMaskListener: MaskedTextInputListener {
          (_ textInput: UITextInput,
           _ value: String,
           _ complete: Bool,
-          _ tailPlaceholder: String) -> Void)?,
+          _ tailPlaceholder: String) -> Void
+       )?,
        allowSuggestions: Bool,
        allowedKeys: String,
        validationRegex: NSRegularExpression?)

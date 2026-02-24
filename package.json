@@ -46,7 +46,7 @@
   "workspaces": {
     "packages": [
       "apps/example",
-      "package"
+      "packages/react-native-advanced-input-mask"
     ]
   },
   "packageManager": "yarn@4.6.0",
@@ -57,7 +57,7 @@
     "preset": "react-native",
     "modulePathIgnorePatterns": [
       "<rootDir>/apps/example/node_modules",
-      "<rootDir>/package/lib/"
+      "<rootDir>/packages/react-native-advanced-input-mask/lib/"
     ]
   },
   "commitlint": {

@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "paths": {
-      "react-native-advanced-input-mask": ["./package/src"]
+      "react-native-advanced-input-mask": [
+        "packages/react-native-advanced-input-mask/src"
+      ]
     },
     "composite": true,
     "rootDir": ".",

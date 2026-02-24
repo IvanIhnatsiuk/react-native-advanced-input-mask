@@ -13,7 +13,8 @@ module.exports = function (api) {
             {
               extensions: [".tsx", ".ts", ".js", ".json"],
               alias: {
-                "react-native-advanced-input-mask": "../../package/src",
+                "react-native-advanced-input-mask":
+                  "../../packages/react-native-advanced-input-mask/src",
               },
             },
           ],

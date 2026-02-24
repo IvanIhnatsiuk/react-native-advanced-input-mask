@@ -46,7 +46,7 @@
   },
   "scripts": {
     "prepare": "bob build",
-    "prepack": "cp ../README.md ./README.md && cp ../LICENSE ./LICENSE"
+    "prepack": "cp ../../README.md ./README.md && cp ../../LICENSE ./LICENSE"
   },
   "keywords": [
     "react-native",
